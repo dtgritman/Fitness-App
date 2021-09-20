@@ -1,8 +1,19 @@
 {
-    "name": "fitness-app",
-    "main": "fitness-app.js",
-    "author": "Dustin Gritman",
-    "engines": {
-      "node": "14.x"
-    }
-  }
+  "name": "fitness-app",
+  "version": "1.0.0",
+  "description": "Fitness app for web programming class.",
+  "main": "fitness-app.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/dtgritman/Fitness-App.git"
+  },
+  "author": "Dustin Gritman",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/dtgritman/Fitness-App/issues"
+  },
+  "homepage": "https://github.com/dtgritman/Fitness-App#readme"
+}
