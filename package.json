@@ -1,0 +1,8 @@
+{
+    "name": "fitness-app",
+    "main": "fitness-app.js",
+    "author": "Dustin Gritman",
+    "engines": {
+      "node": "14.x"
+    }
+  }
