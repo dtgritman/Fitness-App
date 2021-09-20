@@ -7,6 +7,6 @@ const server = http.createServer((req, res) => {
   res.end('This is a test');
 });
 
-server.listen(port, hostname, () => {
+server.listen(port, () => {
   console.log("Server running on port: ${port}/");
 });
