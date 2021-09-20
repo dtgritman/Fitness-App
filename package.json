@@ -15,5 +15,8 @@
   "bugs": {
     "url": "https://github.com/dtgritman/Fitness-App/issues"
   },
-  "homepage": "https://github.com/dtgritman/Fitness-App#readme"
+  "homepage": "https://github.com/dtgritman/Fitness-App#readme",
+  "engines": {
+    "node": ">=16.9.1"
+  }
 }
