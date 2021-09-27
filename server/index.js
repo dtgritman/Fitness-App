@@ -1,13 +1,19 @@
 const express = require('express');
+const path = require('path');
 const app = express();
 const port = 3000;
 
+const staticPath = path.join(__dirname, '../static');
 app
+.use('/imgs', express.static(path.join(staticPath, '/imgs')))
 .get('/', (req, res) => {
-  res.send('Hello World!');
+  res.sendFile(path.join(staticPath, '/index.html'));
 })
-.get('/test', (req, res) => {
-  res.send('Hello this is a test.');
+.get('/profile', (req, res) => {
+  res.sendFile(path.join(staticPath, '/profile.html'));
+})
+.get('/exercise-info', (req, res) => {
+  res.sendFile(path.join(staticPath, '/exercise.html'));
 });
 
 app.listen(port, () => {
