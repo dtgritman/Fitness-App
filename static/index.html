@@ -10,17 +10,18 @@
         body { background-color:#b5b5b5; }
         .is-active { background-color: #bbbbbb; }
         .navbar { background-color: inherit; }
-        .navbar a.navbar-item:hover { background-color:#c5c5c5; color: inherit; }
+        a.navbar-item:hover, a.navbar-link:hover { background-color:#c5c5c5; color: inherit; }
         .navbar a.button:hover { background-color:#929292; color: #f2f2f2; }
-        .navbar a.button { background-color:#cccccc; color: inherit; }
+        .navbar a.button, .navbar .button { background-color:#c5c5c5; color: inherit; }
         .navbar a.is-primary { background-color:#b43030; color: #f2f2f2; }
+        .navbar-dropdown { background-color: #c5c5c5; }
     </style>
     <title>Fit Track</title>
 </head>
 
 <body>
     <div class="container">
-        <nav class="navbar">
+        <nav id="mainNavbar" class="navbar">
             <div class="navbar-brand">
                 <div class="navbar-item">
                     <img src="./imgs/logo.png">
@@ -33,25 +34,34 @@
                 </a>
             </div>
 
-            <div id="mainNavbar" class="navbar-menu" :class="{ 'is-active': navActive }">
+            <div class="navbar-menu" :class="{ 'is-active': navActive }">
                 <div class="navbar-start">
-                    <a class="navbar-item">
+                    <a class="navbar-item" href="#profile" :class="{ 'is-hidden': !userActive }">
                         Profile
                     </a>
-                    <a class="navbar-item">
+                    <a class="navbar-item" href="#tracker" :class="{ 'is-hidden': !userActive }">
                         Tracker
                     </a>
                 </div>
 
                 <div class="navbar-end">
-                    <div class="navbar-item">
-                        <div class="buttons">
-                            <a class="button">
-                                Login
-                            </a>
-                            <a class="button is-primary">
-                                <Strong>Sign Up</Strong>
-                            </a>
+                    <a class="navbar-item" :class="{ 'is-hidden': !userActive }" @click="logoutSubmit">Logout</a>
+                    <div class="navbar-item has-dropdown is-hoverable" :class="{ 'is-hidden': userActive }">
+                        <a class="navbar-link" @click="loginMenu">Login</a>
+                        <div class="navbar-dropdown" :class="{ 'is-hidden': (!loginActive && navActive) }">
+                            <input class="input is-normal navbar-item" type="email" placeholder="Email">
+                            <input class="input navbar-item" type="password" placeholder="Password">
+                            <button class="button" @click="loginSubmit">Submit</button>
+                        </div>
+                    </div>
+                    <div class="navbar-item has-dropdown is-hoverable" :class="{ 'is-hidden': userActive }">
+                        <a class="navbar-link" @click="signupMenu">Sign Up</a>
+                        <div class="navbar-dropdown" :class="{ 'is-hidden': (!signupActive && navActive) }">
+                            <input class="input navbar-item" type="text" placeholder="First Name">
+                            <input class="input navbar-item" type="text" placeholder="Last Name">
+                            <input class="input navbar-item" type="email" placeholder="Email">
+                            <input class="input navbar-item" type="password" placeholder="Password">
+                            <button class="button" @click="signupSubmit">Submit</button>
                         </div>
                     </div>
                  </div>
@@ -59,26 +69,52 @@
         </nav>
     </div>
 
-    <div class="container">
-        <p>Welcome to Fit Track! Login or sign up to begin tracking your exercises.</p> 
+    <div id="profile" class="container has-text-centered">
+        <p>Profile</p>
     </div>
+
+    <div id="tracker" class="container has-text-centered">
+        <p>Tracker</p>
+    </div>
+
 
     <script src="https://unpkg.com/vue@next"></script>
     <script>
         const VM_navbar = {
             data() {
                 return {
-                    navActive: false
+                    navActive: false,
+                    userActive: false,
+                    loginActive: false,
+                    signupActive: false
                 }
             },
             methods: {
                 toggleMainNav() {
                     this.navActive = !this.navActive;
+                },
+                loginMenu() {
+                    this.signupActive = false;
+                    this.loginActive = !this.loginActive;
+                },
+                signupMenu() {
+                    this.loginActive = false;
+                    this.signupActive = !this.signupActive;
+                },
+                signupSubmit() {
+
+                },
+                loginSubmit() {
+                    this.userActive = true;
+                },
+                logoutSubmit() {
+                    this.userActive = false;
                 }
             }
         };
 
-        Vue.createApp(VM_navbar).mount(".navbar");
+        Vue.createApp(VM_navbar).mount("#mainNavbar");
+
     </script>
 </body>
 
