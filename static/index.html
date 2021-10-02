@@ -20,7 +20,7 @@
 </head>
 
 <body>
-    <div class="container">
+    <div id="app" class="container">
         <nav id="mainNavbar" class="navbar">
             <div class="navbar-brand">
                 <div class="navbar-item">
@@ -35,17 +35,8 @@
             </div>
 
             <div class="navbar-menu" :class="{ 'is-active': navActive }">
-                <div class="navbar-start">
-                    <a class="navbar-item" href="#profile" :class="{ 'is-hidden': !userActive }">
-                        Profile
-                    </a>
-                    <a class="navbar-item" href="#tracker" :class="{ 'is-hidden': !userActive }">
-                        Tracker
-                    </a>
-                </div>
-
                 <div class="navbar-end">
-                    <a class="navbar-item" :class="{ 'is-hidden': !userActive }" @click="logoutSubmit">Logout</a>
+                    <a class="navbar-item"  href="#" :class="{ 'is-hidden': !userActive }" @click="logoutSubmit">Logout</a>
                     <div class="navbar-item has-dropdown is-hoverable" :class="{ 'is-hidden': userActive }">
                         <a class="navbar-link" @click="loginMenu">Login</a>
                         <div class="navbar-dropdown" :class="{ 'is-hidden': (!loginActive && navActive) }">
@@ -67,27 +58,45 @@
                  </div>
             </div>
         </nav>
-    </div>
 
-    <div id="profile" class="container has-text-centered">
-        <p>Profile</p>
-    </div>
+        <nav id="pageNav" class="tabs is-medium is-centered" :class="{ 'is-hidden': !userActive }">
+            <ul>
+                <li :class="{ 'is-active': page=='profile' }"><a href="#profile" @click="switchPage('profile')">Profile</a></li>
+                <li :class="{ 'is-active': page=='tracker' }"><a href="#tracker" @click="switchPage('tracker')">Tracker</a></li>
+            </ul>
+        </nav>
 
-    <div id="tracker" class="container has-text-centered">
-        <p>Tracker</p>
-    </div>
+        <div id="home" class="is-centered" :class="{ 'is-hidden': !(page=='home') }">
+            <p>Welcome to Fit Track! To begin tracking your fitness, please login or sign up to begin!</p>
+        </div>
 
+        <div id="profile" class="" :class="{ 'is-hidden': !(page=='profile') }">
+            <div></div>
+        </div>
+
+        <div id="tracker" class="has-text-centered" :class="{ 'is-hidden': !(page=='tracker') }">
+            <div id="tracker_view">
+
+            </div>
+            <div>
+                
+            </div>
+        </div>
+    </div>
 
     <script src="https://unpkg.com/vue@next"></script>
     <script>
-        const VM_navbar = {
+        const VM = {
             data() {
                 return {
                     navActive: false,
                     userActive: false,
                     loginActive: false,
-                    signupActive: false
+                    signupActive: false,
+                    page: "home"
                 }
+            },
+            watch: {
             },
             methods: {
                 toggleMainNav() {
@@ -106,15 +115,20 @@
                 },
                 loginSubmit() {
                     this.userActive = true;
+                    this.switchPage("home");
                 },
                 logoutSubmit() {
                     this.userActive = false;
+                    this.switchPage("home");
+                },
+                switchPage(newPage) {
+                    this.page = newPage;
+                    this.navActive = false;
                 }
             }
         };
 
-        Vue.createApp(VM_navbar).mount("#mainNavbar");
-
+        Vue.createApp(VM).mount("#app");
     </script>
 </body>
 
