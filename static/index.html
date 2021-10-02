@@ -62,7 +62,7 @@
         <nav id="pageNav" class="tabs is-medium is-centered" :class="{ 'is-hidden': !userActive }">
             <ul>
                 <li :class="{ 'is-active': page=='profile' }"><a href="#profile" @click="switchPage('profile')">Profile</a></li>
-                <li :class="{ 'is-active': page=='tracker' }"><a href="#tracker" @click="switchPage('tracker')">Tracker</a></li>
+                <li :class="{ 'is-active': page=='activity' }"><a href="#activity" @click="switchPage('activity')">Activity</a></li>
             </ul>
         </nav>
 
@@ -74,11 +74,11 @@
             <div></div>
         </div>
 
-        <div id="tracker" class="has-text-centered" :class="{ 'is-hidden': !(page=='tracker') }">
-            <div id="tracker_view">
-
-            </div>
+        <div id="activity" class="has-text-centered" :class="{ 'is-hidden': !(page=='activity') }">
             <div>
+                
+            </div>
+            <div >
                 
             </div>
         </div>
