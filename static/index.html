@@ -70,16 +70,140 @@
             <p>Welcome to Fit Track! To begin tracking your fitness, please login or sign up to begin!</p>
         </div>
 
-        <div id="profile" class="" :class="{ 'is-hidden': !(page=='profile') }">
-            <div></div>
+        <div id="profile" :class="{ 'is-hidden': !(page=='profile') }">
+            <div class="card">
+                <div class="card-content">
+                    <div class="level is-mobile">
+                        <div class="level-item">
+                            <div class="">
+                                <p class="title is-5">Sex</p>
+                                <p class="has-text-centered">{{ profile['sex'] }}</p>
+                            </div>
+                        </div>
+                        <div class="level-item">
+                            <div class="">
+                                <p class="title is-5">Age</p>
+                                <p class="has-text-centered">{{ profile['age'] }}</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="card">
+                <div class="card-content">
+                    <div class="level">
+                        <p class="level-item title is-4">Height</p>
+                        <div class="level-item">
+                            <div class="">
+                                <p class="title is-5">Current</p>
+                                <p class="has-text-centered">{{ profile['height'] }}</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <footer class="card-footer">
+                    <a class="card-footer-item" @click="">Update</a>
+                </footer>
+            </div>
+
+            <div class="card">
+                <div class="card-content">
+                    <div class="level">
+                        <p class="level-item title is-4">Weight</p>
+                        <div class="level-item">
+                            <div class="">
+                                <p class="title is-5">Current</p>
+                                <p class="has-text-centered">{{ profile['weight'] }}</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <footer class="card-footer">
+                    <a class="card-footer-item" @click="updateWeight()">Update</a>
+                </footer>
+            </div>
+
+            <div id="weightModal" class="modal" :class="{ 'is-active': modalWeight }">
+                <div class="modal-card">
+                    <header class="modal-card-head">
+                        <p class="modal-card-title">New Weight</p>
+                    </header>
+                    <section class="modal-card-body">
+                        
+                    </section>
+                    <footer class="modal-card-foot">
+                        <button class="button is-success" @click="submitWeight()">Update</button>
+                        <button class="button" @click="closeWeight()">Cancel</button>
+                    </footer>
+                </div>
+            </div>
         </div>
 
         <div id="activity" class="has-text-centered" :class="{ 'is-hidden': !(page=='activity') }">
-            <div>
-                
+            <div class="card">
+                <header class="card-header">
+                    <p class="card-header-title">Today</p>
+                </header>
+                <div class="card-content">
+                    <div class="columns is-mobile">
+                        <div class="column">
+                            <p class="title is-5">Exercise</p>
+                        </div>
+                        <div class="column">
+                            <p class="title is-5">Amount</p>
+                        </div>
+                        <div class="column">
+                            <p class="title is-5">Time</p>
+                        </div>
+                    </div>
+                    <div class="columns is-mobile">
+                        <div class="column">
+                            <p>{{ activity[0]['exercise'] }}</p>
+                        </div>
+                        <div class="column">
+                            <p>{{ activity[0]['amount'] }}</p>
+                        </div>
+                        <div class="column">
+                            <p>{{ activity[0]['time'] }} mins</p>
+                        </div>
+                    </div>
+                </div>
+                <footer class="card-footer">
+                    <a class="card-footer-item" @click="todayAdd()">Add</a>
+                </footer>
             </div>
-            <div >
-                
+
+            <div class="modal" :class="{ 'is-active': modalToday }">
+                <div class="modal-card">
+                    <header class="modal-card-head">
+                        <p class="modal-card-title">Add Exercise</p>
+                    </header>
+                    <section class="modal-card-body">
+                        
+                    </section>
+                    <footer class="modal-card-foot">
+                        <button class="button is-success" @click="addExercise()">Add</button>
+                        <button class="button" @click="closeTodayAdd()">Cancel</button>
+                    </footer>
+                </div>
+            </div>
+
+            <div class="card">
+                <header class="card-header">
+                    <p class="card-header-title">Weekly</p>
+                </header>
+                <div class="card-content">
+                    <div class="level">
+                        <p class="level-item title is-4"></p>
+                        <div class="level-item">
+                            <div class="">
+                                <p class="title is-5">Avg. Time</p>
+                                <p class="has-text-centered">1 hour</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
             </div>
         </div>
     </div>
@@ -93,6 +217,10 @@
                     userActive: false,
                     loginActive: false,
                     signupActive: false,
+                    modalWeight: false,
+                    modalToday: false,
+                    profile: { "sex": "Male", "age": 24, "height": "5'8\"", "weight": 150 },
+                    activity: [{ "exercise": "running", "amount": "1 mile", "time": 20 }],
                     page: "home"
                 }
             },
@@ -124,6 +252,25 @@
                 switchPage(newPage) {
                     this.page = newPage;
                     this.navActive = false;
+                },
+                updateWeight() {
+                    this.modalWeight = true;
+                },
+                closeWeight() {
+                    this.modalWeight = false;
+                },
+                submitWeight() {
+                    this.weight = this.profile['weight']++;
+                    closeWeight();
+                },
+                addExercise() {
+                    this.activity.push({ "exercise": "walking", "amount": "0.5 mile", "time": 30 });
+                },
+                todayAdd() {
+                    this.modalToday = true;
+                },
+                closeTodayAdd() {
+                    this.modalToday = false;
                 }
             }
         };
