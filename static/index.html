@@ -27,7 +27,7 @@
                     <img src="./imgs/logo.png">
                 </div>
 
-                <a class="navbar-burger" :class="{ 'is-active': navActive }" @click="toggleMainNav">
+                <a class="navbar-burger" :class="{ 'is-active': navActive }" @click="navActive = !navActive">
                     <span></span>
                     <span></span>
                     <span></span>
@@ -120,7 +120,7 @@
                     </div>
                 </div>
                 <footer class="card-footer">
-                    <a class="card-footer-item" @click="updateWeight()">Update</a>
+                    <a class="card-footer-item" @click="modalWeight = true">Update</a>
                 </footer>
             </div>
 
@@ -134,7 +134,7 @@
                     </section>
                     <footer class="modal-card-foot">
                         <button class="button is-success" @click="submitWeight()">Update</button>
-                        <button class="button" @click="closeWeight()">Cancel</button>
+                        <button class="button" @click="modalWeight = false">Cancel</button>
                     </footer>
                 </div>
             </div>
@@ -170,7 +170,7 @@
                     </div>
                 </div>
                 <footer class="card-footer">
-                    <a class="card-footer-item" @click="todayAdd()">Add</a>
+                    <a class="card-footer-item" @click="modalToday = true">Add</a>
                 </footer>
             </div>
 
@@ -184,7 +184,7 @@
                     </section>
                     <footer class="modal-card-foot">
                         <button class="button is-success" @click="addExercise()">Add</button>
-                        <button class="button" @click="closeTodayAdd()">Cancel</button>
+                        <button class="button" @click="modalToday = false">Cancel</button>
                     </footer>
                 </div>
             </div>
@@ -224,12 +224,7 @@
                     page: "home"
                 }
             },
-            watch: {
-            },
             methods: {
-                toggleMainNav() {
-                    this.navActive = !this.navActive;
-                },
                 loginMenu() {
                     this.signupActive = false;
                     this.loginActive = !this.loginActive;
@@ -253,25 +248,13 @@
                     this.page = newPage;
                     this.navActive = false;
                 },
-                updateWeight() {
-                    this.modalWeight = true;
-                },
-                closeWeight() {
-                    this.modalWeight = false;
-                },
                 submitWeight() {
                     this.weight = this.profile['weight']++;
-                    closeWeight();
+                    this.modalWeight = false;
                 },
                 addExercise() {
                     this.activity.push({ "exercise": "walking", "amount": "0.5 mile", "time": 30 });
                 },
-                todayAdd() {
-                    this.modalToday = true;
-                },
-                closeTodayAdd() {
-                    this.modalToday = false;
-                }
             }
         };
 
