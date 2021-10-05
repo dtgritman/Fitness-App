@@ -179,13 +179,13 @@
                     </div>
                     <div class="columns is-mobile">
                         <div class="column">
-                            <p>{{ activity[0]['exercise'] }}</p>
+                            <p>{{ activity[0].exercise }}</p>
                         </div>
                         <div class="column">
-                            <p>{{ activity[0]['amount'] }}</p>
+                            <p>{{ activity[0].amount }}</p>
                         </div>
                         <div class="column">
-                            <p>{{ activity[0]['time'] }} mins</p>
+                            <p>{{ activity[0].time }} mins</p>
                         </div>
                     </div>
                 </div>
@@ -211,7 +211,7 @@
                 </div>
             </div>
 
-            <div class="card" :class="{ 'is-hidden': (pastView == null) }">
+            <div class="card" :class="{ 'is-hidden': (pastView[0].exercise == null) }">
                 <header class="card-header">
                     <p class="card-header-title">{{ pastViewDate }}</p>
                 </header>
@@ -229,13 +229,13 @@
                     </div>
                     <div class="columns is-mobile">
                         <div class="column">
-                            <p>{{ activity[0]['exercise'] }}</p>
+                            <p>{{ pastView[0].exercise }}</p>
                         </div>
                         <div class="column">
-                            <p>{{ activity[0]['amount'] }}</p>
+                            <p>{{ pastView[0].amount }}</p>
                         </div>
                         <div class="column">
-                            <p>{{ activity[0]['time'] }} mins</p>
+                            <p>{{ pastView[0].time }} mins</p>
                         </div>
                     </div>
                 </div>
@@ -276,20 +276,20 @@
         <div id="friends" class="has-text-centered" :class="{ 'is-hidden': !(page=='friends') }">
             <div class="card">
                 <div class="card-header">
-                    <p class="card-header-title is-centered">{{ friends[0]['name'] }}</p>
+                    <p class="card-header-title is-centered">{{ friends[0].name }}</p>
                 </div>
                 <div class="card-content">
                     <div class="level is-mobile">
                         <div class="level-item">
                             <div class="">
                                 <p class="title is-5">Sex</p>
-                                <p class="has-text-centered">{{ friends[0]['sex'] }}</p>
+                                <p class="has-text-centered">{{ friends[0].sex }}</p>
                             </div>
                         </div>
                         <div class="level-item">
                             <div class="">
                                 <p class="title is-5">Age</p>
-                                <p class="has-text-centered">{{ friends[0]['age'] }}</p>
+                                <p class="has-text-centered">{{ friends[0].age }}</p>
                             </div>
                         </div>
                     </div>
@@ -297,20 +297,20 @@
             </div>
             <div class="card">
                 <div class="card-header">
-                    <p class="card-header-title is-centered">{{ friends[1]['name'] }}</p>
+                    <p class="card-header-title is-centered">{{ friends[1].name }}</p>
                 </div>
                 <div class="card-content">
                     <div class="level is-mobile">
                         <div class="level-item">
                             <div class="">
                                 <p class="title is-5">Sex</p>
-                                <p class="has-text-centered">{{ friends[1]['sex'] }}</p>
+                                <p class="has-text-centered">{{ friends[1].sex }}</p>
                             </div>
                         </div>
                         <div class="level-item">
                             <div class="">
                                 <p class="title is-5">Age</p>
-                                <p class="has-text-centered">{{ friends[1]['age'] }}</p>
+                                <p class="has-text-centered">{{ friends[1].age }}</p>
                             </div>
                         </div>
                     </div>
@@ -340,7 +340,7 @@
                     newWeight: this.weight,
                     activity: [{ "exercise": "running", "amount": "1 mile", "time": 20 }],
                     past: { "10-03-2021": [{ "exercise": "running", "amount": "2 miles", "time": 50 }, { "exercise": "walking", "amount": "0.5 miles", "time": 20 }] },
-                    pastView: null,
+                    pastView: [{ "exercise": null, "amount": null, "time": null }],
                     pastViewDate: null,
                     friends: [{ "name": "Random Guy", "age": 20, "sex": "Male" }, { "name": "Random Girl", "age": 20, "sex": "Female" }],
                     page: "home"
