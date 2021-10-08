@@ -114,11 +114,11 @@
                     </div>
                 </div>
                 <footer class="card-footer">
-                    <a class="card-footer-item" @click="modalToday = true">Add</a>
+                    <a class="card-footer-item" @click="modalAdd = true">Add</a>
                 </footer>
             </div>
 
-            <div class="modal" :class="{ 'is-active': modalToday }">
+            <div class="modal" :class="{ 'is-active': modalAdd }">
                 <div class="modal-card">
                     <header class="modal-card-head">
                         <p class="modal-card-title">Add Exercise</p>
@@ -130,7 +130,7 @@
                     </section>
                     <footer class="modal-card-foot">
                         <button class="button is-success" @click="submitExercise()">Add</button>
-                        <button class="button" @click="modalToday = false">Cancel</button>
+                        <button class="button" @click="modalAdd = false">Cancel</button>
                     </footer>
                 </div>
             </div>
@@ -210,6 +210,7 @@
         const VM_page = {
             data: () => ({
                 activity: [{ "exercise": "running", "amount": "1 mile", "time": 20 }],
+                modalAdd: false,
                 past: { "10-03-2021": [{ "exercise": "running", "amount": "2 miles", "time": 50 }, { "exercise": "walking", "amount": "0.5 miles", "time": 20 }] },
                 pastView: [{ "exercise": null, "amount": null, "time": null }],
                 pastViewDate: null,
@@ -217,7 +218,7 @@
             methods: {
                 submitExercise() {
                     this.activity.push({ "exercise": "walking", "amount": "0.5 mile", "time": 30 });
-                    this.modalToday = false;
+                    modalAdd = false;
                 },
                 viewPast(pastDate) {
                     this.pastViewDate = pastDate;
