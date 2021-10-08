@@ -1,0 +1,232 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@0.9.3/css/bulma.min.css">
+    <style>
+        body {
+            background-color: #b5b5b5;
+        }
+
+        nav .is-active {
+            background-color: #bbbbbb;
+        }
+
+        .navbar {
+            background-color: inherit;
+        }
+
+        a.navbar-item:hover,
+        a.navbar-link:hover {
+            background-color: #c5c5c5;
+            color: inherit;
+        }
+
+        .navbar a.button:hover {
+            background-color: #929292;
+            color: #f2f2f2;
+        }
+
+        .navbar a.button,
+        .navbar .button {
+            background-color: #c5c5c5;
+            color: inherit;
+        }
+
+        .navbar a.is-primary {
+            background-color: #b43030;
+            color: #f2f2f2;
+        }
+
+        .navbar-dropdown {
+            background-color: #c5c5c5;
+        }
+    </style>
+    <title>Fit Track</title>
+</head>
+
+<body>
+    <div class="container">
+        <nav id="mainNav" class="navbar">
+            <div class="navbar-brand">
+                <a class="navbar-item" href="./index.html">
+                    <img src="./imgs/logo.png">
+                </a>
+
+                <a class="navbar-burger" :class="{ 'is-active': navActive }" @click="navActive = !navActive">
+                    <span></span>
+                    <span></span>
+                    <span></span>
+                </a>
+            </div>
+
+            <div class="navbar-menu" :class="{ 'is-active': navActive }">
+                <div class="navbar-start">
+                    <a class="navbar-item" href="./myprofile.html">My Profile</a>
+                </div>
+                <div class="navbar-end">
+                    <a class="navbar-item" href="./login.html">Login</a>
+                    <a class="navbar-item" href="./signup.html">Sign Up</a>
+                </div>
+            </div>
+        </nav>
+
+        <nav class="tabs is-medium is-centered">
+            <ul>
+                <li><a href="./activity.html">My Activity</a></li>
+                <li><a href="./feed.html">Feed</a></li>
+                <li><a href="./friends.html">Friends</a></li>
+            </ul>
+        </nav>
+
+
+        <!--Page Section-->
+        <section id="page" class="section">
+            <div class="card">
+                <header class="card-header">
+                    <p class="card-header-title">Today</p>
+                </header>
+                <div class="card-content">
+                    <div class="columns is-mobile">
+                        <div class="column">
+                            <p class="title is-5">Exercise</p>
+                        </div>
+                        <div class="column">
+                            <p class="title is-5">Amount</p>
+                        </div>
+                        <div class="column">
+                            <p class="title is-5">Time</p>
+                        </div>
+                    </div>
+                    <div class="columns is-mobile">
+                        <div class="column">
+                            <p>{{ activity[0].exercise }}</p>
+                        </div>
+                        <div class="column">
+                            <p>{{ activity[0].amount }}</p>
+                        </div>
+                        <div class="column">
+                            <p>{{ activity[0].time }} mins</p>
+                        </div>
+                    </div>
+                </div>
+                <footer class="card-footer">
+                    <a class="card-footer-item" @click="modalToday = true">Add</a>
+                </footer>
+            </div>
+
+            <div class="modal" :class="{ 'is-active': modalToday }">
+                <div class="modal-card">
+                    <header class="modal-card-head">
+                        <p class="modal-card-title">Add Exercise</p>
+                    </header>
+                    <section class="modal-card-body">
+                        Exercise<input class="input" type="text" placeholder="Exercise name">
+                        Amount<input class="input" type="text" placeholder="Distance/Weight/Etc.">
+                        Time<input class="input" type="text" placeholder="Time (in minutes)">
+                    </section>
+                    <footer class="modal-card-foot">
+                        <button class="button is-success" @click="submitExercise()">Add</button>
+                        <button class="button" @click="modalToday = false">Cancel</button>
+                    </footer>
+                </div>
+            </div>
+
+            <div class="card" :class="{ 'is-hidden': (pastView[0].exercise == null) }">
+                <header class="card-header">
+                    <p class="card-header-title">{{ pastViewDate }}</p>
+                </header>
+                <div class="card-content">
+                    <div class="columns is-mobile">
+                        <div class="column">
+                            <p class="title is-5">Exercise</p>
+                        </div>
+                        <div class="column">
+                            <p class="title is-5">Amount</p>
+                        </div>
+                        <div class="column">
+                            <p class="title is-5">Time</p>
+                        </div>
+                    </div>
+                    <div class="columns is-mobile">
+                        <div class="column">
+                            <p>{{ pastView[0].exercise }}</p>
+                        </div>
+                        <div class="column">
+                            <p>{{ pastView[0].amount }}</p>
+                        </div>
+                        <div class="column">
+                            <p>{{ pastView[0].time }} mins</p>
+                        </div>
+                    </div>
+                </div>
+                <footer class="card-footer">
+                    <a class="card-footer-item" @click="">Edit</a>
+                </footer>
+            </div>
+
+            <div class="card">
+                <header class="card-header">
+                    <p class="card-header-title">Past</p>
+                </header>
+                <div class="card-content">
+                    <div class="columns is-mobile">
+                        <div class="column">
+                            <p class="title is-6">Date</p>
+                        </div>
+                        <div class="column">
+                            <p class="title is-6">Total Time</p>
+                        </div>
+                        <div class="column"></div>
+                    </div>
+                    <div class="columns is-mobile">
+                        <div class="column">
+                            <p>10-03-21</p>
+                        </div>
+                        <div class="column">
+                            <p>50 mins</p>
+                        </div>
+                        <div class="column">
+                            <button class="button" @click="viewPast('10-03-2021')">View</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </div>
+
+    <script src="https://unpkg.com/vue@next"></script>
+    <script>
+        const VM_nav = {
+            data: () => ({
+                navActive: false,
+            })
+        }
+        Vue.createApp(VM_nav).mount("#mainNav");
+
+        const VM_page = {
+            data: () => ({
+                activity: [{ "exercise": "running", "amount": "1 mile", "time": 20 }],
+                past: { "10-03-2021": [{ "exercise": "running", "amount": "2 miles", "time": 50 }, { "exercise": "walking", "amount": "0.5 miles", "time": 20 }] },
+                pastView: [{ "exercise": null, "amount": null, "time": null }],
+                pastViewDate: null,
+            }),
+            methods: {
+                submitExercise() {
+                    this.activity.push({ "exercise": "walking", "amount": "0.5 mile", "time": 30 });
+                    this.modalToday = false;
+                },
+                viewPast(pastDate) {
+                    this.pastViewDate = pastDate;
+                    this.pastView = this.past[pastDate];
+                },
+            }
+        }
+        Vue.createApp(VM_page).mount("#page");
+    </script>
+</body>
+
+</html>

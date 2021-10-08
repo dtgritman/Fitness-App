@@ -74,26 +74,55 @@
             </div>
         </nav>
 
-        <nav id="pageNav" class="tabs is-medium is-centered">
-            <ul>
-                <li><a class="navbar-item" href="./activity.html">My Activity</a></li>
-                <li><a class="navbar-item" href="./feed.html">Feed</a></li>
-                <li><a class="navbar-item" href="./friends.html">Friends</a></li>
-            </ul>
-        </nav>
-
 
         <!--Page Section-->
-        <section id="page" class="section">
-            <div class="has-text-centered">
-                <p>Welcome to Fit Track! To begin tracking your fitness and connecting with friends, please
-                    <a href="./login.html">login</a> or <a href="./signup.html">sign up</a>!
+        <form id="page" class="section">
+            <div class="field">
+                <p>First Name</p>
+                <p class="control">
+                    <input class="input" type="text" placeholder="First Name">
                 </p>
             </div>
-        </section>
+            <div class="field">
+                <p>Last Name</p>
+                <p class="control">
+                    <input class="input" type="text" placeholder="Last Name">
+                </p>
+            </div>
+            <div class="field">
+                <p>Email</p>
+                <p class="control has-icons-left">
+                    <input class="input" type="email" placeholder="Email">
+                    <span class="icon is-small is-left">
+                        <i class="fas fa-envelope"></i>
+                    </span>
+                </p>
+            </div>
+            <div class="field">
+                <p>Password</p>
+                <p class="control has-icons-left">
+                    <input class="input" type="password" placeholder="Password">
+                    <span class="icon is-small is-left">
+                        <i class="fas fa-lock"></i>
+                    </span>
+                </p>
+            </div>
+            <div class="field">
+                <p>Phone #</p>
+                <p class="control">
+                    <input class="input" type="tel" placeholder="Phone #">
+                </p>
+            </div>
+            <div class="field has-text-centered">
+                <p class="control">
+                    <button class="button is-success"> Sign Up </button>
+                </p>
+            </div>
+        </form>
     </div>
 
     <script src="https://unpkg.com/vue@next"></script>
+    <script defer src="https://use.fontawesome.com/releases/v5.3.1/js/all.js"></script>
     <script>
         const VM_nav = {
             data: () => ({
@@ -101,6 +130,13 @@
             })
         }
         Vue.createApp(VM_nav).mount("#mainNav");
+
+        const VM_page = {
+            data: () => ({
+
+            })
+        }
+        Vue.createApp(VM_page).mount("#page");
     </script>
 </body>
 

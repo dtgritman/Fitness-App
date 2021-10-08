@@ -74,22 +74,19 @@
             </div>
         </nav>
 
-        <nav id="pageNav" class="tabs is-medium is-centered">
+        <nav class="tabs is-medium is-centered">
             <ul>
-                <li><a class="navbar-item" href="./activity.html">My Activity</a></li>
-                <li><a class="navbar-item" href="./feed.html">Feed</a></li>
-                <li><a class="navbar-item" href="./friends.html">Friends</a></li>
+                <li><a href="./activity.html">My Activity</a></li>
+                <li><a href="./feed.html">Feed</a></li>
+                <li><a href="./friends.html">Friends</a></li>
             </ul>
         </nav>
 
 
         <!--Page Section-->
+        <!--TODO: View friends activity-->
         <section id="page" class="section">
-            <div class="has-text-centered">
-                <p>Welcome to Fit Track! To begin tracking your fitness and connecting with friends, please
-                    <a href="./login.html">login</a> or <a href="./signup.html">sign up</a>!
-                </p>
-            </div>
+
         </section>
     </div>
 
@@ -101,6 +98,13 @@
             })
         }
         Vue.createApp(VM_nav).mount("#mainNav");
+
+        const VM_page = {
+            data: () => ({
+
+            })
+        }
+        Vue.createApp(VM_page).mount("#page");
     </script>
 </body>
 
