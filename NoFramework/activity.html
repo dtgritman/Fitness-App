@@ -90,30 +90,18 @@
                     <p class="card-header-title">Today</p>
                 </header>
                 <div class="card-content">
-                    <div class="columns is-mobile">
-                        <div class="column">
-                            <p class="title is-5">Exercise</p>
-                        </div>
-                        <div class="column">
-                            <p class="title is-5">Amount</p>
-                        </div>
-                        <div class="column">
-                            <p class="title is-5">Time</p>
-                        </div>
-                    </div>
-                    <div class="container" v-for="activity in today">
-                        <div class="columns is-mobile">
-                            <div class="column">
-                                <p>{{ activity.exercise }}</p>
-                            </div>
-                            <div class="column">
-                                <p>{{ activity.amount }}</p>
-                            </div>
-                            <div class="column">
-                                <p>{{ activity.time }} mins</p>
-                            </div>
-                        </div>
-                    </div>
+                    <table class="table is-fullwidth is-hoverable">
+                        <thead>
+                            <th>Exercise</th>
+                            <th>Amount</th>
+                            <th>Time</th>
+                        </thead>
+                        <tbody v-for="activity in today">
+                            <td>{{ activity.exercise }}</td>
+                            <td>{{ activity.amount }}</td>
+                            <td>{{ activity.time }} mins</td>
+                        </tbody>
+                    </table>
                 </div>
                 <footer class="card-footer">
                     <a class="card-footer-item" @click="modalAdd = true">Add</a>
@@ -161,28 +149,18 @@
                     <p class="card-header-title">{{ pastViewDate }}</p>
                 </header>
                 <div class="card-content">
-                    <div class="columns is-mobile">
-                        <div class="column">
-                            <p class="title is-5">Exercise</p>
-                        </div>
-                        <div class="column">
-                            <p class="title is-5">Amount</p>
-                        </div>
-                        <div class="column">
-                            <p class="title is-5">Time</p>
-                        </div>
-                    </div>
-                    <div class="columns is-mobile">
-                        <div class="column">
-                            <p>{{ pastView[0].exercise }}</p>
-                        </div>
-                        <div class="column">
-                            <p>{{ pastView[0].amount }}</p>
-                        </div>
-                        <div class="column">
-                            <p>{{ pastView[0].time }} mins</p>
-                        </div>
-                    </div>
+                    <table class="table is-fullwidth">
+                        <thead>
+                            <th>Exercise</th>
+                            <th>Amount</th>
+                            <th>Time</th>
+                        </thead>
+                        <tbody v-for="activity in pastView">
+                            <td>{{ activity.exercise }}</td>
+                            <td>{{ activity.amount }}</td>
+                            <td>{{ activity.time }} mins</td>
+                        </tbody>
+                    </table>
                 </div>
                 <footer class="card-footer">
                     <a class="card-footer-item" @click="">Edit</a>
@@ -194,6 +172,13 @@
                     <p class="card-header-title">Past</p>
                 </header>
                 <div class="card-content">
+                    <table class="table is-fullwidth">
+                        <thead>
+                            <th>Date</th>
+                            <th>Total Time</th>
+                            <th></th>
+                        </thead>
+                    </table>
                     <div class="columns is-mobile">
                         <div class="column">
                             <p class="title is-6">Date</p>
@@ -233,7 +218,7 @@
                 modalAdd: false,
                 newActivity: { "exercise": null, "amount": null, "time": null },
                 today: [{ "exercise": "running", "amount": "1 mile", "time": 20 }, { "exercise": "walking", "amount": "0.5 mile", "time": 30 }],
-                past: { "10-03-2021": [{ "exercise": "running", "amount": "2 miles", "time": 50 }, { "exercise": "walking", "amount": "0.5 miles", "time": 20 }] },
+                past: { "10-03-2021": [{ "exercise": "walking", "amount": "2 miles", "time": 50 }, { "exercise": "running", "amount": "0.5 miles", "time": 8 }] },
                 pastView: [{ "exercise": null, "amount": null, "time": null }],
                 pastViewDate: null,
             }),
