@@ -101,15 +101,17 @@
                             <p class="title is-5">Time</p>
                         </div>
                     </div>
-                    <div class="columns is-mobile">
-                        <div class="column">
-                            <p>{{ activity[0].exercise }}</p>
-                        </div>
-                        <div class="column">
-                            <p>{{ activity[0].amount }}</p>
-                        </div>
-                        <div class="column">
-                            <p>{{ activity[0].time }} mins</p>
+                    <div class="container" v-for="activity in today">
+                        <div class="columns is-mobile">
+                            <div class="column">
+                                <p>{{ activity.exercise }}</p>
+                            </div>
+                            <div class="column">
+                                <p>{{ activity.amount }}</p>
+                            </div>
+                            <div class="column">
+                                <p>{{ activity.time }} mins</p>
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -118,22 +120,41 @@
                 </footer>
             </div>
 
-            <div class="modal" :class="{ 'is-active': modalAdd }">
+            <form class="modal" v-on:submit.prevent="addActivity" :class="{ 'is-active': modalAdd }">
                 <div class="modal-card">
                     <header class="modal-card-head">
                         <p class="modal-card-title">Add Exercise</p>
                     </header>
                     <section class="modal-card-body">
-                        Exercise<input class="input" type="text" placeholder="Exercise name">
-                        Amount<input class="input" type="text" placeholder="Distance/Weight/Etc.">
-                        Time<input class="input" type="text" placeholder="Time (in minutes)">
+                        <div class="field">
+                            <p class="control">
+                                Exercise
+                                <input class="input" type="text" v-model="newActivity.exercise" placeholder="Exercise name">
+                            </p>
+                        </div>
+                        <div class="field">
+                            <p class="control">
+                                Amount
+                                <input class="input" type="text" v-model="newActivity.amount" placeholder="Distance/Weight/Etc.">
+                            </p>
+                        </div>
+                        <div class="field">
+                            <p class="control">
+                                Time
+                                <input class="input" type="text" v-model="newActivity.time" placeholder="Time (in minutes)">
+                            </p>
+                        </div>
                     </section>
                     <footer class="modal-card-foot">
-                        <button class="button is-success" @click="submitExercise()">Add</button>
-                        <button class="button" @click="modalAdd = false">Cancel</button>
+                        <div class="field">
+                            <p class="control">
+                                <button class="button is-success"> Add </button>
+                            </p>
+                        </div>
+                        <button class="button" @click="modalAdd = false"> Cancel </button>
                     </footer>
                 </div>
-            </div>
+            </form>
 
             <div class="card" :class="{ 'is-hidden': (pastView[0].exercise == null) }">
                 <header class="card-header">
@@ -209,16 +230,20 @@
 
         const VM_page = {
             data: () => ({
-                activity: [{ "exercise": "running", "amount": "1 mile", "time": 20 }],
                 modalAdd: false,
+                newActivity: { "exercise": null, "amount": null, "time": null },
+                today: [{ "exercise": "running", "amount": "1 mile", "time": 20 }, { "exercise": "walking", "amount": "0.5 mile", "time": 30 }],
                 past: { "10-03-2021": [{ "exercise": "running", "amount": "2 miles", "time": 50 }, { "exercise": "walking", "amount": "0.5 miles", "time": 20 }] },
                 pastView: [{ "exercise": null, "amount": null, "time": null }],
                 pastViewDate: null,
             }),
             methods: {
-                submitExercise() {
-                    this.activity.push({ "exercise": "walking", "amount": "0.5 mile", "time": 30 });
-                    modalAdd = false;
+                addActivity() {
+                    if (this.newActivity.exercise && this.newActivity.amount && this.newActivity.time) {
+                        this.today.push(this.newActivity);
+                        this.newActivity = { "exercise": null, "amount": null, "time": null };
+                        this.modalAdd = false;
+                    }
                 },
                 viewPast(pastDate) {
                     this.pastViewDate = pastDate;
