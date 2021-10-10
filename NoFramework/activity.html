@@ -169,36 +169,19 @@
 
             <div class="card">
                 <header class="card-header">
-                    <p class="card-header-title">Past</p>
+                    <p class="card-header-title">Past Activity</p>
                 </header>
                 <div class="card-content">
                     <table class="table is-fullwidth">
                         <thead>
                             <th>Date</th>
-                            <th>Total Time</th>
                             <th></th>
                         </thead>
+                        <tbody v-for="(activities, date) in past" :key="date">
+                            <td>{{ date }}</td>
+                            <td><button class="button" @click="viewPast(date)">View</button></td>
+                        </tbody>
                     </table>
-                    <div class="columns is-mobile">
-                        <div class="column">
-                            <p class="title is-6">Date</p>
-                        </div>
-                        <div class="column">
-                            <p class="title is-6">Total Time</p>
-                        </div>
-                        <div class="column"></div>
-                    </div>
-                    <div class="columns is-mobile">
-                        <div class="column">
-                            <p>10-03-21</p>
-                        </div>
-                        <div class="column">
-                            <p>50 mins</p>
-                        </div>
-                        <div class="column">
-                            <button class="button" @click="viewPast('10-03-2021')">View</button>
-                        </div>
-                    </div>
                 </div>
             </div>
         </section>
