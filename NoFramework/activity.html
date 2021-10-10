@@ -118,19 +118,22 @@
                         <div class="field">
                             <p class="control">
                                 Exercise
-                                <input class="input" type="text" v-model="newActivity.exercise" placeholder="Exercise name">
+                                <input class="input" type="text" v-model="newActivity.exercise"
+                                    placeholder="Exercise name">
                             </p>
                         </div>
                         <div class="field">
                             <p class="control">
                                 Amount
-                                <input class="input" type="text" v-model="newActivity.amount" placeholder="Distance/Weight/Etc.">
+                                <input class="input" type="text" v-model="newActivity.amount"
+                                    placeholder="Distance/Weight/Etc.">
                             </p>
                         </div>
                         <div class="field">
                             <p class="control">
                                 Time
-                                <input class="input" type="text" v-model="newActivity.time" placeholder="Time (in minutes)">
+                                <input class="input" type="text" v-model="newActivity.time"
+                                    placeholder="Time (in minutes)">
                             </p>
                         </div>
                     </section>
@@ -144,7 +147,7 @@
                     </footer>
                 </div>
             </form>
-            
+
             <div class="card" :class="{ 'is-hidden': (pastView[0].exercise == null) }">
                 <header class="card-header">
                     <p class="card-header-title">{{ pastViewDate }}</p>
@@ -202,9 +205,17 @@
             data: () => ({
                 modalAdd: false,
                 newActivity: { "exercise": null, "amount": null, "time": null },
-                today: [{ "exercise": "running", "amount": "1 mile", "time": 20 }, { "exercise": "walking", "amount": "0.5 mile", "time": 30 }],
-                past: { "10-03-2021": [{ "exercise": "walking", "amount": "2 miles", "time": 50 }, { "exercise": "running", "amount": "0.5 miles", "time": 8 }] },
-                pastView: [{ "exercise": null, "amount": null, "time": null }],
+                today: [
+                    { "exercise": "running", "amount": "1 mile", "time": 20 },
+                    { "exercise": "walking", "amount": "0.5 mile", "time": 30 }]
+                ,
+                past: {
+                    "10-03-2021": [
+                        { "exercise": "walking", "amount": "2 miles", "time": 50 },
+                        { "exercise": "running", "amount": "0.5 miles", "time": 8 }
+                    ]
+                },
+                pastView: [ { "exercise": null, "amount": null, "time": null } ],
                 pastViewDate: null,
             }),
             methods: {

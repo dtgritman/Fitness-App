@@ -84,12 +84,15 @@
 
 
         <!--Page Section-->
-        <!--TODO: Find Friends-->
         <section id="page" class="section">
+            <div>
+                <!--TODO: Find Friends-->
+                
+            </div>
             <div v-for="friend in friends">
                 <div class="card">
                     <div class="card-header">
-                        <p class="card-header-title is-centered">{{ friend.name }}</p>
+                        <p class="card-header-title is-centered">{{ friend.firstname }} {{ friend.lastname }}</p>
                     </div>
                     <div class="card-content">
                         <div class="level is-mobile">
@@ -124,7 +127,10 @@
 
         const VM_page = {
             data: () => ({
-                friends: [{ "name": "Random Guy", "age": 20, "sex": "Male" }, { "name": "Random Girl", "age": 20, "sex": "Female" }],
+                friends: [
+                    { "userid": 9309, "firstname": "Random", "lastname": "Person", "age": 20, "sex": "Male" },
+                    { "userid": 2817, "firstname": "Person", "lastname": "Random", "age": 20, "sex": "Female" },
+                ],
             }),
             methods: {
 
