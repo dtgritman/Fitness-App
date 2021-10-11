@@ -93,12 +93,12 @@
                     <table class="table is-fullwidth is-hoverable">
                         <thead>
                             <th>Exercise</th>
-                            <th>Amount</th>
+                            <th>Info</th>
                             <th>Time</th>
                         </thead>
                         <tbody v-for="activity in today">
                             <td>{{ activity.exercise }}</td>
-                            <td>{{ activity.amount }}</td>
+                            <td>{{ activity.info }}</td>
                             <td>{{ activity.time }} mins</td>
                         </tbody>
                     </table>
@@ -124,8 +124,8 @@
                         </div>
                         <div class="field">
                             <p class="control">
-                                Amount
-                                <input class="input" type="text" v-model="newActivity.amount"
+                                Info
+                                <input class="input" type="text" v-model="newActivity.info"
                                     placeholder="Distance/Weight/Etc.">
                             </p>
                         </div>
@@ -148,7 +148,7 @@
                 </div>
             </form>
 
-            <div class="card" :class="{ 'is-hidden': (pastView[0].exercise == null) }">
+            <div class="card" :class="{ 'is-hidden': !pastView }">
                 <header class="card-header">
                     <p class="card-header-title">{{ pastViewDate }}</p>
                 </header>
@@ -156,12 +156,12 @@
                     <table class="table is-fullwidth">
                         <thead>
                             <th>Exercise</th>
-                            <th>Amount</th>
+                            <th>Info</th>
                             <th>Time</th>
                         </thead>
                         <tbody v-for="activity in pastView">
                             <td>{{ activity.exercise }}</td>
-                            <td>{{ activity.amount }}</td>
+                            <td>{{ activity.info }}</td>
                             <td>{{ activity.time }} mins</td>
                         </tbody>
                     </table>
@@ -201,28 +201,37 @@
         }
         Vue.createApp(VM_nav).mount("#mainNav");
 
+
+        class Activity {
+            constructor(exercise, info, time) {
+                this.exercise = exercise;
+                this.info = info;
+                this.time = time;
+            }
+        };
+
         const VM_page = {
             data: () => ({
                 modalAdd: false,
-                newActivity: { "exercise": null, "amount": null, "time": null },
                 today: [
-                    { "exercise": "running", "amount": "1 mile", "time": 20 },
-                    { "exercise": "walking", "amount": "0.5 mile", "time": 30 }]
-                ,
+                    new Activity("running", "1 mile", 20),
+                    new Activity("walking", "0.5 mile", 30),
+                ],
                 past: {
                     "10-03-2021": [
-                        { "exercise": "walking", "amount": "2 miles", "time": 50 },
-                        { "exercise": "running", "amount": "0.5 miles", "time": 8 }
+                        new Activity("walking", "2 miles", 50),
+                        new Activity("running", "0.5 miles", 4),
                     ]
                 },
-                pastView: [ { "exercise": null, "amount": null, "time": null } ],
+                newActivity: new Activity(null, null, null),
+                pastView: null,
                 pastViewDate: null,
             }),
             methods: {
                 addActivity() {
-                    if (this.newActivity.exercise && this.newActivity.amount && this.newActivity.time) {
+                    if (this.newActivity.exercise && this.newActivity.info && this.newActivity.time) {
                         this.today.push(this.newActivity);
-                        this.newActivity = { "exercise": null, "amount": null, "time": null };
+                        this.newActivity = new Activity(null, null, null);
                         this.modalAdd = false;
                     }
                 },
