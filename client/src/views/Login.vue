@@ -1,37 +1,41 @@
 <template>
-    <form class="section" @submit.prevent="login()">
-        <div class="field">
-            <p class="control has-icons-left">
-                <input
-                    class="input"
-                    type="email"
-                    placeholder="Email"
-                    v-model="email"
-                />
-                <span class="icon is-small is-left">
-                    <i class="fas fa-envelope"></i>
-                </span>
-            </p>
-        </div>
-        <div class="field">
-            <p class="control has-icons-left">
-                <input
-                    class="input"
-                    type="password"
-                    placeholder="Password"
-                    v-model="password"
-                />
-                <span class="icon is-small is-left">
-                    <i class="fas fa-lock"></i>
-                </span>
-            </p>
-        </div>
-        <div class="field">
-            <p class="control"> 
-                <button class="button is-success">Login</button>
-            </p>
-        </div>
-    </form>
+    <section class="section">
+        <form class="box column is-offset-3 is-6" @submit.prevent="login()">
+            <div class="field">
+                <p class="control has-icons-left">
+                    <input
+                        class="input"
+                        type="email"
+                        placeholder="Email"
+                        required
+                        v-model="email"
+                    />
+                    <span class="icon is-small is-left">
+                        <i class="fas fa-envelope"></i>
+                    </span>
+                </p>
+            </div>
+            <div class="field">
+                <p class="control has-icons-left">
+                    <input
+                        class="input"
+                        type="password"
+                        placeholder="Password"
+                        required
+                        v-model="password"
+                    />
+                    <span class="icon is-small is-left">
+                        <i class="fas fa-lock"></i>
+                    </span>
+                </p>
+            </div>
+            <div class="field">
+                <p class="control has-text-centered">
+                    <button class="button is-success">Login</button>
+                </p>
+            </div>
+        </form>
+    </section>
 </template>
 
 <script>
