@@ -2,9 +2,9 @@
     <div>
         <nav class="navbar">
             <div class="navbar-brand">
-                <a class="navbar-item" @click="$router.push('/')">
+                <router-link class="navbar-item" to="/">
                     <img src="../assets/logo.png" />
-                </a>
+                </router-link>
 
                 <a class="navbar-burger" @click="navActive = !navActive" :class="{ 'is-active': navActive }">
                     <span></span>
@@ -15,9 +15,9 @@
 
             <div class="navbar-menu" :class="{ 'is-active': navActive }">
                 <div class="navbar-start">
-                    <a class="navbar-item" @click="$router.push('/myprofile')" v-if="Session.user">
+                    <router-link class="navbar-item" to="/myprofile" v-if="Session.user">
                         My Profile
-                    </a>
+                    </router-link>
                 </div>
                 <div class="navbar-end">
                     <login-badge />
@@ -28,13 +28,13 @@
         <nav class="tabs is-medium is-centered" v-if="Session.user">
             <ul>
                 <li>
-                    <a class="navbar-item" @click="$router.push('/activity')">Activity</a>
+                    <router-link class="navbar-item" to="/activity">Activity</router-link>
                 </li>
                 <li>
-                    <a class="navbar-item" @click="$router.push('/feed')">Feed</a>
+                    <router-link class="navbar-item" to="/feed">Feed</router-link>
                 </li>
                 <li>
-                    <a class="navbar-item" @click="$router.push('/friends')">Friends</a>
+                    <router-link class="navbar-item" to="/friends">Friends</router-link>
                 </li>
             </ul>
         </nav>
