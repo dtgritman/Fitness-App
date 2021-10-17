@@ -18,7 +18,7 @@ export default {
     }),
     methods: {
         logout() {
-            this.Session.Logout();
+            this.Session.logout();
             this.$router.push("/");
         }
     },
