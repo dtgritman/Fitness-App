@@ -49,13 +49,14 @@ export default {
     }),
     methods: {
         login() {
+            if (this.username.charAt(0) != '@')
+                this.username = '@' + this.username;
             try {
                 this.Session.login(this.username, this.password);
                 this.$router.push("/");
             } catch (e) {
-                if (e.code == 401) {
-                    console.log(e.message);
-                }
+                if (e.code == 401) console.log(e.message);
+                else throw e;
             }
         },
     },
