@@ -1,6 +1,6 @@
 /* B"H
 */
-import { GetByHandle } from "./users";
+import { getByHandle } from "./users";
 
 const list = [
     {
@@ -47,38 +47,38 @@ const list = [
 
 const listWithOwner = () => list.map(x => ({
     ...x,
-    user: GetByHandle(x.user_handle)
+    user: getByHandle(x.user_handle)
 }));
 
-export function GetAll() {
+export function getAll() {
     return listWithOwner();
 }
 
-export function GetWall(handle) {
+export function getWall(handle) {
     return listWithOwner().filter(post => post.user_handle == handle);
 }
 
-export function GetFeed(handle) {
+export function getFeed(handle) {
     return listWithOwner()
         .filter(post => GetByHandle(handle).following.some(f => f.handle == post.user_handle && f.isApproved));
 }
 
 
-export function Get(post_id) { return list[post_id]; }
-export function Add(post) {
+export function get(post_id) { return list[post_id]; }
+export function add(post) {
     if (!post.user_handle) {
         throw { code: 422, msg: "Post must have an Owner" }
     }
     list.push(post);
     return { ...post };
 }
-export function Update(post_id, post) {
+export function update(post_id, post) {
     const oldObj = list[post_id];
     const newObj = { ...oldObj, ...post }
     list[post_id] = newObj;
     return newObj;
 }
-export function Delete(post_id) {
+export function remove(post_id) {
     const post = list[post_id];
     list.splice(post_id, 1);
     return post;
