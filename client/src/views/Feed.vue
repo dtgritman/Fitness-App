@@ -91,11 +91,13 @@
 </template>
 
 <script>
-//import Posts from "../services/posts";
+import session from "../services/session"
+//import posts from "../services/posts";
 
 export default {
     name: "Feed",
     data: () => ({
+        session,
         posts: {
             182: {
                 userid: 9309,

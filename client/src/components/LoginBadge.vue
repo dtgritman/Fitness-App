@@ -1,5 +1,5 @@
 <template>
-    <div class="buttons" v-if="!Session.user">
+    <div class="buttons" v-if="!session.user">
         <a class="navbar-item" @click="$router.push('/login')">Login</a>
         <a class="navbar-item" @click="$router.push('/signup')">Sign Up</a>
     </div>
@@ -10,21 +10,21 @@
 </template>
 
 <script>
-import Session from "../services/session";
+import session from "../services/session";
 
 export default {
     data: () => ({
-        Session,
+        session,
     }),
     methods: {
         logout() {
-            this.Session.logout();
+            this.session.logout();
             this.$router.push("/");
         }
     },
     computed: {
         name() {
-            return this.Session.user.firstName + " " + this.Session.user.lastName;
+            return this.session.user.firstName + " " + this.session.user.lastName;
         },
     },
 };
