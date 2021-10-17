@@ -94,6 +94,7 @@
 //import Posts from "../services/posts";
 
 export default {
+    name: "Feed",
     data: () => ({
         posts: {
             182: {

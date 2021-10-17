@@ -104,10 +104,12 @@
 </template>
 
 <script>
+import session from "../services/session";
+
 export default {
     name: "MyProfile",
     data: () => ({
-        name: "Dustin Gritman",
+        session,
         sex: "Male",
         age: 24,
         height: 68,
@@ -127,6 +129,11 @@ export default {
             this.modalWeight = false;
         },
     },
+    computed: {
+        name() {
+            return this.session.user.firstName + " " + this.session.user.lastName;
+        }
+    }
 };
 </script>
 

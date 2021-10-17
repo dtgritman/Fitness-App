@@ -13,4 +13,4 @@ const session = {
     }
 };
 
-export default session
+export default session;

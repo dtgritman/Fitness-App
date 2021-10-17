@@ -42,6 +42,7 @@
 import Session from "../services/session";
 
 export default {
+    name: "Login",
     data: () => ({
         username: null,
         password: null,

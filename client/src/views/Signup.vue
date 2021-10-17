@@ -92,6 +92,7 @@
 
 <script>
 export default {
+    name: "Sign Up",
     data: () => ({
         firstName: null,
         lastName: null,
