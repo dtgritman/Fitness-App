@@ -15,7 +15,7 @@
 
             <div class="navbar-menu" :class="{ 'is-active': navActive }">
                 <div class="navbar-start">
-                    <router-link class="navbar-item" to="/myprofile" v-if="Session.user">
+                    <router-link class="navbar-item" to="/myprofile" v-if=Session.user>
                         My Profile
                     </router-link>
                 </div>
@@ -28,13 +28,13 @@
         <nav class="tabs is-medium is-centered" v-if="Session.user">
             <ul>
                 <li>
-                    <router-link class="navbar-item" to="/activity">Activity</router-link>
+                    <router-link class="navbar-item is-tab" to="/activity">Activity</router-link>
                 </li>
                 <li>
-                    <router-link class="navbar-item" to="/feed">Feed</router-link>
+                    <router-link class="navbar-item is-tab" to="/feed">Feed</router-link>
                 </li>
                 <li>
-                    <router-link class="navbar-item" to="/friends">Friends</router-link>
+                    <router-link class="navbar-item is-tab" to="/friends">Friends</router-link>
                 </li>
             </ul>
         </nav>

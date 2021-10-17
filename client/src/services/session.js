@@ -1,17 +1,14 @@
+import { login } from "../services/users";
+
 const session = {
     user: null,
-    //user: {id: 1, email: "test@test.com", firstName: "Test", lastName: "User"},
     messages: [],
-    Login(email, password) {
-        this.user = {
-            email,
-            password,
-            id: 613,
-            firstName: "Dustin",
-            lastName: "Gritman",
-        }
+    login(username, password) {
+        let response = login(username, password);
+        if (response)
+            this.user = response.user;
     },
-    Logout() {
+    logout() {
         this.user = null;
     }
 };

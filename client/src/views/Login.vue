@@ -5,13 +5,13 @@
                 <p class="control has-icons-left">
                     <input
                         class="input"
-                        type="email"
-                        placeholder="Email"
+                        type="text"
+                        placeholder="Handle"
                         required
-                        v-model="email"
+                        v-model="username"
                     />
                     <span class="icon is-small is-left">
-                        <i class="fas fa-envelope"></i>
+                        <i class="fas fa-at"></i>
                     </span>
                 </p>
             </div>
@@ -43,14 +43,20 @@ import Session from "../services/session";
 
 export default {
     data: () => ({
-        email: null,
+        username: null,
         password: null,
         Session,
     }),
     methods: {
         login() {
-            this.Session.Login(this.email, this.password);
-            this.$router.push("/");
+            try {
+                this.Session.login(this.username, this.password);
+                this.$router.push("/");
+            } catch (e) {
+                if (e.code == 401) {
+                    console.log(e.message);
+                }
+            }
         },
     },
 };
