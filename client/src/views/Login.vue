@@ -56,8 +56,11 @@ export default {
                 this.session.login(this.username, this.password);
                 this.$router.push("/");
             } catch (e) {
-                if (e.code == 401) console.log(e.message);
-                else throw e;
+                if (e.code == 401) {
+                    session.notifications.push({ message: e.message, type: "danger" });
+                } 
+                else
+                    throw e;
             }
         },
     },

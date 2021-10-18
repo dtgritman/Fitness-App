@@ -2,7 +2,7 @@ import { login } from "../services/users";
 
 const session = {
     user: null,
-    messages: [],
+    notifications: [],
     login(username, password) {
         let response = login(username, password);
         if (response)
