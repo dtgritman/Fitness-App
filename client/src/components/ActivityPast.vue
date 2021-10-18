@@ -59,7 +59,7 @@ export default {
     methods: {
         viewPast(pastDate) {
             this.pastDate = pastDate;
-            this.pastInfo = this.past[pastDate];
+            this.pastView = this.past[pastDate];
         },
     },
 };
