@@ -9,7 +9,7 @@
                     <div class="level-item">
                         <div class="has-text-centered">
                             <p class="title is-4">Sex</p>
-                            <p>{{ sex }}</p>
+                            <p>{{ session.user.sex }}</p>
                         </div>
                     </div>
                     <div class="level-item">
@@ -23,10 +23,7 @@
                     <div class="level-item">
                         <div class="has-text-centered">
                             <p class="title is-4">Height</p>
-                            <p>
-                                {{ Math.floor(height / 12) }}'
-                                {{ height % 12 }}"
-                            </p>
+                            <p>{{ heightString }}</p>
                             <a
                                 class="card-footer-item"
                                 @click="modalHeight = true"
@@ -110,8 +107,6 @@ export default {
     name: "MyProfile",
     data: () => ({
         session,
-        sex: "Male",
-        age: 24,
         height: 68,
         weight: 150,
         modalHeight: false,
@@ -131,9 +126,24 @@ export default {
     },
     computed: {
         name() {
-            return this.session.user.firstName + " " + this.session.user.lastName;
+            return (
+                this.session.user.firstName + " " + this.session.user.lastName
+            );
+        },
+        age() {
+            let today = new Date();
+            let bday = new Date(this.session.user.birthday);
+            let age = today.getFullYear() - bday.getFullYear();
+            let m = today.getMonth() - bday.getMonth();
+            if (m < 0 || (m === 0 && today.getDate() < bday.getDate())) {
+                age--;
+            }
+            return age;
+        },
+        heightString() {
+            return Math.floor(this.height / 12) + "' " + (this.height % 12) + '"';
         }
-    }
+    },
 };
 </script>
 
