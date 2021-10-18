@@ -81,55 +81,14 @@
             </div>
         </form>
 
-        <div class="card" :class="{ 'is-hidden': !pastView }">
-            <header class="card-header">
-                <p class="card-header-title">{{ pastViewDate }}</p>
-            </header>
-            <div class="card-content">
-                <table class="table is-fullwidth">
-                    <thead>
-                        <th>Exercise</th>
-                        <th>Info</th>
-                        <th>Time</th>
-                    </thead>
-                    <tbody v-for="activity in pastView" :key="activity">
-                        <td>{{ activity.exercise }}</td>
-                        <td>{{ activity.info }}</td>
-                        <td>{{ activity.time }} mins</td>
-                    </tbody>
-                </table>
-            </div>
-            <footer class="card-footer">
-                <a class="card-footer-item" @click="editPast">Edit</a>
-            </footer>
-        </div>
-        <br />
-
-        <div class="card">
-            <header class="card-header">
-                <p class="card-header-title">Past Activity</p>
-            </header>
-            <div class="card-content">
-                <table class="table is-fullwidth">
-                    <thead>
-                        <th>Date</th>
-                        <th></th>
-                    </thead>
-                    <tbody v-for="(activities, date) in past" :key="date">
-                        <td>{{ date }}</td>
-                        <td>
-                            <button class="button" @click="viewPast(date)">
-                                View
-                            </button>
-                        </td>
-                    </tbody>
-                </table>
-            </div>
-        </div>
+        <ActivityPast :past="past" />
     </section>
 </template>
 
 <script>
+//import ActivityAdd from "../components/ActivityAdd.vue";
+import ActivityPast from "../components/ActivityPast.vue";
+
 class Activity {
     constructor(exercise, info, time) {
         this.exercise = exercise;
@@ -139,6 +98,10 @@ class Activity {
 }
 export default {
     name: "Activity",
+    components: {
+        //ActivityAdd,
+        ActivityPast,
+    },
     data: () => ({
         modalAdd: false,
         today: [
@@ -149,6 +112,11 @@ export default {
             "10-03-2021": [
                 new Activity("walking", "2 miles", 50),
                 new Activity("running", "0.5 miles", 4),
+            ],
+            "10-12-2021": [
+                new Activity("walking", "3 miles", 100),
+                new Activity("dead lifts", "150 lbs", 15),
+                new Activity("jogging", "1.5 miles", 25),
             ],
         },
         newActivity: new Activity(null, null, null),
@@ -166,10 +134,6 @@ export default {
                 this.newActivity = new Activity(null, null, null);
                 this.modalAdd = false;
             }
-        },
-        viewPast(pastDate) {
-            this.pastViewDate = pastDate;
-            this.pastView = this.past[pastDate];
         },
     },
 };
