@@ -3,7 +3,8 @@
   "version": "1.0.0",
   "description": "Fitness app for web programming class.",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "dev": "nodemon --watch server server/index"
   },
   "repository": {
     "type": "git",
