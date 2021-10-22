@@ -1,21 +1,20 @@
 const express = require('express');
 const path = require('path');
+const usersController = require('./controllers/users');
+
 const app = express();
 const port = 3000;
 
-const staticPath = path.join(__dirname, '../static');
+const staticPath = path.join(__dirname, '../docs');
 app
-.use('/imgs', express.static(path.join(staticPath, '/imgs')))
-.get('/', (req, res) => {
-  res.sendFile(path.join(staticPath, '/index.html'));
-})
-.get('/profile', (req, res) => {
-  res.sendFile(path.join(staticPath, '/profile.html'));
-})
-.get('/exercise-info', (req, res) => {
-  res.sendFile(path.join(staticPath, '/exercise.html'));
-});
+    .use('/', express.static(path.join(__dirname, '../docs')))
+    .use('/users', usersController)
+    ;
+
+app
+    .get('*', (req, res) => res.sendFile(path.join(staticPath, '/index.html')))
+    ;
 
 app.listen(port, () => {
-  console.log(`Example app listening at http://localhost:${port}`);
+    console.log(`Example app listening at http://localhost:${port}`);
 });
