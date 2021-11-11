@@ -50,10 +50,11 @@ export default {
     }),
     methods: {
         login() {
-            if (this.username.charAt(0) != '@')
-                this.username = '@' + this.username;
+            let handle = this.username;
+            if (handle.charAt(0) != '@')
+                handle = '@' + handle;
             try {
-                this.session.login(this.username, this.password);
+                this.session.login(handle, this.password);
             } catch (e) {
                 if (e.code == 401) {
                     session.notifications.push({ message: e.message, type: "danger" });
