@@ -4,7 +4,8 @@
   "description": "Fitness app for web programming class.",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "dev": "nodemon --watch server server/index"
+    "dev": "nodemon --watch server server/index",
+    "start": "node server/index"
   },
   "repository": {
     "type": "git",
@@ -16,7 +17,10 @@
     "node": ">=16.9.1"
   },
   "dependencies": {
-    "express": "4.17.1"
+    "express": "4.17.1",
+    "dotenv": "^10.0.0",
+    "lodash": "^4.17.21",
+    "bcrypt": "^5.0.1"
   },
   "devDependencies": {
     "nodemon": "^2.0.12"
