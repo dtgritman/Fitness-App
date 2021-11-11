@@ -11,4 +11,10 @@ import App from './App.vue';
 import router from './router';
 
 library.add(fas);
-createApp(App).use(router).use(Notification).mount('#app');
+createApp(App)
+    .use(router)
+    .use(Notification)
+    .use(Config, {
+        iconPack: 'fas'
+    })
+    .mount('#app');
