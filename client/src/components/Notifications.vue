@@ -1,14 +1,6 @@
 <template>
     <div class="notifications">
-        <div
-            class="notification"
-            :class="`is-${notification.type}`"
-            v-for="(notification, key) in notifications"
-            :key="key"
-        >
-            <button class="delete" @click.prevent="remove(key)"></button>
-            {{ notification.message }}
-        </div>
+        
     </div>
 </template>
 
@@ -17,7 +9,7 @@ import session from "../services/session";
 
 export default {
     data: () => ({
-        notifications: session.messages,
+        notifications: session.notifications,
     }),
     methods: {
         remove(i) {

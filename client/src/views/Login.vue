@@ -54,7 +54,6 @@ export default {
                 this.username = '@' + this.username;
             try {
                 this.session.login(this.username, this.password);
-                this.$router.push("/");
             } catch (e) {
                 if (e.code == 401) {
                     session.notifications.push({ message: e.message, type: "danger" });
