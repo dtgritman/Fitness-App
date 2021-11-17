@@ -86,7 +86,6 @@
 </template>
 
 <script>
-//import ActivityAdd from "../components/ActivityAdd.vue";
 import ActivityPast from "../components/ActivityPast.vue";
 
 class Activity {
@@ -99,7 +98,6 @@ class Activity {
 export default {
     name: "Activity",
     components: {
-        //ActivityAdd,
         ActivityPast,
     },
     data: () => ({
