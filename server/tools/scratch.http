@@ -1,3 +1,11 @@
 http://localhost:3100/users
 ###
 http://localhost:3100/users/JewPaltz
+###
+POST http://localhost:3100/users/login
+Content-Type: application/json
+
+    { 
+        "handle": "@vp",
+        "password": "Her"
+    }
