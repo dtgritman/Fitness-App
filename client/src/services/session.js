@@ -22,7 +22,6 @@ const session = {
         this.toRoute = '/';
     },
     error(error) {
-        console.log(error);
         const msg = error.msg ?? error;
         NotificationProgrammatic.open({
             duration: 5000,
