@@ -78,6 +78,8 @@ const list = [
         password: 'me',
         sex: 'Male',
         birthday: '01-25-1977',
+        height: 69,
+        weight: 171,
         isAdmin: true,
         emails: [
             "plotkinm@newpaltz.edu"
@@ -92,6 +94,8 @@ const list = [
         password: 'Her',
         sex: 'Female',
         birthday: '10-24-1964',
+        height: 61,
+        weight: 130,
         isAdmin: true,
         emails: [
             "vp@wh.com"
@@ -106,6 +110,8 @@ const list = [
         password: 'BeepBop',
         sex: 'Male',
         birthday: '01-01-1971',
+        height: 73,
+        weight: 197,
         isAdmin: false,
         emails: [
             "john@smith.com"
