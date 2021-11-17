@@ -9,8 +9,8 @@ app
             .then(user => res.send(user))
             .catch(next)
     })
-    .get("/:handle", (req, res, next) => {
-        model.getByHandle("@" + req.params.handle)
+    .get("/:userId", (req, res, next) => {
+        model.get(req.params.userId)
             .then(user => res.send(user))
             .catch(next)
     })

@@ -6,7 +6,7 @@ const collection = client.db(process.env.MONGO_DB).collection('users');
 module.exports.collection = collection;
 
 module.exports.getAll = function () { return collection.find().toArray(); }
-module.exports.get = userId => collection.findOne({ _id: userId });
+module.exports.get = userId => collection.findOne({ _id: new ObjectId(userId) });
 module.exports.getByHandle = async function (handle) {
     const user = await collection.findOne({ handle: handle });
     if (!user) {
