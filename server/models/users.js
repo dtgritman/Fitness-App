@@ -17,11 +17,14 @@ module.exports.getByHandle = async function (handle) {
 }
 
 module.exports.add = async function (user) {
+    if (!user.firstName || !user.lastName) {
+        return Promise.reject({ code: 422, msg: "Full name is required" })
+    }
     if (!user.handle) {
         return Promise.reject({ code: 422, msg: "User handle is required" })
     }
-    if (!user.firstName || !user.lastName) {
-        return Promise.reject({ code: 422, msg: "Full name is required" })
+    if (!user.password) {
+        return Promise.reject({ code: 422, msg: "Password is required" })
     }
 
     const hash = await bcrypt.hash(user.password, +process.env.SALT_ROUNDS)
