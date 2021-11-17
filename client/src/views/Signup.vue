@@ -8,7 +8,7 @@
                         class="input"
                         type="text"
                         placeholder="First Name"
-                        v-model="firstName"
+                        v-model="form.firstName"
                         required
                     />
                 </p>
@@ -20,24 +20,9 @@
                         class="input"
                         type="text"
                         placeholder="Last Name"
-                        v-model="lastName"
+                        v-model="form.lastName"
                         required
                     />
-                </p>
-            </div>
-            <div class="field">
-                <p>Email</p>
-                <p class="control has-icons-left">
-                    <input
-                        class="input"
-                        type="email"
-                        placeholder="Email"
-                        v-model="email"
-                        required
-                    />
-                    <span class="icon is-small is-left">
-                        <i class="fas fa-envelope"></i>
-                    </span>
                 </p>
             </div>
             <div class="field">
@@ -47,7 +32,7 @@
                         class="input"
                         type="text"
                         placeholder="Handle"
-                        v-model="handle"
+                        v-model="form.handle"
                         required
                     />
                     <span class="icon is-small is-left">
@@ -62,7 +47,7 @@
                         class="input"
                         type="password"
                         placeholder="Password"
-                        v-model="password"
+                        v-model="form.password"
                         required
                     />
                     <span class="icon is-small is-left">
@@ -71,14 +56,31 @@
                 </p>
             </div>
             <div class="field">
+                <p>Email</p>
+                <p class="control has-icons-left">
+                    <input
+                        class="input"
+                        type="email"
+                        placeholder="Email"
+                        v-model="form.email"
+                    />
+                    <span class="icon is-small is-left">
+                        <i class="fas fa-envelope"></i>
+                    </span>
+                </p>
+            </div>
+            <div class="field">
                 <p>Phone #</p>
-                <p class="control">
+                <p class="control has-icons-left">
                     <input
                         class="input"
                         type="tel"
                         placeholder="Phone #"
-                        v-model="phone"
+                        v-model="form.phone"
                     />
+                    <span class="icon is-small is-left">
+                        <i class="fas fa-phone"></i>
+                    </span>
                 </p>
             </div>
             <div class="field has-text-centered">
@@ -91,18 +93,29 @@
 </template>
 
 <script>
+import router from '../router';
+import { add as register } from '../services/users';
+
 export default {
     name: "Signup",
     data: () => ({
-        firstName: null,
-        lastName: null,
-        handle: null,
-        password: null,
-        email: null,
-        phone: null,
+        form: {
+            firstName: null,
+            lastName: null,
+            handle: null,
+            password: null,
+            email: null,
+            phone: null,
+        }
     }),
     methods: {
-        signup() {},
+        async signup() {
+            const response = await register(this.form);
+            if (response) {
+                // on success go to login page
+                router.push('/login');
+            }
+        },
     },
 };
 </script>
