@@ -53,15 +53,8 @@ export default {
             let handle = this.username;
             if (handle.charAt(0) != '@')
                 handle = '@' + handle;
-            try {
-                this.session.login(handle, this.password);
-            } catch (e) {
-                if (e.code == 401) {
-                    session.notifications.push({ message: e.message, type: "danger" });
-                } 
-                else
-                    throw e;
-            }
+
+            this.session.login(handle, this.password);
         },
     },
 };

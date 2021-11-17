@@ -57,10 +57,10 @@ module.exports.login = async function (handle, password) {
 
     const result = await bcrypt.compare(password, user.password);
     if (!result) {
-        throw { code: 401, msg: "Wrong Password" };
+        return Promise.reject({ code: 401, msg: "Incorrect password" });
     }
 
-    return { user: { ...user, password: undefined } };
+    return { ...user, password: undefined };
 }
 
 module.exports.seed = async () => {
