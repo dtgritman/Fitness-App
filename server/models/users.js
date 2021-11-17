@@ -1,6 +1,73 @@
-/* B"H
-*/
-require("bcrypt");
+const bcrypt = require('bcrypt');
+const { ObjectId } = require('bson');
+const { client } = require('./mongo');
+
+const collection = client.db(process.env.MONGO_DB).collection('users');
+module.exports.collection = collection;
+
+module.exports.getAll = function () { return collection.find().toArray(); }
+module.exports.get = userId => collection.findOne({ _id: userId });
+module.exports.getByHandle = async function (handle) {
+    const user = await collection.findOne({ handle: handle });
+    if (!user) {
+        return Promise.reject({ code: 401, msg: "Sorry there is no user with that handle" });
+    }
+
+    return { ...user, password: undefined };
+}
+
+module.exports.add = async function (user) {
+    if (!user.handle) {
+        return Promise.reject({ code: 422, msg: "User handle is required" })
+    }
+    if (!user.firstName || !user.lastName) {
+        return Promise.reject({ code: 422, msg: "Full name is required" })
+    }
+
+    const hash = await bcrypt.hash(user.password, +process.env.SALT_ROUNDS)
+    user.password = hash;
+
+    const newUser = await collection.insertOne(user);
+    newUser._id = newUser.insertedId;
+
+    return { ...user, password: undefined };
+}
+
+module.exports.update = async function (userId, user) {
+    const results = await collection.findOneAndUpdate(
+        { _id: new ObjectId(userId) },
+        { $set: user },
+        { returnDocument: 'after' }
+    );
+
+    return { ...results.value, password: undefined };
+}
+
+module.exports.remove = async function (userId) {
+    const results = await collection.findOneAndDelete({ _id: new ObjectId(userId) })
+
+    return results.value;
+}
+
+module.exports.login = async function (handle, password) {
+    const user = await collection.findOne({ handle });
+    if (!user) {
+        return Promise.reject({ code: 401, msg: "Sorry there is no user with that handle" });
+    }
+
+    const result = await bcrypt.compare(password, user.password);
+    if (!result) {
+        throw { code: 401, msg: "Wrong Password" };
+    }
+
+    return { user: { ...user, password: undefined } };
+}
+
+module.exports.seed = async () => {
+    for (const x of list) {
+        await module.exports.add(x);
+    }
+}
 
 const list = [
     {
@@ -45,66 +112,4 @@ const list = [
         ],
         following: [{ handle: '@vp', isApproved: true },],
     },
-
 ];
-
-module.exports.getAll = function () { return list; }
-module.exports.get = function (user_id) { return list[user_id]; }
-module.exports.getByHandle = function (handle) { return ({ ...list.find(x => x.handle == handle), password: undefined }); }
-
-module.exports.add = function (user, cb) {
-    if (!user.firstName) {
-        throw { code: 422, msg: "First Name is required" }
-    }
-    bcrypt.hash(user.password, process.env.SALT_ROUNDS, function (err, hash) {
-        if (err) {
-            cb(err);
-            return;
-        }
-        user.password = hash;
-
-        list.push(user);
-        cb(null, { ...user, password: undefined });
-    });
-}
-
-
-module.exports.update = function (user_id, user) {
-    const oldObj = list[user_id];
-    if (user.firstName) {
-        oldObj.firstName = user.firstName;
-    }
-    if (user.lastName) {
-        oldObj.lastName = user.lastName;
-    }
-    if (user.handle) {
-        oldObj.handle = user.handle;
-    }
-    if (user.pic) {
-        oldObj.pic = user.pic;
-    }
-    //list[user_id] = newObj ;
-    return { ...oldObj, password: undefined };
-}
-
-module.exports.remove = function (user_id) {
-    const user = list[user_id];
-    list.splice(user_id, 1);
-    return user;
-}
-
-module.exports.login = function (handle, password) {
-    const user = list.find(x => x.handle == handle);
-    if (!user) {
-        Promise.reject({ code: 401, msg: "Sorry there is no user with that handle" });
-    }
-
-    return bcrypt.compare(user.password, password).then(res => {
-        if (!res) {
-            throw { code: 401, msg: "Wrong Password" };
-        }
-        const data = { ...user, password: undefined };
-
-        return { user: data };
-    });
-}
