@@ -33,7 +33,7 @@ app
     })
     .post("/reset", (req, res, next) => {
         model.reset()
-            .then(x => res.status(201).send("Created"))
+            .then(x => res.status(201).send("Users have been reset to default"))
             .catch(next)
     })
 
