@@ -14,7 +14,5 @@ library.add(fas);
 createApp(App)
     .use(router)
     .use(Notification)
-    .use(Config, {
-        iconPack: 'fas'
-    })
+    .use(Config, { iconPack: 'fas' })
     .mount('#app');
