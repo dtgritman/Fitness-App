@@ -9,3 +9,10 @@ Content-Type: application/json
         "handle": "@vp",
         "password": "Her"
     }
+
+###
+http://localhost:3100/posts
+###
+http://localhost:3100/posts/wall/@JewPaltz
+###
+http://localhost:3100/posts/feed/@JewPaltz
