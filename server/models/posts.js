@@ -87,8 +87,10 @@ module.exports.reset = async () => {
                 await this.add(x)
             }
         })
-        .catch(err => {
-             throw { code: 422, msg: "Issue dropping table - " + err.msg }
+        .catch(async () => {
+            for (const x of list) {
+                await this.add(x)
+            }
         })
 }
 
