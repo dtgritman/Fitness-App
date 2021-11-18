@@ -9,14 +9,12 @@
             <div class="media-content">
                 <div class="content">
                     <p>
-                        <strong>
-                            {{ post.handle }}
-                        </strong>
+                        <strong> {{ post.handle }} </strong>
                         <br />
                         <img :src="post.src" />
                         {{ post.caption }}
                         <br />
-                        <small>{{ likes }} Likes </small>
+                        <small> {{ likes }} Likes </small>
                         <br />
                         <small> <a>Like</a> · {{ post.time }} </small>
                     </p>
