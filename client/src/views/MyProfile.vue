@@ -130,16 +130,6 @@ export default {
             return session.user.firstName + " " + session.user.lastName;
         },
         age() {
-            /*
-            let today = new Date();
-            let bday = new Date(session.user.profile.birthday);
-            let age = today.getFullYear() - bday.getFullYear();
-            let m = today.getMonth() - bday.getMonth();
-            if (m < 0 || (m === 0 && today.getDate() < bday.getDate())) {
-                age--;
-            }
-            return age;
-            */
             return moment().diff(moment(session.user.profile.birthday), "years");
         },
         heightString() {
