@@ -80,10 +80,16 @@ module.exports.remove = async function (postId) {
 
 module.exports.search = q => collection.find({ caption: new RegExp(q, "i") }).toArray();
 
-module.exports.seed = async () => {
-    for (const x of list) {
-        await this.add(x)
-    }
+module.exports.reset = async () => {
+    const dropped = collection.drop()
+        .then(async () => {
+            for (const x of list) {
+                await this.add(x)
+            }
+        })
+        .catch(err => {
+             throw { code: 422, msg: "Issue dropping table - " + err.msg }
+        })
 }
 
 const list = [

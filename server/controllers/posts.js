@@ -44,8 +44,8 @@ app
             .then(x => res.send({ deleted: x }))
             .catch(next)
     })
-    .post("/seed", (req, res, next) => {
-        model.seed()
+    .post("/reset", (req, res, next) => {
+        model.reset()
             .then(x => res.status(201).send("Created"))
             .catch(next)
     })

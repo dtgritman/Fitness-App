@@ -70,10 +70,16 @@ module.exports.login = async function (handle, password) {
     return { ...user, password: undefined };
 }
 
-module.exports.seed = async () => {
-    for (const x of list) {
-        await module.exports.add(x);
-    }
+module.exports.reset = async () => {
+    const dropped = collection.drop()
+        .then(async () => {
+            for (const x of list) {
+                await this.add(x)
+            }
+        })
+        .catch(err => {
+             throw { code: 422, msg: "Issue dropping table - " + err.msg }
+        })
 }
 
 const list = [

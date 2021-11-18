@@ -31,5 +31,10 @@ app
             })
             .catch(next)
     })
+    .post("/reset", (req, res, next) => {
+        model.reset()
+            .then(x => res.status(201).send("Created"))
+            .catch(next)
+    })
 
 module.exports = app;
