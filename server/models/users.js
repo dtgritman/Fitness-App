@@ -27,6 +27,10 @@ module.exports.add = async function (user) {
         return Promise.reject({ code: 422, msg: "Password is required" })
     }
 
+    if (user.handle.charAt(0) != '@') {
+        user.handle = '@' + user.handle;
+    }
+
     const hash = await bcrypt.hash(user.password, +process.env.SALT_ROUNDS)
     user.password = hash;
 
