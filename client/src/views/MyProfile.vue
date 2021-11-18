@@ -101,6 +101,7 @@
 </template>
 
 <script>
+import moment from "moment";
 import session from "../services/session";
 
 export default {
@@ -126,9 +127,10 @@ export default {
             return session.user.profile.sex;
         },
         name() {
-            return (session.user.firstName + " " + session.user.lastName);
+            return session.user.firstName + " " + session.user.lastName;
         },
         age() {
+            /*
             let today = new Date();
             let bday = new Date(session.user.profile.birthday);
             let age = today.getFullYear() - bday.getFullYear();
@@ -137,13 +139,20 @@ export default {
                 age--;
             }
             return age;
+            */
+            return moment().diff(moment(session.user.profile.birthday), "years");
         },
         heightString() {
-            return Math.floor(session.user.profile.height / 12) + "' " + (session.user.profile.height % 12) + '"';
+            return (
+                Math.floor(session.user.profile.height / 12) +
+                "' " +
+                (session.user.profile.height % 12) +
+                '"'
+            );
         },
         weightString() {
-            return session.user.profile.weight + " lbs."
-        }
+            return session.user.profile.weight + " lbs.";
+        },
     },
 };
 </script>

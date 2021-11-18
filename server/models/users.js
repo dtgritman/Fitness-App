@@ -93,7 +93,7 @@ const list = [
         password: 'me',
         isAdmin: true,
         email: "plotkinm@newpaltz.edu",
-        profile: { sex: 'Male', birthday: '01-25-1977', height: 69, weight: 171 },
+        profile: { sex: 'Male', birthday: new Date('01-25-1977'), height: 69, weight: 171 },
         following: [{ handle: '@vp', isApproved: true }, { handle: '@johnsmith', isApproved: true },],
     },
     {
@@ -104,7 +104,7 @@ const list = [
         password: 'Her',
         isAdmin: true,
         email: "vp@wh.com",
-        profile: { sex: 'Female', birthday: '10-24-1964', height: 61, weight: 130 },
+        profile: { sex: 'Female', birthday: new Date('10-24-1964'), height: 61, weight: 130 },
         following: [{ handle: '@johnsmith', isApproved: true },],
     },
     {
@@ -115,7 +115,7 @@ const list = [
         password: 'BeepBop',
         isAdmin: false,
         email: "john@smith.com",
-        profile: { sex: 'Male', birthday: '01-01-1971', height: 73, weight: 197 },
+        profile: { sex: 'Male', birthday: new Date('01-01-1971'), height: 73, weight: 197 },
         following: [{ handle: '@vp', isApproved: true },],
     },
 ];
