@@ -9,7 +9,7 @@
                     <div class="level-item">
                         <div class="has-text-centered">
                             <p class="title is-4">Sex</p>
-                            <p>{{ session.user.sex }}</p>
+                            <p>{{ sex }}</p>
                         </div>
                     </div>
                     <div class="level-item">
@@ -34,7 +34,7 @@
                     <div class="level-item">
                         <div class="has-text-centered">
                             <p class="title is-4">Weight</p>
-                            <p>{{ weight }} lbs.</p>
+                            <p>{{ weightString }}</p>
                             <a
                                 class="card-footer-item"
                                 @click="modalWeight = true"
@@ -106,7 +106,6 @@ import session from "../services/session";
 export default {
     name: "MyProfile",
     data: () => ({
-        session,
         height: 68,
         weight: 150,
         modalHeight: false,
@@ -116,23 +115,24 @@ export default {
     }),
     methods: {
         submitHeight() {
-            this.height = this.newHeight;
+            session.user.profile.height = this.newHeight;
             this.modalHeight = false;
         },
         submitWeight() {
-            this.weight = this.newWeight;
+            session.user.profile.weight = this.newWeight;
             this.modalWeight = false;
         },
     },
     computed: {
+        sex() {
+            return session.user.profile.sex;
+        },
         name() {
-            return (
-                this.session.user.firstName + " " + this.session.user.lastName
-            );
+            return (session.user.firstName + " " + session.user.lastName);
         },
         age() {
             let today = new Date();
-            let bday = new Date(this.session.user.birthday);
+            let bday = new Date(session.user.profile.birthday);
             let age = today.getFullYear() - bday.getFullYear();
             let m = today.getMonth() - bday.getMonth();
             if (m < 0 || (m === 0 && today.getDate() < bday.getDate())) {
@@ -141,7 +141,10 @@ export default {
             return age;
         },
         heightString() {
-            return Math.floor(this.height / 12) + "' " + (this.height % 12) + '"';
+            return Math.floor(session.user.profile.height / 12) + "' " + (session.user.profile.height % 12) + '"';
+        },
+        weightString() {
+            return session.user.profile.weight + " lbs."
         }
     },
 };
