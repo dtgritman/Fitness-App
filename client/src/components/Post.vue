@@ -34,6 +34,13 @@ export default {
             return this.post.liked.length;
         },
         postTime() {
+            let today = new Date();
+            let postDate = new Date(this.post.time);
+            let years = today.getFullYear() - postDate.getFullYear();
+            let months = today.getMonth() - postDate.getMonth();
+            let days = today.getDay() - postDate.getDay();
+
+            
             return this.post.time;
         }
     },
