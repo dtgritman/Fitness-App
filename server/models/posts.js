@@ -50,7 +50,7 @@ module.exports.get = function (post_id) {
 }
 
 module.exports.add = async function (post) {
-    if (!post.user_handle) {
+    if (!post.handle) {
         throw { code: 422, msg: "Post must have an Owner" }
     }
     post.time = Date();
