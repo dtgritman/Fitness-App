@@ -16,7 +16,7 @@
                         <br />
                         <small> {{ likes }} Likes </small>
                         <br />
-                        <small> <a>Like</a> · {{ post.time }} </small>
+                        <small> <a>Like</a> · {{ postTime }} </small>
                     </p>
                 </div>
             </div>
@@ -33,6 +33,9 @@ export default {
         likes() {
             return this.post.liked.length;
         },
+        postTime() {
+            return this.post.time;
+        }
     },
 };
 </script>
