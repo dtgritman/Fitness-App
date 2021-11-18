@@ -106,8 +106,6 @@ import session from "../services/session";
 export default {
     name: "MyProfile",
     data: () => ({
-        height: 68,
-        weight: 150,
         modalHeight: false,
         modalWeight: false,
         newHeight: null,
