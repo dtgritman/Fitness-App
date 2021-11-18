@@ -10,15 +10,17 @@
 <script>
 import Post from "../components/Post.vue";
 import session from "../services/session";
-import { getWall } from "../services/posts";
+import { getFeed } from "../services/posts";
 
 export default {
     name: "Feed",
     components: { Post },
     data: () => ({
-        session,
-        posts: getWall(session.user.handle),
+        posts: [],
     }),
+    async mounted() {
+        this.posts = await getFeed(session.user.handle);
+    },
 };
 </script>
 

@@ -10,16 +10,16 @@
                 <div class="content">
                     <p>
                         <strong>
-                            {{ post.userHandle }}
+                            {{ post.handle }}
                         </strong>
                         <br />
                         <img :src="post.src">
                         {{ post.caption }}
                         <br />
-                        <small>{{ post.likes }} Likes </small>
+                        <small>{{ likes }} Likes </small>
                         <br />
                         <small>
-                            <a>Like</a> · <a>Reply</a> ·
+                            <a>Like</a> · <!-- <a>Reply</a> · -->
                             {{ post.time }}
                         </small>
                     </p>
@@ -90,6 +90,11 @@
 export default {
     props: {
         post: Object
+    },
+    computed: {
+        likes() {
+            return(this.post.liked.length);
+        }
     }
 };
 </script>
