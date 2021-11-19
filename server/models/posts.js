@@ -6,7 +6,7 @@ const collection = client.db(process.env.MONGO_DB).collection('posts');
 
 const addOwnerPipeline = [
     {
-        "$lookup": {
+        $lookup: {
             from: "users",
             localField: 'handle',
             foreignField: 'handle',
@@ -14,16 +14,16 @@ const addOwnerPipeline = [
         }
     },
     { $unwind: "$user" },
-    { $project: { "owner.password": 0 } }
+    { $project: { "user.password": 0, "user.email": 0, "user.profile": 0 } }
 ];
 
 const getAll = () => collection.aggregate(addOwnerPipeline).toArray();
 
-const getWall = (handle) => collection.aggregate(addOwnerPipeline).match({ handle: handle }).toArray();
+const getWall = (handle) => collection.find({ handle: handle }).toArray();
 
 function getFeed(handle) {
     const query = users.collection.aggregate([
-        { $match: { handle } },
+        { $match: { handle: handle } },
         {
             "$lookup": {
                 from: "posts",
@@ -34,7 +34,7 @@ function getFeed(handle) {
         },
         { $unwind: '$posts' },
         { $replaceRoot: { newRoot: "$posts" } },
-    ].concat(addOwnerPipeline));
+    ]);
 
     return query.toArray();
 }
@@ -46,9 +46,7 @@ async function add(post, time = new Date()) {
         throw { code: 422, msg: "Post must have an Owner" }
     }
     post.time = time;
-
-    const response = await collection.insertOne(post);
-    post.id = response.insertedId;
+    post._id = (await collection.insertOne(post)).insertedId;
 
     return { ...post };
 }
@@ -61,6 +59,10 @@ async function update(postId, post) {
     );
 
     return results.value;
+}
+
+async function updateLike(postId, user) {
+    //update
 }
 
 async function remove(postId) {
@@ -80,7 +82,7 @@ const seed = async () => {
 const reset = () => collection.drop().catch().finally(seed);
 
 module.exports = {
-    getAll, getWall, getFeed, get, add, update, remove, search, seed, reset,
+    collection, getAll, getWall, getFeed, get, add, update, remove, search, seed, reset,
 }
 
 const postList = [
