@@ -17,7 +17,7 @@ const addOwnerPipeline = [
     { $project: { "user.password": 0, "user.email": 0, "user.profile": 0 } }
 ];
 
-const getAll = () => collection.aggregate(addOwnerPipeline).toArray();
+const getAll = () => collection.find().toArray();
 
 const getWall = (handle) => collection.find({ handle: handle }).toArray();
 
