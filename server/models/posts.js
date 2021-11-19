@@ -3,8 +3,6 @@ const { ObjectId } = require('bson');
 const { client } = require('./mongo');
 
 const collection = client.db(process.env.MONGO_DB).collection('posts');
-module.exports.collection = collection;
-
 
 const addOwnerPipeline = [
     {
@@ -19,15 +17,11 @@ const addOwnerPipeline = [
     { $project: { "owner.password": 0 } }
 ];
 
-module.exports.getAll = function () {
-    return collection.aggregate(addOwnerPipeline).toArray();
-}
+const getAll = () => collection.aggregate(addOwnerPipeline).toArray();
 
-module.exports.getWall = function (handle) {
-    return collection.aggregate(addOwnerPipeline).match({ handle: handle }).toArray();
-}
+const getWall = (handle) => collection.aggregate(addOwnerPipeline).match({ handle: handle }).toArray();
 
-module.exports.getFeed = function (handle) {
+function getFeed(handle) {
     const query = users.collection.aggregate([
         { $match: { handle } },
         {
@@ -41,28 +35,25 @@ module.exports.getFeed = function (handle) {
         { $unwind: '$posts' },
         { $replaceRoot: { newRoot: "$posts" } },
     ].concat(addOwnerPipeline));
+
     return query.toArray();
 }
 
+const get = (postId) => collection.findOne({ _id: new ObjectId(postId) });
 
-module.exports.get = function (post_id) {
-    return collection.findOne({ _id: new ObjectId(post_id) });
-}
-
-module.exports.add = async function (post, time = new Date()) {
+async function add(post, time = new Date()) {
     if (!post.handle) {
         throw { code: 422, msg: "Post must have an Owner" }
     }
     post.time = time;
 
     const response = await collection.insertOne(post);
-
     post.id = response.insertedId;
 
     return { ...post };
 }
 
-module.exports.update = async function (postId, post) {
+async function update(postId, post) {
     const results = await collection.findOneAndUpdate(
         { _id: new ObjectId(postId) },
         { $set: post },
@@ -72,29 +63,27 @@ module.exports.update = async function (postId, post) {
     return results.value;
 }
 
-module.exports.remove = async function (postId) {
-    const results = await collection.findOneAndDelete({ _id: new ObjectId(postId) })
+async function remove(postId) {
+    const results = await collection.findOneAndDelete({ _id: new ObjectId(postId) });
 
     return results.value;
 }
 
-module.exports.search = q => collection.find({ caption: new RegExp(q, "i") }).toArray();
+const search = (query) => collection.find({ caption: new RegExp(query, "i") }).toArray();
 
-module.exports.reset = async () => {
-    const dropped = collection.drop()
-        .then(async () => {
-            for (const x of list) {
-                await this.add(x, x.time)
-            }
-        })
-        .catch(async () => {
-            for (const x of list) {
-                await this.add(x, x.time)
-            }
-        })
+const seed = async () => {
+    for (const post of postList) {
+        await add(post, post.time);
+    }
 }
 
-const list = [
+const reset = () => collection.drop().catch().finally(seed);
+
+module.exports = {
+    getAll, getWall, getFeed, get, add, update, remove, search, seed, reset,
+}
+
+const postList = [
     {
         handle: "@johnsmith",
         src: "https://bulma.io/images/placeholders/1280x960.png",
