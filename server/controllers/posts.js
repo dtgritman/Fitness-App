@@ -25,7 +25,7 @@ app
             .catch(next)
     })
     .post("/", (req, res, next) => {
-        const newPost = model.add(req.body)
+        const newPost = model.add(req.body);
 
         res.status(201).send(newPost);
     })
