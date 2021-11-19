@@ -3,6 +3,7 @@ const path = require('path');
 require('dotenv').config()
 const usersController = require('./controllers/users');
 const postsController = require('./controllers/posts');
+const activitiesController = require('./controllers/activities');
 
 const app = express();
 const port = process.env.PORT || 3000;
@@ -21,6 +22,7 @@ app
     .use(express.json())
     .use('/users', usersController)
     .use('/posts', postsController)
+    .use('/activity', activitiesController)
 
 app
     .get('*', (req, res) => res.sendFile(path.join(staticPath, '/index.html')))
