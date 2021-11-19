@@ -36,7 +36,7 @@ export default {
             return this.post.liked.length;
         },
         postTime() {
-            return moment(moment(this.post.time)).fromNow();
+            return moment(new Date(this.post.time)).fromNow();
         },
     },
 };
