@@ -4,12 +4,8 @@ const { client } = require('./mongo');
 
 const collection = client.db(process.env.MONGO_DB).collection('users');
 
-function getAll() {
-    return collection.find().toArray();
-}
-function get(userId) {
-    return collection.findOne({ _id: new ObjectId(userId) });
-}
+const getAll = () => collection.find().toArray();
+const get = (userId) => collection.findOne({ _id: new ObjectId(userId) });
 
 async function getByHandle(handle) {
     const user = await collection.findOne({ handle: handle });
@@ -74,19 +70,16 @@ async function login(handle, password) {
     return { ...user, password: undefined };
 }
 
-async function reset() {
-    const create = async () => {
-        for (const user of userList) {
-            await add(user)
-        }
+const seed = async () => {
+    for (const user of userList) {
+        await add(user)
     }
-    collection.drop()
-        .then(create)
-        .catch(create)
 }
 
+const reset = () => collection.drop().catch().finally(seed);
+
 module.exports = {
-    get, getAll, getByHandle, update, remove, login, reset,
+    get, getAll, getByHandle, update, remove, login, seed, reset,
 }
 
 const userList = [
