@@ -3,11 +3,15 @@ const { ObjectId } = require('bson');
 const { client } = require('./mongo');
 
 const collection = client.db(process.env.MONGO_DB).collection('users');
-module.exports.collection = collection;
 
-module.exports.getAll = function () { return collection.find().toArray(); }
-module.exports.get = userId => collection.findOne({ _id: new ObjectId(userId) });
-module.exports.getByHandle = async function (handle) {
+function getAll() {
+    return collection.find().toArray();
+}
+function get(userId) {
+    return collection.findOne({ _id: new ObjectId(userId) });
+}
+
+async function getByHandle(handle) {
     const user = await collection.findOne({ handle: handle });
     if (!user) {
         return Promise.reject({ code: 401, msg: "Sorry there is no user with that handle" });
@@ -16,7 +20,7 @@ module.exports.getByHandle = async function (handle) {
     return { ...user, password: undefined };
 }
 
-module.exports.add = async function (user) {
+async function add(user) {
     if (!user.firstName || !user.lastName) {
         return Promise.reject({ code: 422, msg: "Full name is required" })
     }
@@ -40,7 +44,7 @@ module.exports.add = async function (user) {
     return { ...user, password: undefined };
 }
 
-module.exports.update = async function (userId, user) {
+async function update(userId, user) {
     const results = await collection.findOneAndUpdate(
         { _id: new ObjectId(userId) },
         { $set: user },
@@ -50,14 +54,14 @@ module.exports.update = async function (userId, user) {
     return { ...results.value, password: undefined };
 }
 
-module.exports.remove = async function (userId) {
+async function remove(userId) {
     const results = await collection.findOneAndDelete({ _id: new ObjectId(userId) })
 
     return results.value;
 }
 
-module.exports.login = async function (handle, password) {
-    const user = await collection.findOne({ handle });
+async function login(handle, password) {
+    const user = await collection.findOne({ handle: handle });
     if (!user) {
         return Promise.reject({ code: 401, msg: "Sorry there is no user with that handle" });
     }
@@ -70,21 +74,22 @@ module.exports.login = async function (handle, password) {
     return { ...user, password: undefined };
 }
 
-module.exports.reset = async () => {
-    const dropped = collection.drop()
-        .then(async () => {
-            for (const x of list) {
-                await this.add(x)
-            }
-        })
-        .catch(async () => {
-            for (const x of list) {
-                await this.add(x)
-            }
-        })
+async function reset() {
+    const create = async () => {
+        for (const user of userList) {
+            await add(user)
+        }
+    }
+    collection.drop()
+        .then(create)
+        .catch(create)
 }
 
-const list = [
+module.exports = {
+    get, getAll, getByHandle, update, remove, login, reset,
+}
+
+const userList = [
     {
         firstName: 'Moshe',
         lastName: 'Plotkin',
