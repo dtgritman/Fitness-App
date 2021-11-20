@@ -1,8 +1,9 @@
 import session from "./session";
 
-let API_ROOT = process.env.VUE_APP_API_ROOT ?? "http://localhost:3100/";
+const API_ROOT = process.env.VUE_APP_API_ROOT ?? "http://localhost:3100/";
 
 export async function api(url, data = null, method = null) {
+    console.log(API_ROOT)
     try {
         let response;
         if (data) {
