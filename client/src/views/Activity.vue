@@ -81,11 +81,13 @@
             </div>
         </form>
 
-        <ActivityPast :past="past" />
+        <activity-past :past="past" />
     </section>
 </template>
 
 <script>
+//import session from "../services/session";
+//import { get } from "../services/activity";
 import ActivityPast from "../components/ActivityPast.vue";
 
 class Activity {
@@ -101,7 +103,12 @@ export default {
         ActivityPast,
     },
     data: () => ({
+        activities: [],
+        pastView: null,
+        pastViewDate: null,
         modalAdd: false,
+        newActivity: new Activity(null, null, null),
+
         today: [
             new Activity("running", "1 mile", 20),
             new Activity("walking", "0.5 mile", 30),
@@ -117,9 +124,6 @@ export default {
                 new Activity("jogging", "1.5 miles", 25),
             ],
         },
-        newActivity: new Activity(null, null, null),
-        pastView: null,
-        pastViewDate: null,
     }),
     methods: {
         addActivity() {
