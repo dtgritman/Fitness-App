@@ -10,7 +10,7 @@
 <script>
 import Post from "../components/Post.vue";
 import session from "../services/session";
-import { getFeed } from "../services/posts";
+import { getFeed, addLike, removeLike } from "../services/posts";
 
 export default {
     name: "Feed",
@@ -20,6 +20,29 @@ export default {
     }),
     async mounted() {
         this.posts = await getFeed(session.user.handle);
+        for (let post of this.posts) {
+            post.updateLiked = async (liked) => {
+                if (liked) {
+                    if (!post.liked.includes(session.user.handle)) {
+                        const response = await addLike(
+                            post._id,
+                            session.user._id
+                        );
+                        if (response.liked) {
+                            post.liked = response.liked;
+                        }
+                    }
+                } else {
+                    const response = await removeLike(
+                        post._id,
+                        session.user._id
+                    );
+                    if (response.liked) {
+                        post.liked = response.liked;
+                    }
+                }
+            };
+        }
     },
 };
 </script>

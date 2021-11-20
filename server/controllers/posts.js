@@ -39,6 +39,16 @@ app
             .then(x => res.send(x))
             .catch(next)
     })
+    .patch("/:postId/like/:userId", (req, res, next) => {
+        model.addLike(req.params.postId, req.params.userId)
+            .then(x => res.send(x))
+            .catch(next)
+    })
+    .delete("/:postId/like/:userId", (req, res, next) => {
+        model.removeLike(req.params.postId, req.params.userId)
+            .then(x => res.send(x))
+            .catch(next)
+    })
     .delete("/:id", (req, res, next) => {
         model.remove(req.params.id)
             .then(x => res.send({ deleted: x }))

@@ -52,23 +52,46 @@ async function add(post, time = new Date()) {
 }
 
 async function update(postId, post) {
-    const results = await collection.findOneAndUpdate(
+    const result = await collection.findOneAndUpdate(
         { _id: new ObjectId(postId) },
         { $set: post },
         { returnDocument: 'after' }
     );
 
-    return results.value;
+    return result.value;
 }
 
-async function updateLike(postId, user) {
-    //update
+async function addLike(postId, userId) {
+    const user = await users.get(userId);
+    if (!user)
+        throw ({ code: "418", msg: "I'm a little tea pot, Short and stout. Here is an error, Here is my spout. When I get all steamed up, Hear me shout: Tip me over, And pour me out!" });
+
+    const result = await collection.findOneAndUpdate(
+        { _id: new ObjectId(postId) },
+        { $addToSet: { liked: user.handle } },
+        { projection: { liked: 1 }, returnDocument: 'after' }
+    );
+
+    return result.value;
+}
+
+async function removeLike(postId, userId) {
+    const user = await users.get(userId);
+    if (!user)
+        throw ({ code: "418", msg: "You can't brew coffee without a teapot... Wait I make coffee with a Keurig so I don't have a teapot but maybe try again later." });
+    const result = await collection.findOneAndUpdate(
+        { _id: new ObjectId(postId) },
+        { $pull: { liked: user.handle } },
+        { projection: { liked: 1 }, returnDocument: 'after' }
+    );
+
+    return result.value;
 }
 
 async function remove(postId) {
-    const results = await collection.findOneAndDelete({ _id: new ObjectId(postId) });
+    const result = await collection.findOneAndDelete({ _id: new ObjectId(postId) });
 
-    return results.value;
+    return result.value;
 }
 
 const search = (query) => collection.find({ caption: new RegExp(query, "i") }).toArray();
@@ -82,7 +105,7 @@ const seed = async () => {
 const reset = () => collection.drop().catch().finally(seed);
 
 module.exports = {
-    collection, getAll, getWall, getFeed, get, add, update, remove, search, seed, reset,
+    collection, getAll, getWall, getFeed, get, add, update, addLike, removeLike, remove, search, seed, reset,
 }
 
 const postList = [

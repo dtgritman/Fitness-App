@@ -16,7 +16,9 @@
                         <br />
                         <small> {{ likes }} Likes </small>
                         <br />
-                        <small> <a>Like</a> · {{ postTime }} </small>
+                        <small>
+                            <a @click="likePost()">{{ likeStatus }}</a>
+                            · {{ postTime }} </small>
                     </p>
                 </div>
             </div>
@@ -26,12 +28,24 @@
 
 <script>
 import moment from 'moment';
+import session from '../services/session';
 
 export default {
     props: {
         post: Object,
     },
-    computed: {
+    methods: {
+        likePost() {
+            this.post.updateLiked(!this.liked);
+        }
+    },
+    computed: { 
+        liked() {
+            return this.post.liked.includes(session.user.handle);
+        },
+        likeStatus() {
+            return this.liked ? "Unlike" : "Like";
+        },
         likes() {
             return this.post.liked.length;
         },

@@ -24,6 +24,14 @@ export function update(postId, post) {
     return api("posts/" + postId, post, 'PUT');
 }
 
+export function addLike(postId, userId) {
+    return api("posts/" + postId + "/like/" + userId, {}, 'PATCH');
+}
+
+export function removeLike(postId, userId) {
+    return api("posts/" + postId + "/like/" + userId, {}, 'DELETE');
+}
+
 export function remove(postId) {
     return api('posts/' + postId, {}, 'DELETE');
 }
