@@ -9,27 +9,22 @@ const get = (userId) => collection.findOne({ _id: new ObjectId(userId) });
 
 async function getByHandle(handle) {
     const user = await collection.findOne({ handle: handle }, { projection: { password: 0 } });
-    if (!user) {
+    if (!user)
         return Promise.reject({ code: 401, msg: "Sorry there is no user with that handle" });
-    }
 
     return { ...user };
 }
 
 async function add(user) {
-    if (!user.firstName || !user.lastName) {
-        return Promise.reject({ code: 422, msg: "Full name is required" })
-    }
-    if (!user.handle) {
-        return Promise.reject({ code: 422, msg: "User handle is required" })
-    }
-    if (!user.password) {
-        return Promise.reject({ code: 422, msg: "Password is required" })
-    }
+    if (!user.firstName || !user.lastName)
+        return Promise.reject({ code: 422, msg: "Full name is required" });
+    if (!user.handle)
+        return Promise.reject({ code: 422, msg: "User handle is required" });
+    if (!user.password)
+        return Promise.reject({ code: 422, msg: "Password is required" });
 
-    if (user.handle.charAt(0) != '@') {
+    if (user.handle.charAt(0) != '@')
         user.handle = '@' + user.handle;
-    }
 
     const hash = await bcrypt.hash(user.password, +process.env.SALT_ROUNDS)
     user.password = hash;
@@ -74,9 +69,8 @@ async function remove(userId) {
 
 async function login(handle, password) {
     const user = await collection.findOne({ handle: handle });
-    if (!user) {
+    if (!user)
         return Promise.reject({ code: 401, msg: "Sorry there is no user with that handle" });
-    }
 
     const result = await bcrypt.compare(password, user.password);
     if (!result) {
