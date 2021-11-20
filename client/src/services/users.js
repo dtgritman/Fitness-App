@@ -9,7 +9,11 @@ export function add(user) {
 }
 
 export function update(userId, user) {
-    return api("users/" + userId, user, "PUT");
+    return api("users/" + userId, user, "PATCH");
+}
+
+export function updateProfile(userId, profile) {
+    return api("users/profile/" + userId, profile, "PATCH");
 }
 
 export function login(handle, password) {
