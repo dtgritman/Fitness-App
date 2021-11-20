@@ -19,6 +19,11 @@ app
             .then(user => res.send(user))
             .catch(next)
     })
+    .patch("/profile/:userId", (req, res, next) => {
+        model.updateProfile(req.params.userId, req.body)
+            .then(user => res.send(user))
+            .catch(next)
+    })
     .post("/login", (req, res, next) => {
         model.login(req.body.handle, req.body.password)
             .then(user => res.send(user))

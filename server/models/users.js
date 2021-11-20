@@ -53,6 +53,19 @@ async function update(userId, user) {
     return { ...result.value };
 }
 
+async function updateProfile(userId, profile) {
+    const result = await collection.findOneAndUpdate(
+        { _id: new ObjectId(userId) },
+        { $set: { profile: profile } },
+        {
+            returnDocument: 'after',
+            projection: { profile: 1 }
+        },
+    );
+
+    return { ...result.value };
+}
+
 async function remove(userId) {
     const result = await collection.findOneAndDelete({ _id: new ObjectId(userId) })
 
@@ -82,7 +95,7 @@ const seed = async () => {
 const reset = () => collection.drop().catch().finally(seed);
 
 module.exports = {
-    collection, add, get, getAll, getByHandle, update, remove, login, seed, reset,
+    collection, add, get, getAll, getByHandle, update, updateProfile, remove, login, seed, reset,
 }
 
 const userList = [
