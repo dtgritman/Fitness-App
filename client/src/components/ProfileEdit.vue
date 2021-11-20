@@ -69,9 +69,9 @@ export default {
         return {
             newProfile: {
                 sex: this.profile.sex,
-                birthday: this.$moment(this.profile.birthday).format(
+                birthday: this.profile.birthday ? this.$moment(this.profile.birthday).format(
                     "YYYY-MM-DD"
-                ),
+                ) : this.profile.birthday,
                 height: this.profile.height,
                 weight: this.profile.weight,
             },
