@@ -82,7 +82,7 @@ const seed = async () => {
 const reset = () => collection.drop().catch().finally(seed);
 
 module.exports = {
-    collection, get, getAll, getByHandle, update, remove, login, seed, reset,
+    collection, add, get, getAll, getByHandle, update, remove, login, seed, reset,
 }
 
 const userList = [
