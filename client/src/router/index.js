@@ -1,5 +1,5 @@
 import { createRouter, createWebHistory } from 'vue-router'
-import Session from '../services/session'
+import session from '../services/session'
 import Home from '../views/Home.vue'
 import MyProfile from '../views/MyProfile.vue'
 import Friends from '../views/Friends.vue'
@@ -9,42 +9,42 @@ import Feed from '../views/Feed.vue'
 
 const routes = [
     {
-        path: '/',
         name: 'Home',
+        path: '/',
         component: Home
     },
     {
-        path: '/myprofile',
         name: 'MyProfile',
+        path: '/myprofile',
         component: MyProfile,
         meta: { requiresLogin: true }
     },
     {
-        path: '/activity',
         name: 'Activity',
+        path: '/activity',
         component: Activity,
         meta: { requiresLogin: true }
     },
     {
-        path: '/friends',
         name: 'Friends',
+        path: '/friends',
         component: Friends,
         meta: { requiresLogin: true }
     },
     {
-        path: '/feed',
         name: 'Feed',
+        path: '/feed',
         component: Feed,
         meta: { requiresLogin: true }
     },
     {
-        path: '/signup',
         name: 'Signup',
+        path: '/signup',
         component: () => import(/* webpackChunkName: "signup" */ '../views/Signup.vue')
     },
     {
-        path: '/login',
         name: 'Login',
+        path: '/login',
         component: () => import('../views/Login.vue')
     },
 ];
@@ -55,10 +55,11 @@ const router = createRouter({
 });
 
 router.beforeEach((to, from, next) => {
-    if (to.meta.requiresLogin && !Session.user) {
-        next('/login')
+    if (to.meta.requiresLogin && !session.user) {
+        session.toRoute = to.fullPath;
+        next({ name: 'Login' });
     } else {
-        next()
+        next();
     }
 });
 
