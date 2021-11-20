@@ -16,12 +16,17 @@ async function getByHandle(handle) {
 }
 
 async function add(user) {
+    // verify user details
     if (!user.firstName || !user.lastName)
         return Promise.reject({ code: 422, msg: "Full name is required" });
     if (!user.handle)
         return Promise.reject({ code: 422, msg: "User handle is required" });
     if (!user.password)
         return Promise.reject({ code: 422, msg: "Password is required" });
+
+    // add default properties to user
+    user.profile = user.profile || { sex: "Unknown", birthday: undefined, height: 0, weight: 0, };
+    user.following = user.following || [];
 
     if (user.handle.charAt(0) != '@')
         user.handle = '@' + user.handle;
@@ -73,16 +78,16 @@ async function login(handle, password) {
         return Promise.reject({ code: 401, msg: "Sorry there is no user with that handle" });
 
     const result = await bcrypt.compare(password, user.password);
-    if (!result) {
+    if (!result)
         return Promise.reject({ code: 401, msg: "Incorrect password" });
-    }
+
     delete user.password;
     return { ...user };
 }
 
 const seed = async () => {
     for (const user of userList) {
-        console.log(await add(user))
+        await add(user);
     }
 }
 
