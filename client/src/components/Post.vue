@@ -27,7 +27,6 @@
 </template>
 
 <script>
-import moment from 'moment';
 import session from '../services/session';
 
 export default {
@@ -50,7 +49,7 @@ export default {
             return this.post.liked.length;
         },
         postTime() {
-            return moment(new Date(this.post.time)).fromNow();
+            return this.$moment(new Date(this.post.time)).fromNow();
         },
     },
 };
