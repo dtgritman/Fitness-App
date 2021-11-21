@@ -15,7 +15,7 @@
 
             <div class="navbar-menu" :class="{ 'is-active': navActive }">
                 <div class="navbar-start">
-                    <router-link class="navbar-item" to="/myprofile" v-if=Session.user>
+                    <router-link class="navbar-item" to="/myprofile" v-if=session.user>
                         My Profile
                     </router-link>
                 </div>
@@ -25,7 +25,7 @@
             </div>
         </nav>
 
-        <nav class="tabs is-medium is-centered" v-if="Session.user">
+        <nav class="tabs is-medium is-centered" v-if="session.user">
             <ul>
                 <li>
                     <router-link class="navbar-item is-tab" to="/activity">Activity</router-link>
@@ -42,13 +42,13 @@
 </template>
 
 <script>
+import session from "../services/session";
 import LoginBadge from "./LoginBadge";
-import Session from "../services/session";
 
 export default {
     data: () => ({
+        session,
         navActive: false,
-        Session,
     }),
     components: {
         LoginBadge,
@@ -57,4 +57,30 @@ export default {
 </script>
 
 <style>
+.navbar {
+    background-color: inherit;
+}
+
+a.navbar-item:hover,
+a.navbar-link:hover {
+    background-color: #c5c5c5;
+    color: inherit;
+}
+nav .is-active {
+    background-color: #bbbbbb;
+}
+
+.navbar a.button:hover {
+    background-color: #929292;
+    color: #f2f2f2;
+}
+
+.navbar a.is-primary {
+    background-color: #b43030;
+    color: #f2f2f2;
+}
+
+.navbar-dropdown {
+    background-color: #c5c5c5;
+}
 </style>
