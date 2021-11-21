@@ -15,7 +15,7 @@
 
             <div class="navbar-menu" :class="{ 'is-active': navActive }">
                 <div class="navbar-start">
-                    <router-link class="navbar-item" to="/myprofile" v-if=session.user>
+                    <router-link class="navbar-item is-tab" to="/myprofile" v-if=session.user>
                         My Profile
                     </router-link>
                 </div>
@@ -66,13 +66,10 @@ a.navbar-link:hover {
     background-color: #c5c5c5;
     color: inherit;
 }
-nav .is-active {
-    background-color: #bbbbbb;
-}
 
-.navbar a.button:hover {
-    background-color: #929292;
-    color: #f2f2f2;
+.navbar-item .is-tab:active {
+    background-color: #bbbbbb;
+    color: inherit;
 }
 
 .navbar a.is-primary {
