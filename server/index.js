@@ -22,7 +22,7 @@ app
     .use(express.json())
     .use('/users', usersController)
     .use('/posts', postsController)
-    .use('/activity', activitiesController)
+    .use('/activities', activitiesController)
 
 app
     .get('*', (req, res) => res.sendFile(path.join(staticPath, '/index.html')))
