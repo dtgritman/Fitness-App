@@ -21,7 +21,7 @@ app
     })
     .patch("/update/:activityId", (req, res, next) => {
         model.update(req.params.activityId, req.body)
-            .then(user => res.send(user))
+            .then(activities => res.send(activities))
             .catch(next)
     })
     .post("/reset", (req, res, next) => {
