@@ -1,11 +1,11 @@
 import { api } from "./serverApi";
 
 export function get(userHandle) {
-    return api("activities/" + userHandle, {}, 'POST');
+    return api("activities/" + userHandle, null, 'GET');
 }
 
-export function add(userHandle, activity) {
-    return api("activities/add/" + userHandle, activity, 'POST');
+export function add(activity) {
+    return api("activities/add", activity, 'POST');
 }
 
 export function update(activity) {
