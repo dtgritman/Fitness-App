@@ -28,6 +28,16 @@ POST http://localhost:3100/posts/reset
 ###
 http://localhost:3100/activities
 ###
-POST http://localhost:3100/activities/@vp
+http://localhost:3100/activities/@vp
 ###
 POST http://localhost:3100/activities/reset
+
+###
+POST http://localhost:3100/activities/add
+Content-Type: application/json
+
+    { 
+        "handle": "@vp",
+        "date": "2021-11-22",
+        "activities": { "name": "running", "info": "10 miles", "time": 20 }
+    }
