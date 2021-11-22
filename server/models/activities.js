@@ -30,6 +30,7 @@ async function add(activity) {
     if (!response.insertedId) {
         throw { code: 422, msg: "Error adding activity" }
     }
+    activity._id = response.insertedId;
 
     return { ...activity };
 }

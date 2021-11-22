@@ -9,13 +9,13 @@ app
             .then(x => res.send(x))
             .catch(next)
     })
-    .post("/:handle", (req, res, next) => {
+    .get("/:handle", (req, res, next) => {
         model.getByHandle(req.params.handle)
             .then(activities => res.send(activities))
             .catch(next)
     })
-    .post("/add/:handle", (req, res, next) => {
-        model.update(req.params.handle, req.body)
+    .post("/add", (req, res, next) => {
+        model.add(req.body)
             .then(activities => res.send(activities))
             .catch(next)
     })
