@@ -41,7 +41,10 @@ export default {
                 }
             }
             else {
-                this.today = await update(this.today);
+                const response = await update(this.today);
+                if (response) {
+                    this.today = response;
+                }
             }
         },
     },

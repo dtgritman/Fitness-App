@@ -38,7 +38,7 @@ async function add(activity) {
 async function update(activityId, activity) {
     const results = await collection.findOneAndUpdate(
         { _id: new ObjectId(activityId) },
-        { $set: activity },
+        { $set: { activities: activity.activities } },
         { returnDocument: 'after' }
     );
 
