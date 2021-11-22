@@ -26,6 +26,8 @@ POST http://localhost:3100/posts/reset
 
 
 ###
-http://localhost:3100/activity
+http://localhost:3100/activities
 ###
-POST http://localhost:3100/activity/reset
+POST http://localhost:3100/activities/@vp
+###
+POST http://localhost:3100/activities/reset
