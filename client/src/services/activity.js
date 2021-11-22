@@ -9,5 +9,5 @@ export function add(activity) {
 }
 
 export function update(activity) {
-    return api("activities/update/" + activity._id, activity, 'POST');
+    return api("activities/update/" + activity._id, activity, 'PATCH');
 }
