@@ -1,6 +1,6 @@
 <template>
     <section class="section">
-        <activity-info :title="'Today'" :activitiesInfo="today" @add="addActivity" />
+        <activity-info :title="'Today'" :activitiesInfo="today" @add="updateActivity" @remove="removeActivity" />
         <br />
         <activity-past :activitiesInfo="past" />
     </section>
@@ -32,7 +32,7 @@ export default {
         this.past = activities;
     },
     methods: {
-        async addActivity(activity) {
+        async updateActivity(activity) {
             this.today.activities.push(activity);
             if (!this.today._id) {
                 const response = await add(this.today);
@@ -46,6 +46,10 @@ export default {
                     this.today = response;
                 }
             }
+        },
+        async removeActivity(activityIndex) {
+            this.today.activities.splice(activityIndex, 1);
+            update(this.today);
         },
     },
 };
