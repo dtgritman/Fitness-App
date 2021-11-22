@@ -33,15 +33,16 @@ export default {
     },
     methods: {
         async addActivity(activity) {
-            console.log(this.today);
             this.today.activities.push(activity);
             if (!this.today._id) {
-                this.today = await add(session.user.handle, this.today);
+                const response = await add(this.today);
+                if (response) {
+                    this.today = response;
+                }
             }
             else {
                 this.today = await update(this.today);
             }
-            console.log(this.today);
         },
     },
 };
