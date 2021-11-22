@@ -14,12 +14,12 @@ const addOwnerPipeline = [
         }
     },
     { $unwind: "$user" },
-    { $project: { "owner.password": 0 } }
+    { $project: { "user.password": 0 } }
 ];
 
 const getAll = () => collection.aggregate(addOwnerPipeline).toArray();
 const get = (activityId) => collection.findOne({ _id: new ObjectId(activityId) });
-const getByHandle = (handle) => collection.aggregate(addOwnerPipeline).match({ handle: handle }).toArray();
+const getByHandle = (handle) => collection.find({ handle: handle }).sort({ date: -1 }).toArray();
 
 async function add(activity) {
     if (!activity.handle) {
@@ -27,8 +27,9 @@ async function add(activity) {
     }
 
     const response = await collection.insertOne(activity);
-
-    activity.id = response.insertedId;
+    if (!response.insertedId) {
+        throw { code: 422, msg: "Error adding activity" }
+    }
 
     return { ...activity };
 }
@@ -85,7 +86,7 @@ const activityList = [
             {
                 name: "walking",
                 info: "2 miles",
-                time: "50"
+                time: 50
             },
             {
                 name: "running",

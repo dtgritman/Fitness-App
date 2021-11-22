@@ -9,6 +9,21 @@ app
             .then(x => res.send(x))
             .catch(next)
     })
+    .post("/:handle", (req, res, next) => {
+        model.getByHandle(req.params.handle)
+            .then(activities => res.send(activities))
+            .catch(next)
+    })
+    .post("/add/:handle", (req, res, next) => {
+        model.update(req.params.handle, req.body)
+            .then(activities => res.send(activities))
+            .catch(next)
+    })
+    .patch("/update/:activityId", (req, res, next) => {
+        model.update(req.params.activityId, req.body)
+            .then(user => res.send(user))
+            .catch(next)
+    })
     .post("/reset", (req, res, next) => {
         model.reset()
             .then(x => res.status(201).send("Activities have been reset to default"))
