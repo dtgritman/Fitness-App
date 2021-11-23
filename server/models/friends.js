@@ -16,7 +16,7 @@ async function get(handle) {
         },
         { $unwind:"$user" },
         { $replaceRoot: { newRoot: "$user" } },
-        { $project: { "_id": 1, "handle": 1, "firstName": 1, "lastName": 1 } }
+        { $project: { "_id": 1, "handle": 1, "firstName": 1, "lastName": 1, "pic": 1} }
     ]).toArray();
 }
 
