@@ -12,12 +12,7 @@ Content-Type: application/json
         "password": "Her"
     }
 ###
-POST http://localhost:3100/users/friends
-Content-Type: application/json
-
-    { 
-        "handle": "@vp"
-    }
+POST http://localhost:3100/users/friends/@vp
 
 ###
 POST http://localhost:3100/users/follow/@vp/@JewPaltz
