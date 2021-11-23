@@ -2,7 +2,7 @@
     <section class="section">
         <div class="card">
             <div class="card-header">
-                <p class="title is-3">{{ name }}</p>
+                <p class="card-header-title is-centered">{{ name }}</p>
             </div>
             <div class="card-content">
                 <div class="level is-mobile">
@@ -33,7 +33,11 @@
                         </div>
                     </div>
                 </div>
-                <a class="card-footer-item" @click="editActive = true">Edit</a>
+            </div>
+            <div class="card-footer">
+                <a class="card-footer-item" @click="editActive = true">
+                    Edit
+                </a>
             </div>
         </div>
 
@@ -66,7 +70,10 @@ export default {
             return this.profile.sex;
         },
         age() {
-            return this.$moment().diff(this.$moment(this.profile.birthday), "years");
+            return this.$moment().diff(
+                this.$moment(this.profile.birthday),
+                "years"
+            );
         },
         heightString() {
             return (
