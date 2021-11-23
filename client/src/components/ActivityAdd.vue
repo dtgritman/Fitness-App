@@ -1,9 +1,5 @@
 <template>
-    <form
-        class="modal"
-        :class="{ 'is-active': isActive }"
-        @submit.prevent="$emit('close')"
-    >
+    <form class="modal" :class="{ 'is-active': isActive }" @submit.prevent="">
         <div class="modal-card">
             <header class="modal-card-head">
                 <p class="modal-card-title">Add Exercise</p>
@@ -39,14 +35,15 @@
                             type="number"
                             v-model="newActivity.time"
                             placeholder="Time (in minutes)"
-                            required
                         />
                     </p>
                 </div>
             </section>
             <footer class="modal-card-foot">
-                <button class="button is-success" @click="$emit('add', newActivity)">Add</button>
-                <button class="button">Cancel</button>
+                <button class="button is-success" @click="addActivity">
+                    Add
+                </button>
+                <button class="button" @click="$emit('close')">Cancel</button>
             </footer>
         </div>
     </form>
@@ -58,8 +55,26 @@ export default {
         isActive: Boolean,
     },
     data: () => ({
-        newActivity: { name: null, info: null, time: null },
+        newActivity: { name: undefined, info: undefined, time: undefined },
     }),
+    methods: {
+        async addActivity() {
+            if (
+                this.newActivity.name &&
+                this.newActivity.info &&
+                this.newActivity.time
+            ) {
+                await this.$emit("add", this.newActivity);
+
+                this.newActivity = {
+                    name: undefined,
+                    info: undefined,
+                    time: undefined,
+                };
+                this.$emit("close");
+            }
+        },
+    },
 };
 </script>
 

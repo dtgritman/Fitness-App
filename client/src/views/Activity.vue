@@ -20,7 +20,7 @@ export default {
     },
     data() {
         return {
-            today: { handle: session.user.handle, date: new Date().toISOString(), activities: [] },
+            today: { handle: session.user.handle, date: (new Date()).toISOString(), activities: [] },
             past: [],
         }
     },
@@ -49,7 +49,10 @@ export default {
         },
         async removeActivity(activityIndex) {
             this.today.activities.splice(activityIndex, 1);
-            update(this.today);
+            const response = await update(this.today);
+            if (response) {
+                this.today = response;
+            }
         },
     },
 };

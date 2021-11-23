@@ -11,12 +11,15 @@
                     <th>Time</th>
                 </thead>
                 <tbody
-                    v-for="activity in activitiesInfo.activities"
-                    :key="activity.name"
+                    v-for="(activity, i) in activitiesInfo.activities"
+                    :key="i"
                 >
                     <td>{{ activity.name }}</td>
                     <td>{{ activity.info }}</td>
                     <td>{{ activity.time }} mins</td>
+                    <td v-if="title == 'Today'" width="2em">
+                        <button @click="$emit('remove', i)">X</button>
+                    </td>
                 </tbody>
             </table>
         </div>
@@ -28,7 +31,11 @@
                 >Add
             </a>
         </footer>
-        <activity-add :isActive="addActive" @add="addActivity" @close="addActive = false" />
+        <activity-add
+            :isActive="addActive"
+            @add="addActivity"
+            @close="addActive = false"
+        />
     </div>
 </template>
 
@@ -47,10 +54,10 @@ export default {
         };
     },
     methods: {
-        addActivity(activity) {
-            this.$emit('add', activity);
-        }
-    }
+        async addActivity(activity) {
+            return await this.$emit("add", activity);
+        },
+    },
 };
 </script>
 

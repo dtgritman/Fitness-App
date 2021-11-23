@@ -36,13 +36,23 @@ async function add(activity) {
 }
 
 async function update(activityId, activity) {
-    const results = await collection.findOneAndUpdate(
-        { _id: new ObjectId(activityId) },
-        { $set: { activities: activity.activities } },
-        { returnDocument: 'after' }
-    );
-
-    return results.value;
+    let results = undefined;
+    if (activity.activities.length < 1) {
+        results = await remove(activityId);
+        if (results) {
+            results = activity;
+        }
+        delete results._id;
+        return results;
+    }
+    else {
+        results = await collection.findOneAndUpdate(
+            { _id: new ObjectId(activityId) },
+            { $set: { activities: activity.activities } },
+            { returnDocument: 'after' }
+        );
+        return results.value;
+    }
 }
 
 async function remove(activityId) {
@@ -66,7 +76,7 @@ module.exports = {
 const activityList = [
     {
         handle: "@vp",
-        date: new Date(),
+        date: (new Date()).toISOString(),
         activities: [
             {
                 name: "running",
@@ -82,7 +92,7 @@ const activityList = [
     },
     {
         handle: "@vp",
-        date: new Date("11-15-2021"),
+        date: (new Date("11-15-2021")).toISOString(),
         activities: [
             {
                 name: "walking",
@@ -98,7 +108,7 @@ const activityList = [
     },
     {
         handle: "@vp",
-        date: new Date("11-14-2021"),
+        date: (new Date("11-14-2021")).toISOString(),
         activities: [
             {
                 name: "walking",
