@@ -11,7 +11,19 @@ Content-Type: application/json
         "handle": "@vp",
         "password": "Her"
     }
+###
+POST http://localhost:3100/users/friends
+Content-Type: application/json
 
+    { 
+        "handle": "@vp"
+    }
+
+###
+POST http://localhost:3100/users/follow/@vp/@JewPaltz
+
+###
+DELETE http://localhost:3100/users/unfollow/@vp/@JewPaltz
 
 
 ###
