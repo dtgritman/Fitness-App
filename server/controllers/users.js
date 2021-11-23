@@ -1,5 +1,6 @@
 const express = require("express");
 const model = require("../models/users");
+const friends = require("../models/friends");
 
 const app = express.Router();
 
@@ -33,6 +34,44 @@ app
         model.add(req.body)
             .then(user => {
                 res.status(201).send(user);
+            })
+            .catch(next)
+    })
+    .post("/friends", (req, res, next) => {
+        friends.get(req.body.handle)
+            .then(friends => res.send(friends))
+            .catch(next)
+    })
+    .post("/follow/:follower/:followee", (req, res, next) => {
+        friends.follow(req.params.follower, req.params.followee)
+            .then(response => {
+                if (response.modifiedCount) {
+                    res.send({ success: true });
+                } else {
+                    throw { code: 409, msg: "You are already following or trying to follow " + req.params.followee }
+                }
+            })
+            .catch(next)
+    })
+    .delete("/unfollow/:follower/:followee", (req, res, next) => {
+        friends.unFollow(req.params.follower, req.params.followee)
+            .then(response => {
+                if (response.modifiedCount) {
+                    res.send({ success: true });
+                } else {
+                    throw { code: 404, msg: "You aren't following or trying to follow " + req.params.followee }
+                }
+            })
+            .catch(next)
+    })
+    .patch("/approve/:follower/:followee", (req, res, next) => {
+        friends.approve(req.params.follower, req.params.followee, req.body.shouldApprove)
+            .then(response => {
+                if (response.modifiedCount) {
+                    res.send({ success: true });
+                } else {
+                    throw { code: 409, msg: req.params.follower + " hasn't request to follow you." }
+                }
             })
             .catch(next)
     })
