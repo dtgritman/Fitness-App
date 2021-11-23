@@ -37,12 +37,12 @@ app
             })
             .catch(next)
     })
-    .post("/friends", (req, res, next) => {
-        friends.get(req.body.handle)
+    .post("/friends/:handle", (req, res, next) => {
+        friends.get(req.params.handle)
             .then(friends => res.send(friends))
             .catch(next)
     })
-    .post("/follow/:follower/:followee", (req, res, next) => {
+    .post("/friends/add/:follower/:followee", (req, res, next) => {
         friends.follow(req.params.follower, req.params.followee)
             .then(response => {
                 if (response.modifiedCount) {
@@ -53,7 +53,7 @@ app
             })
             .catch(next)
     })
-    .delete("/unfollow/:follower/:followee", (req, res, next) => {
+    .delete("/friends/remove/:follower/:followee", (req, res, next) => {
         friends.unFollow(req.params.follower, req.params.followee)
             .then(response => {
                 if (response.modifiedCount) {
