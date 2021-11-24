@@ -16,15 +16,13 @@
                 <div class="card-header">
                     <p class="card-header-title is-centered">
                         {{ friend.handle }}
+                        ({{ friend.firstName }} {{ friend.lastName }})
                     </p>
                 </div>
                 <div class="card-content">
                     <div class="level is-mobile">
                         <div class="level-item">
-                            <p class="title is-6">Name: </p>
-                            <p>
-                                {{ friend.firstName }} {{ friend.lastName }}
-                            </p>
+                            <img :src=friend.pic />
                         </div>
                     </div>
                 </div>
@@ -36,14 +34,22 @@
             </div>
             <br />
         </div>
-        <friends-find :isActive="findActive" :q="qHandle" :friends="friends" :users="findResults" @add="addFriend" @remove="removeFriend" @close="findActive = false" />
+        <friends-find
+            :isActive="findActive"
+            :q="qHandle"
+            :friends="friends"
+            :users="findResults"
+            @add="addFriend"
+            @remove="removeFriend"
+            @close="findActive = false"
+        />
     </section>
 </template>
 
 <script>
 import session from "../services/session";
 import { get, add, remove, find } from "../services/friends";
-import FriendsFind from '../components/FriendsFind.vue';
+import FriendsFind from "../components/FriendsFind.vue";
 
 export default {
     components: { FriendsFind },
@@ -60,15 +66,14 @@ export default {
     methods: {
         async search() {
             if (this.qHandle) {
-                this.findResults = (await find(this.qHandle)).filter(user => user.handle != session.user.handle);
+                this.findResults = (await find(this.qHandle)).filter(
+                    (user) => user.handle != session.user.handle
+                );
                 this.findActive = true;
             }
         },
         async addFriend(user) {
-            const response = await add(
-                session.user.handle,
-                user.handle
-            );
+            const response = await add(session.user.handle, user.handle);
             if (response.success) {
                 this.friends.push(user);
                 const msg = user.handle + " was added as a friend!";
