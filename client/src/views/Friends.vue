@@ -15,15 +15,15 @@
             <div class="card">
                 <div class="card-header">
                     <p class="card-header-title is-centered">
-                        {{ friend.firstName }} {{ friend.lastName }}
+                        {{ friend.handle }}
                     </p>
                 </div>
                 <div class="card-content">
                     <div class="level is-mobile">
                         <div class="level-item">
-                            <p class="title is-6">User Handle:</p>
+                            <p class="title is-6">Name: </p>
                             <p>
-                                {{ friend.handle }}
+                                {{ friend.firstName }} {{ friend.lastName }}
                             </p>
                         </div>
                     </div>
@@ -36,7 +36,7 @@
             </div>
             <br />
         </div>
-        <friends-find :isActive="findActive" :friends="friends" :users="findResults" @add="addFriend" @remove="removeFriend" @close="findActive = false" />
+        <friends-find :isActive="findActive" :q="qHandle" :friends="friends" :users="findResults" @add="addFriend" @remove="removeFriend" @close="findActive = false" />
     </section>
 </template>
 
