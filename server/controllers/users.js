@@ -64,7 +64,7 @@ app
             })
             .catch(next)
     })
-    .patch("/approve/:follower/:followee", (req, res, next) => {
+    .patch("/friends/approve/:follower/:followee", (req, res, next) => {
         friends.approve(req.params.follower, req.params.followee, req.body.shouldApprove)
             .then(response => {
                 if (response.modifiedCount) {
@@ -73,6 +73,11 @@ app
                     throw { code: 409, msg: req.params.follower + " hasn't request to follow you." }
                 }
             })
+            .catch(next)
+    })
+    .get("/friends/find/:q", (req, res, next) => {
+        friends.search(req.params.q)
+            .then(results => res.send(results))
             .catch(next)
     })
     .post("/reset", (req, res, next) => {

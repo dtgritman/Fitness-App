@@ -2,6 +2,7 @@ const { ObjectId } = require('bson');
 const { client } = require('./mongo');
 
 const collection = client.db(process.env.MONGO_DB).collection('users');
+const friendProjection = { "_id": 1, "handle": 1, "firstName": 1, "lastName": 1, "pic": 1 };
 
 async function get(handle) {
     return await collection.aggregate([
@@ -16,8 +17,15 @@ async function get(handle) {
         },
         { $unwind:"$user" },
         { $replaceRoot: { newRoot: "$user" } },
-        { $project: { "_id": 1, "handle": 1, "firstName": 1, "lastName": 1, "pic": 1} }
+        { $project: friendProjection }
     ]).toArray();
+}
+
+async function search(q) {
+    return collection.find(
+        { handle: new RegExp(q, 'i') },
+        { projection: friendProjection }
+    ).toArray();
 }
 
 async function follow(follower, followee) {
@@ -42,5 +50,5 @@ async function approve(follower, followee, shouldApprove) {
 }
 
 module.exports = {
-    collection, get, follow, unFollow, approve,
+    collection, get, search, follow, unFollow, approve,
 }
