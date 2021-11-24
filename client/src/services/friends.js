@@ -4,6 +4,10 @@ export function get(handle) {
     return api("users/friends/" + handle, {}, 'POST');
 }
 
+export function find(q) {
+    return api("users/friends/find/" + q, null, 'GET');
+}
+
 export function add(userHandle, followUserHandle) {
     return api("users/friends/add/" + userHandle + "/" + followUserHandle, {}, 'POST');
 }
