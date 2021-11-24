@@ -18,7 +18,9 @@
                     <td>{{ activity.info }}</td>
                     <td>{{ activity.time }} mins</td>
                     <td v-if="title == 'Today'" width="2em">
-                        <button @click="$emit('remove', i)">X</button>
+                        <button class="button" @click="$emit('remove', i)">
+                            <i class="fas fa-times" />
+                        </button>
                     </td>
                 </tbody>
             </table>
