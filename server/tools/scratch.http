@@ -15,10 +15,10 @@ Content-Type: application/json
 POST http://localhost:3100/users/friends/@vp
 
 ###
-POST http://localhost:3100/users/follow/@vp/@JewPaltz
+POST http://localhost:3100/users/friends/add/@vp/@JewPaltz
 
 ###
-DELETE http://localhost:3100/users/unfollow/@vp/@JewPaltz
+DELETE http://localhost:3100/users/friends/remove/@vp/@JewPaltz
 
 
 ###
