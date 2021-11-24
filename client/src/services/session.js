@@ -21,6 +21,14 @@ const session = {
         this.notifications = [];
         this.toRoute = '/';
     },
+    notify(msg) {
+        NotificationProgrammatic.open({
+            duration: 3000,
+            message: msg,
+            variant: 'success',
+            type: 'success',
+        })
+    },
     error(error) {
         const msg = error.msg ?? error;
         NotificationProgrammatic.open({
@@ -28,7 +36,6 @@ const session = {
             message: msg,
             variant: 'danger',
             type: 'danger',
-            closable: true,
         })
     }
 };
