@@ -11,14 +11,18 @@ Content-Type: application/json
         "handle": "@vp",
         "password": "Her"
     }
+
+
+
 ###
 POST http://localhost:3100/users/friends/@vp
-
 ###
 POST http://localhost:3100/users/friends/add/@vp/@JewPaltz
-
 ###
 DELETE http://localhost:3100/users/friends/remove/@vp/@JewPaltz
+###
+http://localhost:3100/users/friends/find/p
+
 
 
 ###
