@@ -1,10 +1,15 @@
 <template>
     <div class="modal" :class="{ 'is-active': isActive }">
         <div class="notification">
-            People Found:
+            Users Found:
             <button class="delete is-medium" @click="$emit('close')">
                 <i class="fas fa-times" />
             </button>
+            <div v-if="!users.length" class="card">
+                <div class="card-content">
+                    No users found with a handle like "{{ q }}".
+                </div>
+            </div>
             <div class="card" v-for="(user, i) in users" :key="i">
                 <div class="card-content">
                     <div class="level is-mobile">
@@ -35,6 +40,7 @@
 export default {
     props: {
         isActive: Boolean,
+        q: String,
         friends: Array,
         users: Object,
     },
