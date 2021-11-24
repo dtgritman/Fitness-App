@@ -24,7 +24,7 @@ async function add(user) {
     if (!user.password)
         return Promise.reject({ code: 422, msg: "Password is required" });
 
-    // add default properties to user
+    // add default properties to user if not given
     user.profile = user.profile || { sex: "Unknown", birthday: undefined, height: 0, weight: 0, };
     user.following = user.following || [];
 
@@ -35,9 +35,8 @@ async function add(user) {
     user.password = hash;
 
     user._id = (await collection.insertOne(user)).insertedId;
-
-    delete user.password;
-    return { ...user };
+    
+    return { ...user, password: undefined };
 }
 
 async function update(userId, user) {
