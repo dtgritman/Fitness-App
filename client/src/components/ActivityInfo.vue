@@ -47,7 +47,7 @@
         />
         <post-add
             :isActive="postActive"
-            :activities="activitiesInfo"
+            :activities="activitiesInfo.activities"
             @close="postActive = false"
         />
     </div>
