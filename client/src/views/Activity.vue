@@ -2,7 +2,7 @@
     <section class="section">
         <activity-info :title="'Today'" :activitiesInfo="today" @add="updateActivity" @remove="removeActivity" />
         <br />
-        <activity-past :userHandle="userHandle" :activitiesInfo="past" />
+        <activity-past :activitiesInfo="past" />
     </section>
 </template>
 
@@ -20,7 +20,6 @@ export default {
     },
     data() {
         return {
-            userHandle: session.user.handle,
             today: { handle: session.user.handle, date: (new Date()).toISOString(), activities: [] },
             past: [],
         }

@@ -1,6 +1,6 @@
 <template>
     <div>
-        <activity-info v-if="pastView" :userHandle="userHandle" :title="$moment(pastView.date).format('LL')" :activitiesInfo="pastView" />
+        <activity-info v-if="pastView" :title="$moment(pastView.date).format('LL')" :activitiesInfo="pastView" />
         <br />
         <div class="card" v-if:="activitiesInfo.length > 0">
             <header class="card-header">
@@ -38,7 +38,6 @@ export default {
         ActivityInfo,
     },
     props: {
-        userHandle: String,
         activitiesInfo: Array,
     },
     data: () => ({
