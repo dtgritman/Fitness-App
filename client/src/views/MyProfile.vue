@@ -8,6 +8,18 @@
                 <div class="level is-mobile">
                     <div class="level-item">
                         <div class="has-text-centered">
+                            <img
+                                :src="userPic"
+                                onerror="this.src='/imgs/default-avatar.png'"
+                            />
+                            <br />
+                            <a @click="picActive = true">Update</a>
+                        </div>
+                    </div>
+                </div>
+                <div class="level is-mobile">
+                    <div class="level-item">
+                        <div class="has-text-centered">
                             <p class="title is-4">Sex</p>
                             <p>{{ sex }}</p>
                         </div>
@@ -41,6 +53,11 @@
             </div>
         </div>
 
+        <profile-pic
+            :isActive="picActive"
+            @update="submitPic"
+            @close="picActive = false"
+        />
         <profile-edit
             :isActive="editActive"
             :profile="profile"
@@ -54,13 +71,19 @@
 import session from "../services/session";
 import { updateProfile } from "../services/users";
 import ProfileEdit from "../components/ProfileEdit.vue";
+import ProfilePic from "../components/ProfilePic.vue";
 
 export default {
     name: "MyProfile",
-    components: { ProfileEdit },
+    components: {
+        ProfileEdit,
+        ProfilePic
+    },
     data: () => ({
+        userPic: session.user.pic,
         profile: session.user.profile,
         editActive: false,
+        picActive: false,
     }),
     computed: {
         name() {
@@ -94,6 +117,9 @@ export default {
                 this.profile = response.profile;
                 return this.profile;
             }
+        },
+        async submitPic(newPic) {
+            console.log(newPic);
         },
     },
 };
