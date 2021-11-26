@@ -12,6 +12,10 @@ export function update(userId, user) {
     return api("users/" + userId, user, "PATCH");
 }
 
+export function updatePic(userId, pic) {
+    return api("users/pic/" + userId, pic, "PATCH");
+}
+
 export function updateProfile(userId, profile) {
     return api("users/profile/" + userId, profile, "PATCH");
 }
