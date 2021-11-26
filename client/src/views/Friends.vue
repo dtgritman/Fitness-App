@@ -22,7 +22,7 @@
                 <div class="card-content">
                     <div class="level is-mobile">
                         <div class="level-item">
-                            <img :src=friend.pic />
+                            <img :src=friend.pic onerror="this.src='/imgs/default-avatar.png'" />
                         </div>
                     </div>
                 </div>
