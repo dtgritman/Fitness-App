@@ -6,6 +6,26 @@
             </button>
             <div class="card">
                 <div class="card-content">
+                    <table class="table is-fullwidth">
+                        <thead>
+                            <tr>
+                                <th>Exercise</th>
+                                <th>Info</th>
+                                <th>Time</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr
+                                v-for="(activity, i) in activities"
+                                :key="i"
+                            >
+                                <td>{{ activity.name }}</td>
+                                <td>{{ activity.info }}</td>
+                                <td>{{ activity.time }} mins</td>
+                            </tr>
+                        </tbody>
+                    </table>
+
                     Post Caption:
                     <input
                         class="input"
@@ -15,7 +35,9 @@
                     />
                 </div>
                 <div class="card-footer">
-                    <a class="card-footer-item" @click="submit"> Submit Post </a>
+                    <a class="card-footer-item" @click="submit">
+                        Submit Post
+                    </a>
                 </div>
             </div>
         </div>
@@ -29,7 +51,7 @@ import { add } from "../services/posts";
 export default {
     props: {
         isActive: Boolean,
-        activitiesInfo: Object,
+        activities: Array,
     },
     data: () => ({
         caption: "",
@@ -40,7 +62,7 @@ export default {
                 session.error({ msg: "You must add a caption to the post!" });
             const post = await add({
                 handle: session.user.userHandle,
-                activities: this.activitiesInfo,
+                activities: this.activities,
                 caption: this.caption,
             });
             if (post._id) {
