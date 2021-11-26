@@ -21,7 +21,7 @@ app
             .catch(next)
     })
     .patch("/pic/:userId", (req, res, next) => {
-        model.updateProfile(req.params.userId, req.body)
+        model.updatePic(req.params.userId, req.body)
             .then(pic => res.send(pic))
             .catch(next)
     })
