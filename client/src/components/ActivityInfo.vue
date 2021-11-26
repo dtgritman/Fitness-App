@@ -36,8 +36,7 @@
                 @click="addActive = true"
                 >Add
             </a>
-            <a class="card-footer-item"
-                @click="postActive = true"
+            <a class="card-footer-item" @click="postActive = true"
                 >Create Post
             </a>
         </footer>
@@ -55,10 +54,8 @@
 </template>
 
 <script>
-import session from "../services/session";
-import { add } from "../services/posts";
 import ActivityAdd from "./ActivityAdd.vue";
-import PostAdd from './PostAdd.vue';
+import PostAdd from "./PostAdd.vue";
 
 export default {
     components: { ActivityAdd, PostAdd },
@@ -73,19 +70,6 @@ export default {
     methods: {
         async addActivity(activity) {
             return await this.$emit("add", activity);
-        },
-        async addPost(caption) {
-            const post = await add({
-                handle: session.user.userHandle,
-                activities: this.activitiesInfo,
-                caption: caption
-            });
-            if (post._id) {
-                session.notify("Post has been made.")
-            }
-            else {
-                session.notify("Post failed!")
-            }
         },
     },
 };
