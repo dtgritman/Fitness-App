@@ -110,45 +110,98 @@ module.exports = {
 
 const postList = [
     {
-        handle: "@johnsmith",
-        activities: [],
-        caption: "",
-        time: new Date("11-11-2021"),
-        liked: [],
-    },
-    {
         handle: "@vp",
-        activities: [],
-        caption: "",
-        time: new Date("11-11-2021"),
+        activities: [
+            {
+                name: "running",
+                info: "1 mile",
+                time: 20
+            },
+            {
+                name: "walking",
+                info: "0.5 miles",
+                time: 30
+            },
+        ],
+        caption: "Some cardio today",
+        time: (new Date()).toISOString(),
         liked: [ "@JewPaltz", "@johnsmith" ],
     },
     {
         handle: "@vp",
-        activities: [],
-        caption: "",
-        time: new Date("11-11-2021"),
+        activities: [
+            {
+                name: "walking",
+                info: "3 miles",
+                time: 100
+            },
+            {
+                name: "dead lifts",
+                info: "150 lbs",
+                time: 15
+            },
+            {
+                name: "jogging",
+                info: "1.5 miles",
+                time: 25
+            },
+        ],
+        caption: "Just started working out",
+        time: new Date("11-15-2021"),
         liked: [],
     },
     {
         handle: "@JewPaltz",
-        activities: [],
-        caption: "",
-        time: new Date("11-10-2021"),
+        activities: [
+            {
+                name: "jogging",
+                info: "3 miles",
+                time: 40
+            },
+            {
+                name: "dead lifts",
+                info: "140 lbs",
+                time: 13
+            },
+        ],
+        caption: "What I did today.",
+        time: new Date("11-15-2021"),
         liked: [ "@johnsmith" ],
     },
     {
         handle: "@JewPaltz",
-        activities: [],
-        caption: "",
+        activities: [
+            {
+                name: "walking",
+                info: "3 miles",
+                time: 100
+            },
+            {
+                name: "dead lifts",
+                info: "150 lbs",
+                time: 15
+            },
+            {
+                name: "jogging",
+                info: "1.5 miles",
+                time: 25
+            },
+        ],
+        caption: "New Workout!",
         time: new Date("11-04-2021"),
         liked: [],
     },
     {
-        handle: "@JewPaltz",
-        activities: [],
-        caption: "",
-        time: new Date("11-01-2021"),
+        handle: "@test",
+        activities: [
+            {
+                name: "walking",
+                info: "5 miles",
+                time: 200
+            },
+        ],
+        caption: "My exercises from the other day",
+        time: new Date("11-16-2021"),
         liked: [ "@vp" ]
     },
 ];
