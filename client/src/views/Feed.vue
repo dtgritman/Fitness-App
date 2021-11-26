@@ -1,7 +1,7 @@
 <template>
     <section class="section">
         <div v-for="(post, postid) in posts" :key="postid">
-            <post :post="post" />
+            <post :userHandle="userHandle" :post="post" />
             <br />
         </div>
     </section>
@@ -16,14 +16,15 @@ export default {
     name: "Feed",
     components: { Post },
     data: () => ({
+        userHandle: session.user.handle,
         posts: [],
     }),
     async mounted() {
-        this.posts = await getFeed(session.user.handle);
+        this.posts = await getFeed(this.userHandle);
         for (let post of this.posts) {
             post.updateLiked = async (liked) => {
                 if (liked) {
-                    if (!post.liked.includes(session.user.handle)) {
+                    if (!post.liked.includes(this.userHandle)) {
                         const response = await addLike(
                             post._id,
                             session.user._id
