@@ -1,6 +1,6 @@
 <template>
     <div>
-        <activity-info v-if="pastView" :title="$moment(pastView.date).format('LL')" :activitiesInfo="pastView" />
+        <activity-info v-if="pastView" :userHandle="userHandle" :title="$moment(pastView.date).format('LL')" :activitiesInfo="pastView" />
         <br />
         <div class="card" v-if:="activitiesInfo.length > 0">
             <header class="card-header">
@@ -9,16 +9,20 @@
             <div class="card-content">
                 <table class="table is-fullwidth">
                     <thead>
-                        <th>Date</th>
-                        <th></th>
+                        <tr>
+                            <th>Date</th>
+                            <th></th>
+                        </tr>
                     </thead>
-                    <tbody v-for="(activities, i) in activitiesInfo" :key="i">
-                        <td>{{ $moment(activities.date).format("LL") }}</td>
-                        <td>
-                            <button class="button" @click="viewPast(i)">
-                                View
-                            </button>
-                        </td>
+                    <tbody>
+                        <tr v-for="(activities, i) in activitiesInfo" :key="i">
+                            <td>{{ $moment(activities.date).format("LL") }}</td>
+                            <td>
+                                <button class="button" @click="viewPast(i)">
+                                    View
+                                </button>
+                            </td>
+                        </tr>
                     </tbody>
                 </table>
             </div>
@@ -34,6 +38,7 @@ export default {
         ActivityInfo,
     },
     props: {
+        userHandle: String,
         activitiesInfo: Array,
     },
     data: () => ({
