@@ -4,7 +4,7 @@
             <p class="card-header-title">{{ title }}</p>
         </header>
         <div class="card-content">
-            <table class="table is-fullwidth is-hoverable">
+            <table class="table is-fullwidth">
                 <thead>
                     <tr>
                         <th>Exercise</th>
