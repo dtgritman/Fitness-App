@@ -22,7 +22,7 @@ const getAll = () => collection.find().toArray();
 const getWall = (handle) => collection.find({ handle: handle }).toArray();
 
 function getFeed(handle) {
-    const query = users.collection.aggregate([
+    const feed = users.collection.aggregate([
         { $match: { handle: handle } },
         {
             "$lookup": {
@@ -35,8 +35,8 @@ function getFeed(handle) {
         { $unwind: '$posts' },
         { $replaceRoot: { newRoot: "$posts" } },
     ]);
-
-    return query.toArray();
+    
+    return feed.toArray();
 }
 
 const get = (postId) => collection.findOne({ _id: new ObjectId(postId) });
@@ -125,7 +125,7 @@ const postList = [
         ],
         caption: "Some cardio today",
         time: (new Date()).toISOString(),
-        liked: [ "@JewPaltz", "@johnsmith" ],
+        liked: ["@JewPaltz", "@johnsmith"],
     },
     {
         handle: "@vp",
@@ -166,7 +166,7 @@ const postList = [
         ],
         caption: "What I did today.",
         time: new Date("11-15-2021"),
-        liked: [ "@johnsmith" ],
+        liked: ["@johnsmith"],
     },
     {
         handle: "@JewPaltz",
@@ -202,6 +202,6 @@ const postList = [
         ],
         caption: "My exercises from the other day",
         time: new Date("11-16-2021"),
-        liked: [ "@vp" ]
+        liked: ["@vp"]
     },
 ];
