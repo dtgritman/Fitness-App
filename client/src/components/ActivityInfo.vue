@@ -6,9 +6,11 @@
         <div class="card-content">
             <table class="table is-fullwidth is-hoverable">
                 <thead>
-                    <th>Exercise</th>
-                    <th>Info</th>
-                    <th>Time</th>
+                    <tr>
+                        <th>Exercise</th>
+                        <th>Info</th>
+                        <th>Time</th>
+                    </tr>
                 </thead>
                 <tbody>
                     <tr
@@ -34,53 +36,56 @@
                 @click="addActive = true"
                 >Add
             </a>
+            <a class="card-footer-item"
+                @click="postActive = true"
+                >Create Post
+            </a>
         </footer>
         <activity-add
             :isActive="addActive"
             @add="addActivity"
             @close="addActive = false"
         />
+        <post-add
+            :isActive="postActive"
+            @add="addPost"
+            @close="postActive = false"
+        />
     </div>
 </template>
 
 <script>
+import session from "../services/session";
 import { add } from "../services/posts";
 import ActivityAdd from "./ActivityAdd.vue";
+import PostAdd from './PostAdd.vue';
 
 export default {
-    components: { ActivityAdd },
+    components: { ActivityAdd, PostAdd },
     props: {
         title: String,
         activitiesInfo: Object,
     },
-    data() {
-        return {
-            addActive: false,
-        };
-    },
+    data: () => ({
+        postActive: false,
+        addActive: false,
+    }),
     methods: {
         async addActivity(activity) {
             return await this.$emit("add", activity);
         },
-        async addPost(activity) {
-            const post = {
-                handle: "@JewPaltz",
-                activities: [
-                    {
-                        name: "jogging",
-                        info: "3 miles",
-                        time: 40,
-                    },
-                    {
-                        name: "dead lifts",
-                        info: "140 lbs",
-                        time: 13,
-                    },
-                ],
-                caption: "What I did today.",
-                time: new Date("11-15-2021"),
-                liked: ["@johnsmith"],
-            };
+        async addPost(caption) {
+            const post = await add({
+                handle: session.user.userHandle,
+                activities: this.activitiesInfo,
+                caption: caption
+            });
+            if (post._id) {
+                session.notify("Post has been made.")
+            }
+            else {
+                session.notify("Post failed!")
+            }
         },
     },
 };
