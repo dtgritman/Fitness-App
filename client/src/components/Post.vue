@@ -11,14 +11,30 @@
                     <p>
                         <strong> {{ post.handle }} </strong>
                         <br />
-                        <img :src="post.src" />
                         {{ post.caption }}
+                        <br />
+                        <table class="table is-fullwidth">
+                            <thead>
+                                <th>Exercise</th>
+                                <th>Info</th>
+                                <th>Time</th>
+                            </thead>
+                            <tbody
+                                v-for="(activity, i) in post.activities"
+                                :key="i"
+                            >
+                                <td>{{ activity.name }}</td>
+                                <td>{{ activity.info }}</td>
+                                <td>{{ activity.time }} mins</td>
+                            </tbody>
+                        </table>
                         <br />
                         <small> {{ likes }} Likes </small>
                         <br />
                         <small>
                             <a @click="likePost()">{{ likeStatus }}</a>
-                            · {{ postTime }} </small>
+                            · {{ postTime }}
+                        </small>
                     </p>
                 </div>
             </div>
@@ -27,20 +43,19 @@
 </template>
 
 <script>
-import session from '../services/session';
-
 export default {
     props: {
+        userHandle: String,
         post: Object,
     },
     methods: {
         likePost() {
             this.post.updateLiked(!this.liked);
-        }
+        },
     },
-    computed: { 
+    computed: {
         liked() {
-            return this.post.liked.includes(session.user.handle);
+            return this.post.liked.includes(this.userHandle);
         },
         likeStatus() {
             return this.liked ? "Unlike" : "Like";
