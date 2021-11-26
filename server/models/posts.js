@@ -35,7 +35,7 @@ function getFeed(handle) {
         { $unwind: '$posts' },
         { $replaceRoot: { newRoot: "$posts" } },
     ]);
-    
+
     return feed.toArray();
 }
 
