@@ -17,7 +17,7 @@ export function get(postId) {
 }
 
 export function add(post) {
-    return api("posts/" + post, post, 'POST');
+    return api("posts", post, 'POST');
 }
 
 export function update(postId, post) {
