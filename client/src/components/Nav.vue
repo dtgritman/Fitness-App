@@ -15,7 +15,7 @@
 
             <div class="navbar-menu" :class="{ 'is-active': navActive }">
                 <div class="navbar-start">
-                    <router-link class="navbar-item is-tab" to="/myprofile" v-if=session.user>
+                    <router-link class="navbar-item" to="/myprofile" v-if=session.user>
                         My Profile
                     </router-link>
                 </div>
@@ -28,13 +28,13 @@
         <nav class="tabs is-medium is-centered" v-if="session.user">
             <ul>
                 <li>
-                    <router-link class="navbar-item is-tab" to="/activity">Activity</router-link>
+                    <router-link class="navbar-item" to="/activity">Activity</router-link>
                 </li>
                 <li>
-                    <router-link class="navbar-item is-tab" to="/feed">Feed</router-link>
+                    <router-link class="navbar-item" to="/feed">Feed</router-link>
                 </li>
                 <li>
-                    <router-link class="navbar-item is-tab" to="/friends">Friends</router-link>
+                    <router-link class="navbar-item" to="/friends">Friends</router-link>
                 </li>
             </ul>
         </nav>
@@ -46,13 +46,13 @@ import session from "../services/session";
 import LoginBadge from "./LoginBadge";
 
 export default {
+    components: {
+        LoginBadge,
+    },
     data: () => ({
         session,
         navActive: false,
     }),
-    components: {
-        LoginBadge,
-    },
 };
 </script>
 
@@ -61,20 +61,16 @@ export default {
     background-color: inherit;
 }
 
+nav .is-active {
+    background-color: #bbbbbb;
+}
+
 a.navbar-item:hover,
-a.navbar-link:hover {
+a.navbar-item:active,
+a.navbar-item:focus,
+a.router-link-active {
     background-color: #c5c5c5;
     color: inherit;
-}
-
-.navbar-item .is-tab:active {
-    background-color: #bbbbbb;
-    color: inherit;
-}
-
-.navbar a.is-primary {
-    background-color: #b43030;
-    color: #f2f2f2;
 }
 
 .navbar-dropdown {
