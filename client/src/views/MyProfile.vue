@@ -110,7 +110,7 @@ export default {
         },
         weightString() {
             return this.profile.weight + " lbs.";
-        },	// data:image/jpeg;base64,/9j/4AAQSkZJRgABAQAAAQABAAD…iQoFhhAWCY4WyR2FWy4ikf+4nzNvrNSmRYX418R7zXpEiUf/Z
+        },
     },
     methods: {
         async submitUpdate(newProfile) {
