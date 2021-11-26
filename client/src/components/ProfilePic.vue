@@ -12,7 +12,10 @@
                         v-model="newPic"
                         placeholder="New profile image link"
                     />
-                    <img :src="newPic" />
+                    <br />
+                    <p class="image is-128x128 is-centered">
+                        <img :src="newPic" />
+                    </p>
                 </div>
                 <div class="card-footer">
                     <a class="card-footer-item" @click="submit">

@@ -8,10 +8,12 @@
                 <div class="level is-mobile">
                     <div class="level-item">
                         <div class="has-text-centered">
-                            <img
-                                :src="userPic"
-                                onerror="this.src='/imgs/default-avatar.png'"
-                            />
+                            <p class="image is-128x128">
+                                <img
+                                    :src="userPic"
+                                    onerror="this.src='/imgs/default-avatar.png'"
+                                />
+                            </p>
                             <br />
                             <a @click="picActive = true">Update</a>
                         </div>
@@ -69,7 +71,7 @@
 
 <script>
 import session from "../services/session";
-import { updateProfile } from "../services/users";
+import { updatePic, updateProfile } from "../services/users";
 import ProfileEdit from "../components/ProfileEdit.vue";
 import ProfilePic from "../components/ProfilePic.vue";
 
@@ -108,7 +110,7 @@ export default {
         },
         weightString() {
             return this.profile.weight + " lbs.";
-        },
+        },	// data:image/jpeg;base64,/9j/4AAQSkZJRgABAQAAAQABAAD…iQoFhhAWCY4WyR2FWy4ikf+4nzNvrNSmRYX418R7zXpEiUf/Z
     },
     methods: {
         async submitUpdate(newProfile) {
@@ -119,7 +121,12 @@ export default {
             }
         },
         async submitPic(newPic) {
-            console.log(newPic);
+            const response = await updatePic(session.user._id, newPic);
+            console.log(response)
+            if (response.pic) {
+                this.userPic = response.pic;
+                return this.userPic;
+            }
         },
     },
 };
