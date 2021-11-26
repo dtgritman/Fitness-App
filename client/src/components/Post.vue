@@ -19,13 +19,15 @@
                                 <th>Info</th>
                                 <th>Time</th>
                             </thead>
-                            <tbody
-                                v-for="(activity, i) in post.activities"
-                                :key="i"
-                            >
-                                <td>{{ activity.name }}</td>
-                                <td>{{ activity.info }}</td>
-                                <td>{{ activity.time }} mins</td>
+                            <tbody>
+                                <tr
+                                    v-for="(activity, i) in post.activities"
+                                    :key="i"
+                                >
+                                    <td>{{ activity.name }}</td>
+                                    <td>{{ activity.info }}</td>
+                                    <td>{{ activity.time }} mins</td>
+                                </tr>
                             </tbody>
                         </table>
                         <br />
