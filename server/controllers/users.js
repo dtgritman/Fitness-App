@@ -20,9 +20,14 @@ app
             .then(user => res.send(user))
             .catch(next)
     })
+    .patch("/pic/:userId", (req, res, next) => {
+        model.updateProfile(req.params.userId, req.body)
+            .then(pic => res.send(pic))
+            .catch(next)
+    })
     .patch("/profile/:userId", (req, res, next) => {
         model.updateProfile(req.params.userId, req.body)
-            .then(user => res.send(user))
+            .then(profile => res.send(profile))
             .catch(next)
     })
     .post("/login", (req, res, next) => {

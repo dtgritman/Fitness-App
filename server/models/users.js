@@ -53,6 +53,19 @@ async function update(userId, user) {
     return { ...result.value };
 }
 
+async function updatePic(userId, pic) {
+    const result = await collection.findOneAndUpdate(
+        { _id: new ObjectId(userId) },
+        { $set: { pic: pic } },
+        {
+            returnDocument: 'after',
+            projection: { pic: 1 }
+        },
+    );
+
+    return { ...result.value };
+}
+
 async function updateProfile(userId, profile) {
     const result = await collection.findOneAndUpdate(
         { _id: new ObjectId(userId) },
