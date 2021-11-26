@@ -15,9 +15,7 @@
                     <div class="level is-mobile">
                         <div class="level-item">
                             <p class="title is-6">User Handle:</p>
-                            <p>
-                                {{ user.handle }}
-                            </p>
+                            <p>{{ user.handle }}</p>
                         </div>
                         <div v-if="friends.findIndex(friend => friend.handle == user.handle) > -1" class="level-item">
                             <button class="button" @click="$emit('remove', friends.findIndex(friend => friend.handle == user.handle))">
