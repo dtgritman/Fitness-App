@@ -47,7 +47,6 @@
         />
         <post-add
             :isActive="postActive"
-            @add="addPost"
             @close="postActive = false"
         />
     </div>
