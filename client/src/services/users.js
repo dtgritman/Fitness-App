@@ -13,7 +13,7 @@ export function update(userId, user) {
 }
 
 export function updatePic(userId, pic) {
-    return api("users/pic/" + userId, pic, "PATCH");
+    return api("users/pic/" + userId, { pic: pic }, "PATCH");
 }
 
 export function updateProfile(userId, profile) {
