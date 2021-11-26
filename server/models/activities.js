@@ -107,8 +107,24 @@ const activityList = [
         ]
     },
     {
-        handle: "@vp",
+        handle: "@JewPaltz",
         date: (new Date("11-14-2021")).toISOString(),
+        activities: [
+            {
+                name: "jogging",
+                info: "3 miles",
+                time: 40
+            },
+            {
+                name: "dead lifts",
+                info: "140 lbs",
+                time: 13
+            },
+        ]
+    },
+    {
+        handle: "@JewPaltz",
+        date: (new Date("11-12-2021")).toISOString(),
         activities: [
             {
                 name: "walking",
@@ -124,6 +140,17 @@ const activityList = [
                 name: "jogging",
                 info: "1.5 miles",
                 time: 25
+            },
+        ]
+    },
+    {
+        handle: "@test",
+        date: (new Date("11-15-2021")).toISOString(),
+        activities: [
+            {
+                name: "walking",
+                info: "5 miles",
+                time: 200
             },
         ]
     },
