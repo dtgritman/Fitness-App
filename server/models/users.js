@@ -25,6 +25,7 @@ async function add(user) {
         return Promise.reject({ code: 422, msg: "Password is required" });
 
     // add default properties to user if not given
+    user.pic = user.pic || "/images/default-avatar.png";
     user.profile = user.profile || { sex: "Unknown", birthday: undefined, height: 0, weight: 0, };
     user.following = user.following || [];
 
