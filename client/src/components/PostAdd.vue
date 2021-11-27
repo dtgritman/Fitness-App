@@ -58,18 +58,21 @@ export default {
     }),
     methods: {
         async submit() {
-            if (!this.caption || this.caption == "")
+            if (!this.caption || this.caption == "") {
                 session.error({ msg: "You must add a caption to the post!" });
+                return;
+            }
             const post = await add({
-                handle: session.user.userHandle,
+                handle: session.user.handle,
                 activities: this.activities,
                 caption: this.caption,
             });
             if (post._id) {
+                this.$emit('close');
                 session.notify("Post has been made.");
                 this.caption = "";
             } else {
-                session.notify("Post failed!");
+                session.error({ msg: "Post failed!" });
             }
         },
     },
