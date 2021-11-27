@@ -149,7 +149,6 @@ const postList = [
         ],
         caption: "Just started working out",
         time: new Date("11-15-2021"),
-        liked: [],
     },
     {
         handle: "@JewPaltz",
@@ -190,7 +189,6 @@ const postList = [
         ],
         caption: "New Workout!",
         time: new Date("11-04-2021"),
-        liked: [],
     },
     {
         handle: "@test",
