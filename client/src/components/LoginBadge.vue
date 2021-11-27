@@ -1,9 +1,9 @@
 <template>
-    <div v-if="!session.user">
+    <div class="buttons" v-if="!session.user">
         <a class="navbar-item" @click="$router.push('/login')">Login</a>
         <a class="navbar-item" @click="$router.push('/signup')">Sign Up</a>
     </div>
-    <div v-else>
+    <div class="buttons" v-else>
         <p class="navbar-item">Hello, {{ name }}</p>
         <a class="navbar-item" @click="logout">Logout</a>
     </div>
