@@ -1,7 +1,7 @@
 <template>
     <div class="buttons" v-if="!session.user">
-        <a class="navbar-item" @click="$router.push('/login')">Login</a>
-        <a class="navbar-item" @click="$router.push('/signup')">Sign Up</a>
+        <router-link class="navbar-item" to="/login">Login</router-link>
+        <router-link class="navbar-item" to="/signup">Sign Up</router-link>
     </div>
     <div class="buttons" v-else>
         <p class="navbar-item">Hello, {{ name }}</p>
