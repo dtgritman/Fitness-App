@@ -65,15 +65,12 @@ nav .is-active {
     background-color: #bbbbbb;
 }
 
+.navbar-dropdown,
 a.navbar-item:hover,
 a.navbar-item:active,
 a.navbar-item:focus,
 a.router-link-active {
     background-color: #c5c5c5;
     color: inherit;
-}
-
-.navbar-dropdown {
-    background-color: #c5c5c5;
 }
 </style>
