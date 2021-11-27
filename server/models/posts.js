@@ -46,6 +46,7 @@ async function add(post, time = new Date()) {
         throw { code: 422, msg: "Post must have an Owner" }
     }
     post.time = time;
+    post.liked = post.liked || [];
     post._id = (await collection.insertOne(post)).insertedId;
 
     return { ...post };
