@@ -36,7 +36,10 @@
                 @click="addActive = true"
                 >Add
             </a>
-            <a class="card-footer-item" @click="postActive = true"
+            <a
+                v-if="activitiesInfo.activities.length > 0"
+                class="card-footer-item"
+                @click="postActive = true"
                 >Create Post
             </a>
         </footer>
