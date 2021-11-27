@@ -2,7 +2,7 @@
     <div>
         <nav class="navbar">
             <div class="navbar-brand">
-                <router-link class="navbar-item" to="/">
+                <router-link class="navbar-item navbar-logo" to="/">
                     <img src="../assets/logo.png" />
                 </router-link>
 
@@ -14,8 +14,8 @@
             </div>
 
             <div class="navbar-menu" :class="{ 'is-active': navActive }">
-                <div class="navbar-start">
-                    <router-link class="navbar-item" to="/myprofile" v-if=session.user>
+                <div v-if="session.user" class="navbar-start">
+                    <router-link class="navbar-item" to="/myprofile">
                         My Profile
                     </router-link>
                 </div>
@@ -61,8 +61,13 @@ export default {
     background-color: inherit;
 }
 
-nav .is-active {
+.navbar-burger.is-active,
+.navbar-menu.is-active {
     background-color: #bbbbbb;
+}
+
+a.router-link-active.navbar-logo {
+    background-color: inherit;
 }
 
 .navbar-dropdown,
