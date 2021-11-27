@@ -8,12 +8,12 @@
                 <div class="level is-mobile">
                     <div class="level-item">
                         <div class="has-text-centered">
-                            <p class="image is-128x128">
+                            <div class="profile-pic image is-128x128">
                                 <img
                                     :src="userPic"
                                     onerror="this.src='/imgs/default-avatar.png'"
                                 />
-                            </p>
+                            </div>
                             <br />
                             <a @click="picActive = true">Update</a>
                         </div>
@@ -133,4 +133,7 @@ export default {
 </script>
 
 <style>
+.profile-pic {
+    margin-bottom: 0.5em;
+}
 </style>
