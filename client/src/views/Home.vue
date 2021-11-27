@@ -2,22 +2,22 @@
     <section class="section">
         <div class="has-text-centered">
             <p>Welcome to Fit Track!</p>
-            <p v-if="!Session.user">
+            <p v-if="!session.user">
                 To begin tracking your fitness and connecting with friends,
-                please <a  @click="$router.push('/login')">login</a> or
-                <a @click="$router.push('/signup')">sign up</a>!
+                please <router-link  to="/login">login</router-link> or
+                <router-link to="/signup">sign up</router-link>!
             </p>
         </div>
     </section>
 </template>
 
 <script>
-import Session from "../services/session";
+import session from "../services/session";
 
 export default {
     name: "Home",
     data: () => ({
-        Session,
+        session,
     }),
 };
 </script>
