@@ -23,6 +23,8 @@
                         <div class="level-item">
                             <p>{{ friend.firstName }} {{ friend.lastName }}</p>
                         </div>
+                    </div>
+                    <div class="level">
                         <div class="level-item">
                             <figure>
                                 <p class="image is-128x128 is-square">
