@@ -24,8 +24,13 @@
                             <p>{{ friend.firstName }} {{ friend.lastName }}</p>
                         </div>
                         <div class="level-item">
-                            <figure class="image is-128x128">
-                                <img :src="friend.pic" onerror="this.src='/imgs/default-avatar.png'" />
+                            <figure>
+                                <p class="image is-128x128 is-square">
+                                    <img
+                                        :src="friend.pic"
+                                        onerror="this.src='/imgs/default-avatar.png'"
+                                    />
+                                </p>
                             </figure>
                         </div>
                     </div>
