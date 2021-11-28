@@ -1,27 +1,27 @@
 <template>
     <div class="modal" :class="{ 'is-active': isActive }">
-        <div class="notification">
+        <div class="card">
             <button class="delete is-medium" @click="$emit('close')">
                 <i class="fas fa-times" />
             </button>
-            <div class="card">
-                <div class="card-content">
-                    <input
-                        class="input"
-                        type="text"
-                        v-model="newPic"
-                        placeholder="New profile image link"
-                    />
-                    <br />
-                    <p class="image is-128x128 is-centered">
-                        <img :src="newPic" />
-                    </p>
+            <div class="card-content">
+                New Image Link:
+                <input
+                    class="input"
+                    type="text"
+                    v-model="newPic"
+                    placeholder="New profile image link"
+                />
+                <br />
+                <br />
+                <div class="has-text-centered">
+                    <figure class="image is-128x128 is-inline-block">
+                        <img class="is-rounded" :src="newPic" />
+                    </figure>
                 </div>
-                <div class="card-footer">
-                    <a class="card-footer-item" @click="submit">
-                        Update
-                    </a>
-                </div>
+            </div>
+            <div class="card-footer">
+                <a class="card-footer-item" @click="submit"> Update </a>
             </div>
         </div>
     </div>
@@ -37,22 +37,27 @@ export default {
         newPic: "",
     }),
     watch: {
-        pic: function(pic) {
+        pic: function (pic) {
             if (pic == this.newPic) {
                 this.newPic = "";
             }
-        }
+        },
     },
     methods: {
         submit() {
             if (this.newPic != "") {
-                this.$emit('update', this.newPic);
-                this.$emit('close');
+                this.$emit("update", this.newPic);
+                this.$emit("close");
             }
-        }
+        },
     },
 };
 </script>
 
 <style>
+button.delete {
+    position: absolute;
+    top: 5px;
+    right: 5px;
+}
 </style>
