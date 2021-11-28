@@ -16,19 +16,23 @@
                 <div class="card-header">
                     <p class="card-header-title is-centered">
                         {{ friend.handle }}
-                        ({{ friend.firstName }} {{ friend.lastName }})
                     </p>
                 </div>
                 <div class="card-content">
-                    <div class="level is-mobile">
+                    <div class="level">
                         <div class="level-item">
-                            <img class="image is-128x128" :src="friend.pic" onerror="this.src='/imgs/default-avatar.png'" />
+                            <p>{{ friend.firstName }} {{ friend.lastName }}</p>
+                        </div>
+                        <div class="level-item">
+                            <figure class="image is-128x128">
+                                <img :src="friend.pic" onerror="this.src='/imgs/default-avatar.png'" />
+                            </figure>
                         </div>
                     </div>
                 </div>
                 <div class="card-footer">
                     <a class="card-footer-item" @click="removeFriend(i)">
-                        Remove
+                        Remove Friend
                     </a>
                 </div>
             </div>
