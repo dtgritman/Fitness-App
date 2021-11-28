@@ -1,6 +1,6 @@
 http://localhost:3100/users
 ###
-http://localhost:3100/users/61953d517d480cd4282aab1b
+http://localhost:3100/users/61a3bcb38549a368d6422371
 ###
 POST http://localhost:3100/users/reset
 ###
@@ -8,18 +8,25 @@ POST http://localhost:3100/users/login
 Content-Type: application/json
 
     { 
-        "handle": "@vp",
-        "password": "Her"
+        "handle": "@test",
+        "password": "a"
+    }
+###
+PATCH http://localhost:3100/users/pic/61a3b8cb45d05f502827b6ec
+Content-Type: application/json
+
+    {
+        "pic": "https://pic.onlinewebfonts.com/svg/img_28608.png"
     }
 
 
 
 ###
-POST http://localhost:3100/users/friends/@vp
+POST http://localhost:3100/users/friends/@test
 ###
-POST http://localhost:3100/users/friends/add/@vp/@JewPaltz
+POST http://localhost:3100/users/friends/add/@test/@JewPaltz
 ###
-DELETE http://localhost:3100/users/friends/remove/@vp/@JewPaltz
+DELETE http://localhost:3100/users/friends/remove/@test/@JewPaltz
 ###
 http://localhost:3100/users/friends/find/p
 
@@ -30,7 +37,7 @@ http://localhost:3100/posts
 ###
 http://localhost:3100/posts/wall/@JewPaltz
 ###
-http://localhost:3100/posts/feed/@JewPaltz
+http://localhost:3100/posts/feed/@test
 ###
 POST http://localhost:3100/posts/reset
 
@@ -39,6 +46,6 @@ POST http://localhost:3100/posts/reset
 ###
 http://localhost:3100/activities
 ###
-http://localhost:3100/activities/@vp
+http://localhost:3100/activities/@test
 ###
 POST http://localhost:3100/activities/reset
