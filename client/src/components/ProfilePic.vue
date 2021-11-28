@@ -36,6 +36,13 @@ export default {
     data: () => ({
         newPic: "",
     }),
+    watch: {
+        pic: function(pic) {
+            if (pic == this.newPic) {
+                this.newPic = "";
+            }
+        }
+    },
     methods: {
         submit() {
             if (this.newPic != "") {

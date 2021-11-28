@@ -56,6 +56,7 @@
 
         <profile-pic
             :isActive="picActive"
+            :pic="userPic"
             @update="submitPic"
             @close="picActive = false"
         />
@@ -121,10 +122,8 @@ export default {
         },
         async submitPic(newPic) {
             const response = await updatePic(session.user._id, newPic);
-            console.log(response)
-            if (response.pic) {
+            if (response) {
                 this.userPic = response.pic;
-                return this.userPic;
             }
         },
     },
