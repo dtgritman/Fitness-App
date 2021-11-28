@@ -68,6 +68,9 @@
                     </div>
                 </div>
             </section>
+            <footer class="modal-card-foot buttons is-centered">
+                <button class="button" @click="$emit('close')">Close</button>
+            </footer>
         </div>
     </div>
 </template>
