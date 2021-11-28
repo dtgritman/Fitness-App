@@ -12,7 +12,7 @@
             <form class="modal-card-body" @submit.prevent="addActivity">
                 <div class="field">
                     <p class="control">
-                        Exercise
+                        <label class="label">Exercise</label>
                         <input
                             class="input"
                             type="text"
@@ -23,7 +23,7 @@
                 </div>
                 <div class="field">
                     <p class="control">
-                        Info
+                        <label class="label">Info</label>
                         <input
                             class="input"
                             type="text"
@@ -34,7 +34,7 @@
                 </div>
                 <div class="field">
                     <p class="control">
-                        Time
+                        <label class="label">Time</label>
                         <input
                             class="input"
                             type="number"
