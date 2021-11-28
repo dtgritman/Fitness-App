@@ -36,7 +36,7 @@
                             </div>
                         </div>
                     </div>
-                    <div class="card-footer">
+                    <footer class="card-footer">
                         <div class="card-footer-item">
                             <button
                                 v-if="
@@ -65,7 +65,7 @@
                                 Add Friend
                             </button>
                         </div>
-                    </div>
+                    </footer>
                 </div>
             </section>
             <footer class="modal-card-foot buttons is-centered">
