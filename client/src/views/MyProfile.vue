@@ -5,7 +5,7 @@
                 <p class="card-header-title is-centered">{{ name }}</p>
             </div>
             <div class="card-content">
-                <div class="level is-mobile">
+                <div class="level">
                     <div class="level-item">
                         <div class="has-text-centered">
                             <div class="card-image">
@@ -22,7 +22,7 @@
                         </div>
                     </div>
                 </div>
-                <div class="level is-mobile">
+                <div class="level">
                     <div class="level-item">
                         <div class="has-text-centered">
                             <p class="title is-4">Sex</p>
