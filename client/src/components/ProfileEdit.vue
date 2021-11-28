@@ -9,7 +9,10 @@
                     @click="$emit('close')"
                 ></button>
             </header>
-            <form class="modal-card-body" @submit.prevent="$emit('update', newProfile)">
+            <form
+                class="modal-card-body"
+                @submit.prevent="$emit('update', newProfile)"
+            >
                 <div class="field">
                     <p class="control">
                         Sex:
@@ -57,9 +60,7 @@
                     </p>
                 </div>
                 <div class="field buttons is-centered">
-                    <button class="button is-success">
-                        Update
-                    </button>
+                    <button class="button is-success">Update</button>
                 </div>
             </form>
             <footer class="modal-card-foot buttons is-centered">
