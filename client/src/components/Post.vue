@@ -2,12 +2,11 @@
     <div class="card">
         <article class="media">
             <figure class="media-left">
-                <p class="image is-64x64">
-                    <img 
-                        :src="post.user.pic"
-                        onerror="this.src='/imgs/default-avatar.png'" 
-                    />
-                </p>
+                <img
+                    class="image is-64x64"
+                    :src="post.user.pic"
+                    onerror="this.src='/imgs/default-avatar.png'" 
+                />
             </figure>
             <div class="media-content">
                 <div class="content">
