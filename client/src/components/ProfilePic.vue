@@ -1,10 +1,15 @@
 <template>
     <div class="modal" :class="{ 'is-active': isActive }">
-        <div class="card">
-            <button class="delete is-medium" @click="$emit('close')">
-                <i class="fas fa-times" />
-            </button>
-            <div class="card-content">
+        <div class="modal-background"></div>
+        <div class="modal-card">
+            <header class="modal-card-head has-text-centered">
+                <p class="modal-card-title">Update Picture</p>
+                <button
+                    class="delete is-large"
+                    @click="$emit('close')"
+                ></button>
+            </header>
+            <section class="modal-card-body">
                 New Image Link:
                 <input
                     class="input"
@@ -21,10 +26,13 @@
                         </p>
                     </figure>
                 </div>
-            </div>
-            <div class="card-footer">
-                <a class="card-footer-item" @click="submit"> Update </a>
-            </div>
+            </section>
+            <footer class="modal-card-foot">
+                <button class="button is-success" @click="submit">
+                    Update
+                </button>
+                <button class="button" @click="$emit('close')">Cancel</button>
+            </footer>
         </div>
     </div>
 </template>
@@ -57,9 +65,4 @@ export default {
 </script>
 
 <style>
-button.delete {
-    position: absolute;
-    top: 5px;
-    right: 5px;
-}
 </style>
