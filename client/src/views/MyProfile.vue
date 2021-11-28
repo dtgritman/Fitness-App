@@ -22,7 +22,7 @@
                         </div>
                     </div>
                 </div>
-                <div class="level">
+                <div class="level is-mobile">
                     <div class="level-item">
                         <div class="has-text-centered">
                             <p class="title is-4">Sex</p>
