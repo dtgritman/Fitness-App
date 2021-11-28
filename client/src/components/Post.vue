@@ -1,45 +1,42 @@
 <template>
     <div class="card">
         <article class="media">
-            <figure class="media-left">
+            <figure class="media-left image is-64x64">
                 <img
-                    class="image is-64x64"
                     :src="post.user.pic"
-                    onerror="this.src='/imgs/default-avatar.png'" 
+                    onerror="this.src='/imgs/default-avatar.png'"
                 />
             </figure>
             <div class="media-content">
                 <div class="content">
-                    <p>
-                        <strong> {{ post.handle }} </strong> ({{ name }})
-                        <br />
-                        {{ post.caption }}
-                        <br />
-                        <table class="table is-fullwidth">
-                            <thead>
-                                <th>Exercise</th>
-                                <th>Info</th>
-                                <th>Time</th>
-                            </thead>
-                            <tbody>
-                                <tr
-                                    v-for="(activity, i) in post.activities"
-                                    :key="i"
-                                >
-                                    <td>{{ activity.name }}</td>
-                                    <td>{{ activity.info }}</td>
-                                    <td>{{ activity.time }} mins</td>
-                                </tr>
-                            </tbody>
-                        </table>
-                        <br />
-                        <small> {{ likes }} Likes </small>
-                        <br />
-                        <small>
-                            <a @click="likePost()">{{ likeStatus }}</a>
-                            · {{ postTime }}
-                        </small>
-                    </p>
+                    <strong> {{ post.handle }} </strong> ({{ name }})
+                    <br />
+                    {{ post.caption }}
+                    <br />
+                    <table class="table is-fullwidth">
+                        <thead>
+                            <th>Exercise</th>
+                            <th>Info</th>
+                            <th>Time</th>
+                        </thead>
+                        <tbody>
+                            <tr
+                                v-for="(activity, i) in post.activities"
+                                :key="i"
+                            >
+                                <td>{{ activity.name }}</td>
+                                <td>{{ activity.info }}</td>
+                                <td>{{ activity.time }} mins</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                    <br />
+                    <small> {{ likes }} Likes </small>
+                    <br />
+                    <small>
+                        <a @click="likePost()">{{ likeStatus }}</a>
+                        · {{ postTime }}
+                    </small>
                 </div>
             </div>
         </article>
