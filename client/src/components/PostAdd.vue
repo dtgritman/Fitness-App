@@ -1,45 +1,56 @@
 <template>
     <div class="modal" :class="{ 'is-active': isActive }">
-        <div class="notification">
-            <button class="delete is-medium" @click="$emit('close')">
-                <i class="fas fa-times" />
-            </button>
-            <div class="card">
-                <div class="card-content">
-                    <table class="table is-fullwidth">
-                        <thead>
-                            <tr>
-                                <th>Exercise</th>
-                                <th>Info</th>
-                                <th>Time</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            <tr
-                                v-for="(activity, i) in activities"
-                                :key="i"
-                            >
-                                <td>{{ activity.name }}</td>
-                                <td>{{ activity.info }}</td>
-                                <td>{{ activity.time }} mins</td>
-                            </tr>
-                        </tbody>
-                    </table>
-
-                    Post Caption:
+        <div class="modal-background"></div>
+        <div class="modal-card">
+            <header class="modal-card-head has-text-centered">
+                <p class="modal-card-title">Create Post</p>
+                <button
+                    class="delete is-large"
+                    @click="$emit('close')"
+                ></button>
+            </header>
+            <form class="modal-card-body" @submit.prevent="submit">
+                <table class="table is-fullwidth">
+                    <thead>
+                        <tr>
+                            <th>Exercise</th>
+                            <th>Info</th>
+                            <th>Time</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr v-for="(activity, i) in activities" :key="i">
+                            <td>{{ activity.name }}</td>
+                            <td>{{ activity.info }}</td>
+                            <td>{{ activity.time }} mins</td>
+                        </tr>
+                    </tbody>
+                </table>
+                <div class="field">
+                    <p class="control">
+                        <label class="label">Post Caption</label>
+                    </p>
                     <input
                         class="input"
                         type="text"
                         v-model="caption"
                         placeholder="Add a caption to your post"
+                        required
                     />
                 </div>
-                <div class="card-footer">
-                    <a class="card-footer-item" @click="submit">
-                        Submit Post
-                    </a>
+                <div class="field buttons is-centered">
+                    <p class="control">
+                        <input
+                            class="button is-success"
+                            type="submit"
+                            value="Submit Post"
+                        />
+                    </p>
                 </div>
-            </div>
+            </form>
+            <footer class="modal-card-foot buttons is-centered">
+                <button class="button" @click="$emit('close')">Cancel</button>
+            </footer>
         </div>
     </div>
 </template>
@@ -68,7 +79,7 @@ export default {
                 caption: this.caption,
             });
             if (post._id) {
-                this.$emit('close');
+                this.$emit("close");
                 session.notify("Post has been made.");
                 this.caption = "";
             } else {
