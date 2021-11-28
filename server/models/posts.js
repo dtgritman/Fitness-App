@@ -34,8 +34,8 @@ function getFeed(handle) {
         },
         { $unwind: "$posts" },
         { $replaceRoot: { newRoot: "$posts" } },
-
         ...addOwnerPipeline,
+        { $sort: { time: -1 } },
     ]);
 
     return feed.toArray();
@@ -43,11 +43,11 @@ function getFeed(handle) {
 
 const get = (postId) => collection.findOne({ _id: new ObjectId(postId) });
 
-async function add(post, time = new Date()) {
+async function add(post) {
     if (!post.handle) {
         throw { code: 422, msg: "Post must have an Owner" }
     }
-    post.time = time;
+    post.time = post.time || new Date(); // not sure if to go by activity date or current date, the client is being trusted wayyyy too much in all this so just going with the flow at this point
     post.liked = post.liked || [];
     post._id = (await collection.insertOne(post)).insertedId;
 
@@ -101,7 +101,7 @@ const search = (query) => collection.find({ caption: new RegExp(query, "i") }).t
 
 const seed = async () => {
     for (const post of postList) {
-        await add(post, post.time);
+        await add(post);
     }
 }
 
@@ -127,7 +127,7 @@ const postList = [
             },
         ],
         caption: "Some cardio today",
-        time: (new Date()).toISOString(),
+        time: new Date(),
         liked: ["@JewPaltz", "@johnsmith"],
     },
     {
