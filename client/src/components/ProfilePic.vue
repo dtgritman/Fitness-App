@@ -16,7 +16,7 @@
                 <br />
                 <div class="has-text-centered">
                     <figure class="image is-128x128 is-inline-block">
-                        <img class="is-rounded" :src="newPic" />
+                        <img :src="newPic" />
                     </figure>
                 </div>
             </div>

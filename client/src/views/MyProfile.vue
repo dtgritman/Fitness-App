@@ -11,7 +11,6 @@
                             <div class="card-image">
                                 <figure class="image is-128x128">
                                     <img
-                                        class="is-rounded"
                                         :src="userPic"
                                         onerror="this.src='/imgs/default-avatar.png'"
                                     />
