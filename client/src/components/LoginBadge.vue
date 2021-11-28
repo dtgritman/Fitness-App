@@ -1,11 +1,11 @@
 <template>
-    <div class="buttons" v-if="!session.user">
-        <router-link class="navbar-item" to="/login">Login</router-link>
-        <router-link class="navbar-item" to="/signup">Sign Up</router-link>
+    <div v-if="!session.user">
+        <router-link class="navbar-item is-inline-block py-3" to="/login">Login</router-link>
+        <router-link class="navbar-item is-inline-block py-3" to="/signup">Sign Up</router-link>
     </div>
-    <div class="buttons" v-else>
-        <p class="navbar-item">Hello, {{ name }}</p>
-        <a class="navbar-item" @click="logout">Logout</a>
+    <div v-else>
+        <p class="navbar-item is-inline-block py-3">Hello, {{ name }}</p>
+        <a class="navbar-item is-inline-block py-3" @click="logout">Logout</a>
     </div>
 </template>
 
