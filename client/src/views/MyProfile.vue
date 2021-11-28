@@ -57,7 +57,6 @@
                 </a>
             </div>
         </div>
-
         <profile-pic
             :isActive="picActive"
             :pic="userPic"
