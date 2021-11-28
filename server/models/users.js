@@ -62,7 +62,9 @@ async function updatePic(userId, pic) {
             projection: { pic: 1 }
         },
     );
-
+    if (!result.value) {
+        return Promise.reject({ code: 422, msg: "Failed to update picture!" });
+    }
     return { ...result.value };
 }
 
