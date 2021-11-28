@@ -3,13 +3,16 @@
         <article class="media">
             <figure class="media-left">
                 <p class="image is-64x64">
-                    <img src="/imgs/default-avatar.png" />
+                    <img 
+                        :src="post.user.pic"
+                        onerror="this.src='/imgs/default-avatar.png'" 
+                    />
                 </p>
             </figure>
             <div class="media-content">
                 <div class="content">
                     <p>
-                        <strong> {{ post.handle }} </strong>
+                        <strong> {{ post.handle }} </strong> ({{ name }})
                         <br />
                         {{ post.caption }}
                         <br />
@@ -56,6 +59,9 @@ export default {
         },
     },
     computed: {
+        name() {
+            return this.post.user.firstName + " " + this.post.user.lastName;
+        },
         liked() {
             return this.post.liked.includes(this.userHandle);
         },
