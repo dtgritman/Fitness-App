@@ -14,7 +14,7 @@ const addOwnerPipeline = [
         }
     },
     { $unwind: "$user" },
-    { $project: { "user.password": 0, "user.email": 0, "user.profile": 0 } }
+    { $project: { "user.password": 0, "user.isAdmin": 0, "user.following": 0, "user.email": 0, "user.profile": 0 } },
 ];
 
 const getAll = () => collection.find().toArray();
@@ -25,15 +25,17 @@ function getFeed(handle) {
     const feed = users.collection.aggregate([
         { $match: { handle: handle } },
         {
-            "$lookup": {
+            $lookup: {
                 from: "posts",
                 localField: "following.handle",
                 foreignField: "handle",
                 as: "posts"
             }
         },
-        { $unwind: '$posts' },
+        { $unwind: "$posts" },
         { $replaceRoot: { newRoot: "$posts" } },
+
+        ...addOwnerPipeline,
     ]);
 
     return feed.toArray();
