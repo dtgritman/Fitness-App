@@ -14,11 +14,13 @@
                 <div class="card-content">
                     <div class="level">
                         <div class="level-item">
-                            <figure class="image is-64x64">
-                                <img
-                                    :src="user.pic"
-                                    onerror="this.src='/imgs/default-avatar.png'"
-                                />
+                            <figure>
+                                <p class="image is-128x128 is-square">
+                                    <img
+                                        :src="user.pic"
+                                        onerror="this.src='/imgs/default-avatar.png'"
+                                    />
+                                </p>
                             </figure>
                         </div>
                         <div class="level-item">

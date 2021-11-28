@@ -15,8 +15,10 @@
                 <br />
                 <br />
                 <div class="has-text-centered">
-                    <figure class="image is-128x128 is-inline-block">
-                        <img :src="newPic" />
+                    <figure class="is-inline-block">
+                        <p class="image is-128x128">
+                            <img :src="newPic" />
+                        </p>
                     </figure>
                 </div>
             </div>

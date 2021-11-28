@@ -9,14 +9,15 @@
                     <div class="level-item">
                         <div class="has-text-centered">
                             <div class="card-image">
-                                <figure class="image is-128x128">
-                                    <img
-                                        :src="userPic"
-                                        onerror="this.src='/imgs/default-avatar.png'"
-                                    />
+                                <figure>
+                                    <p class="image is-128x128 is-square">
+                                        <img
+                                            :src="userPic"
+                                            onerror="this.src='/imgs/default-avatar.png'"
+                                        />
+                                    </p>
                                 </figure>
                             </div>
-                            <br />
                             <a @click="picActive = true">Update</a>
                         </div>
                     </div>

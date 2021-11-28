@@ -1,11 +1,13 @@
 <template>
     <div class="card">
         <article class="media">
-            <figure class="media-left image is-64x64">
-                <img
-                    :src="post.user.pic"
-                    onerror="this.src='/imgs/default-avatar.png'"
-                />
+            <figure class="media-left">
+                <p class="image is-128x128 is-square">
+                    <img
+                        :src="post.user.pic"
+                        onerror="this.src='/imgs/default-avatar.png'"
+                    />
+                </p>
             </figure>
             <div class="media-content">
                 <div class="content">
