@@ -32,12 +32,10 @@ async function add(user) {
     if (user.handle.charAt(0) != '@')
         user.handle = '@' + user.handle;
 
-    const hash = await bcrypt.hash(user.password, +process.env.SALT_ROUNDS)
-    user.password = hash;
-
-    user._id = (await collection.insertOne(user)).insertedId;
+    const passHash = await bcrypt.hash(user.password, +process.env.SALT_ROUNDS)
+    const newUser = await collection.insertOne({ ...user, password: passHash });
     
-    return { ...user, password: undefined };
+    return { ...user, _id: newUser.insertedId, password: undefined };
 }
 
 async function update(userId, user) {
@@ -106,7 +104,7 @@ const seed = async () => {
     }
 }
 
-const reset = () => collection.drop().catch().finally(seed);
+const reset = async () => collection.drop().catch().finally(seed);
 
 module.exports = {
     collection, add, get, getAll, getByHandle, update, updatePic, updateProfile, remove, login, seed, reset,
