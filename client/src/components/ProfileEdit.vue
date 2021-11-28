@@ -60,7 +60,13 @@
                     </p>
                 </div>
                 <div class="field buttons is-centered">
-                    <button class="button is-success">Update</button>
+                    <p class="control">
+                        <input
+                            class="button is-success"
+                            type="submit"
+                            value="Submit"
+                        />
+                    </p>
                 </div>
             </form>
             <footer class="modal-card-foot buttons is-centered">

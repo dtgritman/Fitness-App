@@ -120,13 +120,14 @@ export default {
             const response = await updateProfile(session.user._id, newProfile);
             if (response.profile) {
                 this.profile = response.profile;
-                return this.profile;
+                this.editActive = false;
             }
         },
         async submitPic(newPic) {
             const response = await updatePic(session.user._id, newPic);
             if (response) {
                 this.userPic = response.pic;
+                this.picActive = false;
             }
         },
     },

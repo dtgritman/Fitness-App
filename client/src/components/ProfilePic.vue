@@ -9,7 +9,7 @@
                     @click="$emit('close')"
                 ></button>
             </header>
-            <form class="modal-card-body" @submit.prevent="submit">
+            <form class="modal-card-body" @submit.prevent="$emit('update', newPic)">
                 <div class="field">
                     <p class="control">
                         <label class="label">New Image Link</label>
@@ -59,14 +59,6 @@ export default {
         pic: function (pic) {
             if (pic == this.newPic) {
                 this.newPic = "";
-            }
-        },
-    },
-    methods: {
-        submit() {
-            if (this.newPic != "") {
-                this.$emit("update", this.newPic);
-                this.$emit("close");
             }
         },
     },
