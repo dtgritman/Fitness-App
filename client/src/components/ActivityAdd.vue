@@ -1,10 +1,15 @@
 <template>
-    <form class="modal" :class="{ 'is-active': isActive }" @submit.prevent="">
+    <div class="modal" :class="{ 'is-active': isActive }">
+        <div class="modal-background"></div>
         <div class="modal-card">
-            <header class="modal-card-head">
+            <header class="modal-card-head has-text-centered">
                 <p class="modal-card-title">Add Exercise</p>
+                <button
+                    class="delete is-large"
+                    @click="$emit('close')"
+                ></button>
             </header>
-            <section class="modal-card-body">
+            <form class="modal-card-body" @submit.prevent="addActivity">
                 <div class="field">
                     <p class="control">
                         Exercise
@@ -38,15 +43,15 @@
                         />
                     </p>
                 </div>
-            </section>
-            <footer class="modal-card-foot">
-                <button class="button is-success" @click="addActivity">
-                    Add
-                </button>
+                <div class="field buttons is-centered">
+                    <button class="button is-success">Submit</button>
+                </div>
+            </form>
+            <footer class="modal-card-foot buttons is-centered">
                 <button class="button" @click="$emit('close')">Cancel</button>
             </footer>
         </div>
-    </form>
+    </div>
 </template>
 
 <script>
