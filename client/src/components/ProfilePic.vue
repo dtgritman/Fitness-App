@@ -27,7 +27,7 @@
                     </figure>
                 </div>
             </section>
-            <footer class="modal-card-foot">
+            <footer class="modal-card-foot buttons is-centered">
                 <button class="button is-success" @click="submit">
                     Update
                 </button>
