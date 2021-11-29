@@ -21,9 +21,16 @@
                         <td>{{ activity.info }}</td>
                         <td>{{ activity.time }} mins</td>
                         <td v-if="title == 'Today'" width="2em">
-                            <button class="button" @click="$emit('remove', i)">
+                            <button class="button" @click="removeActive = true">
                                 <i class="fas fa-times" />
                             </button>
+                            <remove-confirm
+                                :isActive="removeActive"
+                                :title="'Remove Exercise'"
+                                :msg="'Are you sure you would like to remove this exercise?'"
+                                @close="removeActive = false"
+                                @remove="$emit('remove', i)"
+                            />
                         </td>
                     </tr>
                 </tbody>
@@ -59,9 +66,14 @@
 <script>
 import ActivityAdd from "./ActivityAdd.vue";
 import PostAdd from "./PostAdd.vue";
+import RemoveConfirm from "./RemoveConfirm.vue";
 
 export default {
-    components: { ActivityAdd, PostAdd },
+    components: {
+        ActivityAdd,
+        PostAdd,
+        RemoveConfirm,
+    },
     props: {
         title: String,
         activitiesInfo: Object,
@@ -69,6 +81,7 @@ export default {
     data: () => ({
         postActive: false,
         addActive: false,
+        removeActive: false,
     }),
     methods: {
         async addActivity(activity) {
