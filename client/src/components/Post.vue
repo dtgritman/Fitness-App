@@ -48,23 +48,23 @@
             <a class="card-footer-item" @click="removeActive = true">
                 Remove
             </a>
-            <remove-confirm
+            <confirm
                 :isActive="removeActive"
                 :title="'Remove Post'"
                 :msg="'Are you sure you would like to remove this post?'"
+                @confirmed="$emit('remove')"
                 @close="removeActive = false"
-                @remove="$emit('remove')"
             />
         </div>
     </div>
 </template>
 
 <script>
-import RemoveConfirm from "./RemoveConfirm.vue";
+import Confirm from "./Confirm.vue";
 
 export default {
     components: {
-        RemoveConfirm,
+        Confirm,
     },
     props: {
         userHandle: String,

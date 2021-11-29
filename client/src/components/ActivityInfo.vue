@@ -24,12 +24,12 @@
                             <button class="button" @click="removeActive = true">
                                 <i class="fas fa-times" />
                             </button>
-                            <remove-confirm
+                            <confirm
                                 :isActive="removeActive"
                                 :title="'Remove Exercise'"
                                 :msg="'Are you sure you would like to remove this exercise?'"
+                                @confirmed="$emit('remove', i)"
                                 @close="removeActive = false"
-                                @remove="$emit('remove', i)"
                             />
                         </td>
                     </tr>
@@ -66,13 +66,13 @@
 <script>
 import ActivityAdd from "./ActivityAdd.vue";
 import PostAdd from "./PostAdd.vue";
-import RemoveConfirm from "./RemoveConfirm.vue";
+import Confirm from "./Confirm.vue";
 
 export default {
     components: {
         ActivityAdd,
         PostAdd,
-        RemoveConfirm,
+        Confirm,
     },
     props: {
         title: String,

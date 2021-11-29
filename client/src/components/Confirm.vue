@@ -3,7 +3,7 @@
         <div class="modal-background"></div>
         <div class="modal-card">
             <header class="modal-card-head has-text-centered">
-                <p class="modal-card-title">Remove Post</p>
+                <p class="modal-card-title">{{ title }}</p>
                 <button
                     class="delete is-large"
                     @click="$emit('close')"
@@ -29,7 +29,7 @@ export default {
     },
     methods: {
         confirm() {
-            this.$emit('remove');
+            this.$emit('confirmed');
             this.$emit('close');
         },
     },
