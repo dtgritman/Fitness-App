@@ -37,26 +37,42 @@
                 <small> {{ likes }} Likes </small>
                 <br />
                 <small>
-                    <a v-if="userHandle != post.handle" @click="likePost()">{{ likeStatus }}</a>
+                    <a v-if="userHandle != post.handle" @click="likePost()">{{
+                        likeStatus
+                    }}</a>
                     · {{ postTime }}
                 </small>
             </div>
         </div>
         <div v-if="userHandle == post.handle" class="card-footer">
-            <a class="card-footer-item" @click="$emit('remove')"> Remove </a>
+            <a class="card-footer-item" @click="removeActive = true">
+                Remove
+            </a>
+            <remove-confirm
+                :isActive="removeActive"
+                :title="'Remove Post'"
+                :msg="'Are you sure you would like to remove this post?'"
+                @close="removeActive = false"
+                @remove="$emit('remove')"
+            />
         </div>
     </div>
 </template>
 
 <script>
+import RemoveConfirm from "./RemoveConfirm.vue";
+
 export default {
+    components: {
+        RemoveConfirm,
+    },
     props: {
         userHandle: String,
         post: Object,
     },
     data() {
         return {
-            editActive: false,
+            removeActive: false,
         };
     },
     methods: {
