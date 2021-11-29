@@ -13,7 +13,7 @@
                 <p>{{ msg }}</p>
             </section>
             <footer class="modal-card-foot buttons is-centered">
-                <button class="button" @click="$emit('remove')">Confirm</button>
+                <button class="button" @click="confirm">Confirm</button>
                 <button class="button" @click="$emit('close')">Cancel</button>
             </footer>
         </div>
@@ -26,6 +26,12 @@ export default {
         isActive: Boolean,
         title: String,
         msg: String,
+    },
+    methods: {
+        confirm() {
+            this.$emit('remove');
+            this.$emit('close');
+        },
     },
 };
 </script>
