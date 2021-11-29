@@ -1,23 +1,36 @@
 <template>
     <section class="section">
         <form class="has-text-centered" @submit.prevent="search">
-            Find Friends:
-            <input
-                class="input"
-                type="text"
-                v-model="qHandle"
-                placeholder="search for users by handle"
-            />
-            <button class="button">Search</button>
+            <div class="field">
+                <p class="control">
+                    <label class="label">Search Users</label>
+                    <input
+                        class="input"
+                        type="text"
+                        v-model="qHandle"
+                        placeholder="Search for users by handle"
+                        required
+                    />
+                </p>
+            </div>
+            <div class="field buttons is-centered">
+                <p class="control">
+                    <input
+                        class="button"
+                        type="submit"
+                        value="Search"
+                    />
+                </p>
+            </div>
         </form>
         <br />
         <div v-for="(friend, i) in friends" :key="i">
             <div class="card">
-                <div class="card-header">
+                <header class="card-header">
                     <p class="card-header-title is-centered">
                         {{ friend.handle }}
                     </p>
-                </div>
+                </header>
                 <div class="card-content">
                     <div class="level">
                         <div class="level-item">
@@ -37,13 +50,13 @@
                         </div>
                     </div>
                 </div>
-                <div class="card-footer">
+                <footer class="card-footer">
                     <div class="card-footer-item buttons is-centered">
                         <button class="button" @click="removeFriend(i)">
                             Remove Friend
                         </button>
                     </div>
-                </div>
+                </footer>
             </div>
             <br />
         </div>
@@ -161,10 +174,7 @@ export default {
                 session.error({ msg: "Friend removal error!" });
                 return;
             }
-            const response = await remove(
-                session.user.handle,
-                user.handle
-            );
+            const response = await remove(session.user.handle, user.handle);
             if (response.success) {
                 user = this.friends.splice(this.selectedRemove, 1)[0];
                 session.notify(user.handle + " was removed from your friends!");
