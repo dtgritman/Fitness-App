@@ -1,6 +1,6 @@
 <template>
     <div>
-        <activity-info v-if="pastView" :title="$moment(pastView.date).format('LL')" :activitiesInfo="pastView" />
+        <activity-info v-if="pastView" :activitiesInfo="pastView" />
         <br />
         <div class="card" v-if:="activitiesInfo.length > 0">
             <header class="card-header">

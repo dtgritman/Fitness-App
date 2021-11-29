@@ -1,6 +1,6 @@
 <template>
     <section class="section">
-        <activity-info :title="'Today'" :activitiesInfo="today" @add="updateActivity" @remove="removeActivity" />
+        <activity-info :activitiesInfo="today" @add="updateActivity" @remove="removeActivity" />
         <br />
         <activity-past :activitiesInfo="past" />
     </section>

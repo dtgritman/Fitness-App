@@ -37,22 +37,26 @@
             </table>
         </div>
         <footer class="card-footer">
-            <a
-                v-if="title == 'Today'"
-                class="card-footer-item"
-                @click="addActive = true"
-                >Add
-            </a>
-            <a
-                v-if="activitiesInfo.activities.length > 0"
-                class="card-footer-item"
-                @click="postActive = true"
-                >Create Post
-            </a>
+            <div class="card-footer-item buttons">
+                <button
+                    v-if="title == 'Today'"
+                    class="button"
+                    @click="addActive = true"
+                >
+                    Add
+                </button>
+                <button
+                    v-if="activitiesInfo.activities.length > 0"
+                    class="button"
+                    @click="postActive = true"
+                >
+                    Create Post
+                </button>
+            </div>
         </footer>
         <activity-add
             :isActive="addActive"
-            @add="addActivity"
+            @add="addExercise"
             @close="addActive = false"
         />
         <post-add
@@ -75,7 +79,6 @@ export default {
         Confirm,
     },
     props: {
-        title: String,
         activitiesInfo: Object,
     },
     data: () => ({
@@ -83,9 +86,17 @@ export default {
         addActive: false,
         removeActive: false,
     }),
+    computed: {
+        title() {
+            if (this.$moment(new Date()).isSame(this.activitiesInfo.date, "day")) {
+                return "Today";
+            }
+            return this.$moment(this.activitiesInfo.date).format('LL');
+        },
+    },
     methods: {
-        async addActivity(activity) {
-            return await this.$emit("add", activity);
+        async addExercise(exercise) {
+            return await this.$emit("add", exercise);
         },
     },
 };
