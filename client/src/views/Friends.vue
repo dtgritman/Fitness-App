@@ -38,9 +38,11 @@
                     </div>
                 </div>
                 <div class="card-footer">
-                    <a class="card-footer-item" @click="removeFriend(i)">
-                        Remove Friend
-                    </a>
+                    <div class="card-footer-item buttons is-centered">
+                        <button class="button" @click="removeFriend(i)">
+                            Remove Friend
+                        </button>
+                    </div>
                 </div>
             </div>
             <br />
@@ -54,6 +56,20 @@
             @remove="removeFriend"
             @close="findActive = false"
         />
+        <confirm
+            :isActive="addActive"
+            :title="'Add Friend'"
+            :msg="addMsg"
+            @confirmed="addSubmit"
+            @close="addActive = false"
+        />
+        <confirm
+            :isActive="removeActive"
+            :title="'Remove Friend'"
+            :msg="removeMsg"
+            @confirmed="removeSubmit"
+            @close="removeActive = false"
+        />
     </section>
 </template>
 
@@ -61,19 +77,30 @@
 import session from "../services/session";
 import { get, add, remove, find } from "../services/friends";
 import FriendsFind from "../components/FriendsFind.vue";
+import Confirm from "../components/Confirm.vue";
 
 export default {
-    components: { FriendsFind },
+    components: {
+        FriendsFind,
+        Confirm,
+    },
     name: "Friends",
     data: () => ({
-        friends: [],
         qHandle: "",
-        findActive: false,
+        friends: [],
         findResults: [],
+        findActive: false,
+        addActive: false,
+        removeActive: false,
+        selectedAdd: null,
+        selectedRemove: null,
+        addMsg: "",
+        removeMsg: "",
     }),
     async mounted() {
         this.friends = await get(session.user.handle);
     },
+    computed: {},
     methods: {
         async search() {
             if (this.qHandle) {
@@ -83,23 +110,66 @@ export default {
                 this.findActive = true;
             }
         },
-        async addFriend(user) {
+        addFriend(index) {
+            if (!Number.isInteger(index) || index >= this.findResults.length) {
+                console.log(index);
+                console.log(this.findResults.length);
+                return;
+            }
+            this.addMsg =
+                "Are you sure you would like to add " +
+                this.findResults[index].handle +
+                "(" +
+                this.findResults[index].firstName +
+                " " +
+                this.findResults[index].lastName +
+                ") as a friend?";
+            this.selectedAdd = index;
+            this.addActive = true;
+        },
+        removeFriend(index) {
+            if (!Number.isInteger(index) || index >= this.friends.length) {
+                return;
+            }
+            this.removeMsg =
+                "Are you sure you would like to remove " +
+                this.friends[index].handle +
+                "(" +
+                this.friends[index].firstName +
+                " " +
+                this.friends[index].lastName +
+                ") as a friend?";
+            this.selectedRemove = index;
+            this.removeActive = true;
+        },
+        async addSubmit() {
+            const user = this.findResults[this.selectedAdd];
+            if (!user) {
+                session.error({ msg: "Friend add error!" });
+                return;
+            }
             const response = await add(session.user.handle, user.handle);
             if (response.success) {
                 this.friends.push(user);
-                const msg = user.handle + " was added as a friend!";
-                session.notify(msg);
+                session.notify(user.handle + " was added as a friend!");
             }
+            this.selectedAdd = null;
         },
-        async removeFriend(friendIndex) {
+        async removeSubmit() {
+            let user = this.friends[this.selectedRemove];
+            if (!user) {
+                session.error({ msg: "Friend removal error!" });
+                return;
+            }
             const response = await remove(
                 session.user.handle,
-                this.friends[friendIndex].handle
+                user.handle
             );
             if (response.success) {
-                const user = this.friends.splice(friendIndex, 1)[0];
+                user = this.friends.splice(this.selectedRemove, 1)[0];
                 session.notify(user.handle + " was removed from your friends!");
             }
+            this.selectedRemove = null;
         },
     },
 };

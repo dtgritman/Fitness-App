@@ -60,7 +60,7 @@
                             <button
                                 v-else
                                 class="button"
-                                @click="$emit('add', user)"
+                                @click="$emit('add', i)"
                             >
                                 Add Friend
                             </button>
