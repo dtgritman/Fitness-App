@@ -18,6 +18,7 @@
                             type="text"
                             v-model="newActivity.name"
                             placeholder="Exercise name"
+                            required
                         />
                     </p>
                 </div>
@@ -29,6 +30,7 @@
                             type="text"
                             v-model="newActivity.info"
                             placeholder="Distance/Weight/Etc."
+                            required
                         />
                     </p>
                 </div>
@@ -40,6 +42,7 @@
                             type="number"
                             v-model="newActivity.time"
                             placeholder="Time (in minutes)"
+                            required
                         />
                     </p>
                 </div>
