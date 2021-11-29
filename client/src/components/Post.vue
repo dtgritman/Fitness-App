@@ -37,10 +37,13 @@
                 <small> {{ likes }} Likes </small>
                 <br />
                 <small>
-                    <a @click="likePost()">{{ likeStatus }}</a>
+                    <a v-if="userHandle != post.handle" @click="likePost()">{{ likeStatus }}</a>
                     · {{ postTime }}
                 </small>
             </div>
+        </div>
+        <div v-if="userHandle == post.handle" class="card-footer">]
+            <a class="card-footer-item" @click="$emit('remove')"> Remove </a>
         </div>
     </div>
 </template>
@@ -50,6 +53,11 @@ export default {
     props: {
         userHandle: String,
         post: Object,
+    },
+    data() {
+        return {
+            editActive: false,
+        };
     },
     methods: {
         likePost() {
