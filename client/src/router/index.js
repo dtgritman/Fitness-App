@@ -5,6 +5,7 @@ import MyProfile from '../views/MyProfile.vue'
 import Friends from '../views/Friends.vue'
 import Activity from '../views/Activity.vue'
 import Feed from '../views/Feed.vue'
+import Wall from '../views/Wall.vue'
 
 
 const routes = [
@@ -29,6 +30,12 @@ const routes = [
         name: 'Friends',
         path: '/friends',
         component: Friends,
+        meta: { requiresLogin: true }
+    },
+    {
+        name: 'Wall',
+        path: '/wall',
+        component: Wall,
         meta: { requiresLogin: true }
     },
     {
