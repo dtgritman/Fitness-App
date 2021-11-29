@@ -53,7 +53,7 @@
                 :title="'Remove Post'"
                 :msg="'Are you sure you would like to remove this post?'"
                 @close="removeActive = false"
-                @remove="$emit('remove')"
+                @remove="removePost"
             />
         </div>
     </div>
@@ -76,6 +76,10 @@ export default {
         };
     },
     methods: {
+        removePost() {
+            this.removeActive = false;
+            this.$emit('remove');
+        },
         likePost() {
             this.post.updateLiked(!this.liked);
         },
