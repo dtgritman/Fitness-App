@@ -42,7 +42,7 @@
                 </small>
             </div>
         </div>
-        <div v-if="userHandle == post.handle" class="card-footer">]
+        <div v-if="userHandle == post.handle" class="card-footer">
             <a class="card-footer-item" @click="$emit('remove')"> Remove </a>
         </div>
     </div>
