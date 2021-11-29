@@ -51,11 +51,13 @@
                     </div>
                 </div>
             </div>
-            <div class="card-footer">
-                <a class="card-footer-item" @click="editActive = true">
-                    Edit
-                </a>
-            </div>
+            <footer class="card-footer">
+                <div class="card-footer-item buttons">
+                    <button class="button" @click="editActive = true">
+                        Edit
+                    </button>
+                </div>
+            </footer>
         </div>
         <profile-pic
             :isActive="picActive"
