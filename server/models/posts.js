@@ -19,7 +19,16 @@ const addOwnerPipeline = [
 
 const getAll = () => collection.find().toArray();
 
-const getWall = (handle) => collection.find({ handle: handle }).toArray();
+function getWall(handle) {
+    const wall = collection.aggregate([
+        { $match: { handle: handle } },
+        ...addOwnerPipeline,
+        { $sort: { time: -1 } },
+    ]);
+
+    return wall.toArray();
+
+}
 
 function getFeed(handle) {
     const feed = users.collection.aggregate([
@@ -93,8 +102,10 @@ async function removeLike(postId, userId) {
 
 async function remove(postId) {
     const result = await collection.findOneAndDelete({ _id: new ObjectId(postId) });
-
-    return result.value;
+    if (result.value) {
+        return "success";
+    }
+    return "failed";
 }
 
 const search = (query) => collection.find({ caption: new RegExp(query, "i") }).toArray();
