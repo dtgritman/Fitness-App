@@ -46,12 +46,12 @@ app
     })
     .delete("/:id", (req, res, next) => {
         model.remove(req.params.id)
-            .then(result => result.send({ deleted: x }))
+            .then(result => res.send({ deleted: result }))
             .catch(next)
     })
     .post("/reset", (req, res, next) => {
         model.reset()
-            .then(result => result.status(201).send("Posts have been reset to default"))
+            .then(result => res.status(201).send("Posts have been reset to default"))
             .catch(next)
     })
 
