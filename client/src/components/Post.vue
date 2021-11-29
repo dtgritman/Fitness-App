@@ -34,28 +34,31 @@
                         </tr>
                     </tbody>
                 </table>
-                <small> {{ likes }} Likes </small>
+                <small> {{ likes }} Like{{ likes == 1 ? "" : "s" }} </small>
                 <br />
                 <small>
-                    <a v-if="userHandle != post.handle" @click="likePost()">{{
+                    <a v-if="!isUsersPost" @click="likePost()">{{
                         likeStatus
                     }}</a>
                     · {{ postTime }}
                 </small>
             </div>
         </div>
-        <div v-if="userHandle == post.handle" class="card-footer">
-            <a class="card-footer-item" @click="removeActive = true">
-                Remove
-            </a>
-            <confirm
-                :isActive="removeActive"
-                :title="'Remove Post'"
-                :msg="'Are you sure you would like to remove this post?'"
-                @confirmed="$emit('remove')"
-                @close="removeActive = false"
-            />
-        </div>
+        <footer v-if="isUsersPost" class="card-footer">
+            <div class="card-footer-item buttons">
+                <button class="button" @click="removeActive = true">
+                    Remove
+                </button>
+            </div>
+        </footer>
+        <confirm
+            v-if="isUsersPost"
+            :isActive="removeActive"
+            :title="'Remove Post'"
+            :msg="'Are you sure you would like to remove this post?'"
+            @confirmed="$emit('remove')"
+            @close="removeActive = false"
+        />
     </div>
 </template>
 
@@ -81,6 +84,9 @@ export default {
         },
     },
     computed: {
+        isUsersPost() {
+            return this.userHandle == this.post.handle;
+        },
         name() {
             return this.post.user.firstName + " " + this.post.user.lastName;
         },
