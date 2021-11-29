@@ -9,7 +9,7 @@
                     @click="$emit('close')"
                 ></button>
             </header>
-            <form class="modal-card-body" @submit.prevent="addActivity">
+            <form class="modal-card-body" @submit.prevent="addExercise">
                 <div class="field">
                     <p class="control">
                         <label class="label">Exercise</label>
@@ -72,7 +72,7 @@ export default {
         newActivity: { name: undefined, info: undefined, time: undefined },
     }),
     methods: {
-        async addActivity() {
+        async addExercise() {
             if (
                 this.newActivity.name &&
                 this.newActivity.info &&
