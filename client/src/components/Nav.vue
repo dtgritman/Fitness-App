@@ -31,6 +31,9 @@
                     <router-link class="navbar-item" to="/activity">Activity</router-link>
                 </li>
                 <li>
+                    <router-link class="navbar-item" to="/wall">Wall</router-link>
+                </li>
+                <li>
                     <router-link class="navbar-item" to="/feed">Feed</router-link>
                 </li>
                 <li>
