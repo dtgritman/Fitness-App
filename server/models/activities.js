@@ -2,7 +2,7 @@ const users = require('./users');
 const { ObjectId } = require('bson');
 const { client } = require('./mongo');
 
-const collection = client.db(process.env.MONGO_DB).collection('activity');
+const collection = client.db().collection('activity');
 
 const addOwnerPipeline = [
     {

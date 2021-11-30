@@ -1,7 +1,7 @@
 const { ObjectId } = require('bson');
 const { client } = require('./mongo');
 
-const collection = client.db(process.env.MONGO_DB).collection('users');
+const collection = client.db().collection('users');
 const friendProjection = { "_id": 1, "handle": 1, "firstName": 1, "lastName": 1, "pic": 1 };
 
 async function get(handle) {
