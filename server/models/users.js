@@ -33,7 +33,9 @@ async function add(user) {
         user.handle = '@' + user.handle;
 
     const passHash = await bcrypt.hash(user.password, +process.env.SALT_ROUNDS)
-    const newUser = await collection.insertOne({ ...user, password: passHash });
+    const newUser = await collection.insertOne({ ...user, password: passHash })
+        .then(insertedId => insertedId)
+        .catch(() => { throw { code: 422, msg: "Handle already exists or doesn't meet requirements." } })
 
     return { ...user, _id: newUser.insertedId, password: undefined };
 }
