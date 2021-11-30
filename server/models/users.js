@@ -2,7 +2,7 @@ const bcrypt = require('bcrypt');
 const { ObjectId } = require('bson');
 const { client } = require('./mongo');
 
-const collection = client.db(process.env.MONGO_DB).collection('users');
+const collection = client.db().collection('users');
 
 const getAll = () => collection.find().toArray();
 const get = (userId) => collection.findOne({ _id: new ObjectId(userId) });
@@ -34,7 +34,7 @@ async function add(user) {
 
     const passHash = await bcrypt.hash(user.password, +process.env.SALT_ROUNDS)
     const newUser = await collection.insertOne({ ...user, password: passHash });
-    
+
     return { ...user, _id: newUser.insertedId, password: undefined };
 }
 
@@ -98,13 +98,25 @@ async function login(handle, password) {
     return { ...user };
 }
 
+async function create() {
+    await collection.createIndex(
+        { handle: 1 },
+        { unique: true, collation: { locale: "en", strength: 1 } },
+    );
+}
+
+
 const seed = async () => {
     for (const user of userList) {
         await add(user);
     }
 }
 
-const reset = async () => collection.drop().catch().finally(seed);
+const reset = async () => await collection.drop()
+    .then(async () => create())
+    .catch(async () => create())
+    .finally(async () => seed())
+
 
 module.exports = {
     collection, add, get, getAll, getByHandle, update, updatePic, updateProfile, remove, login, seed, reset,
