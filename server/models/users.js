@@ -8,7 +8,7 @@ const getAll = () => collection.find().toArray();
 const get = (userId) => collection.findOne({ _id: new ObjectId(userId) });
 
 async function getByHandle(handle) {
-    const user = await collection.findOne({ handle: handle }, { projection: { password: 0 } });
+    const user = await collection.findOne({ handleLC: handle.toLowerCase() }, { projection: { password: 0 } });
     if (!user)
         return Promise.reject({ code: 401, msg: "Sorry there is no user with that handle" });
 
@@ -32,6 +32,7 @@ async function add(user) {
     if (user.handle.charAt(0) != '@')
         user.handle = '@' + user.handle;
 
+    // add a lower case handle to make search easier
     user.handleLC = user.handle.toLowerCase();
     const passHash = await bcrypt.hash(user.password, +process.env.SALT_ROUNDS)
     const newUserId = await collection.insertOne({ ...user, password: passHash }, { projection: { password: 0 } })
@@ -89,7 +90,7 @@ async function remove(userId) {
 }
 
 async function login(handle, password) {
-    const user = await collection.findOne({ handle: handle });
+    const user = await collection.findOne({ handleLC: handle.toLowerCase() });
     if (!user)
         return Promise.reject({ code: 401, msg: "Sorry there is no user with that handle" });
 
