@@ -32,6 +32,7 @@ async function add(user) {
     if (user.handle.charAt(0) != '@')
         user.handle = '@' + user.handle;
 
+    user.handleLC = user.handle.toLowerCase();
     const passHash = await bcrypt.hash(user.password, +process.env.SALT_ROUNDS)
     const newUserId = await collection.insertOne({ ...user, password: passHash }, { projection: { password: 0 } })
         .then(result => result.insertedId)
