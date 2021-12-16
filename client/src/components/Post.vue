@@ -16,6 +16,9 @@
                 </div>
             </div>
             <div class="content">
+                <div v-if="post.tagged" class="is-full-width has-text-centered">
+                    <p>Tagged: {{ post.tagged.handle }} ({{ post.tagged.firstName }} {{ post.tagged.lastName }})</p>
+                </div>
                 <div class="is-full-width has-text-centered">
                     <strong>{{ post.caption }}</strong>
                 </div>
