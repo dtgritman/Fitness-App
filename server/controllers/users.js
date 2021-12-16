@@ -47,6 +47,11 @@ app
             .then(friends => res.send(friends))
             .catch(next)
     })
+    .post("/friends/:handle/:q", (req, res, next) => {
+        friends.searchFriends(req.params.handle, req.params.q)
+            .then(results => res.send(results))
+            .catch(next)
+    })
     .post("/friends/add/:follower/:followee", (req, res, next) => {
         friends.follow(req.params.follower, req.params.followee)
             .then(response => {
