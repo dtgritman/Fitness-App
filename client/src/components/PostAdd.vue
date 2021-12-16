@@ -39,9 +39,13 @@
                     />
                 </div>
 
+                <div v-if="friend" class="field">
+                    <p>Tagged friend: {{ friend.handle }} ({{friend.firstName}} {{ friend.lastName }})</p>
+                </div>
+
                 <div class="autocomplete">
                     <p class="control">
-                        <label class="label">Tag a Friend</label>
+                        <label class="label">Search a friend to tag</label>
                     </p>
                     <input
                         class="input"
@@ -55,8 +59,9 @@
                             v-for="(friendResult, i) in friendResults"
                             :key="i"
                             class="autocomplete-result"
+                            @click="selectFriend(friendResult)"
                         >
-                            {{ friendResult.handle }}
+                            {{ friendResult.handle }} ({{ friendResult.firstName }} {{ friendResult.lastName }})
                         </li>
                     </ul>
                 </div>
@@ -97,8 +102,17 @@ export default {
     methods: {
         async onChange() {
             if (this.friendSearch != "") {
-                this.friendResults = search(session.user.handle, this.friendSearch);
+                this.friendResults = await search(session.user.handle, this.friendSearch);
+                this.friendResults
             }
+            else {
+                // reset results if cleared
+                this.friendResults = [];
+            }
+        },
+        selectFriend(friend) {
+            console.log("WTF")
+            this.friend = friend;
         },
         async submit() {
             if (!this.caption || this.caption == "") {
