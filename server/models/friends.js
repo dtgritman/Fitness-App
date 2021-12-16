@@ -21,6 +21,26 @@ async function get(handle) {
     ]).toArray();
 }
 
+async function searchFriends(handle, q) {
+    return await collection.aggregate([
+        { $match: { "handle": handle } },
+        {
+            "$lookup": {
+                from: "users",
+                localField: 'following.handle',
+                foreignField: 'handle',
+                as: 'user',
+            }
+        },
+        { $unwind: "$user" },
+        { $replaceRoot: { newRoot: "$user" } },
+        {
+            $match: { handle: new RegExp(q, 'i') }
+        },
+        { $project: friendProjection }
+    ]).toArray();
+}
+
 async function search(q) {
     return collection.find(
         { handle: new RegExp(q, 'i') },
@@ -50,5 +70,5 @@ async function approve(follower, followee, shouldApprove) {
 }
 
 module.exports = {
-    collection, get, search, follow, unFollow, approve,
+    collection, get, searchFriends, search, follow, unFollow, approve,
 }
