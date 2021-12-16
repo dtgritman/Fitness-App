@@ -37,6 +37,7 @@ async function searchFriends(handle, q) {
         {
             $match: { handle: new RegExp(q, 'i') }
         },
+        { $limit: 5 },
         { $project: friendProjection }
     ]).toArray();
 }
