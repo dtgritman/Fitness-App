@@ -38,6 +38,18 @@
                         required
                     />
                 </div>
+                <div class="field">
+                    <p class="control">
+                        <label class="label">Tag a Friend</label>
+                    </p>
+                    <input
+                        class="input"
+                        type="text"
+                        v-model="friendTag"
+                        placeholder="Friends handle"
+                        required
+                    />
+                </div>
                 <div class="field buttons is-centered">
                     <p class="control">
                         <input
@@ -66,6 +78,7 @@ export default {
     },
     data: () => ({
         caption: "",
+        friendTag: "",
     }),
     methods: {
         async submit() {
